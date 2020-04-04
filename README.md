@@ -28,26 +28,29 @@ Now, we're gonna set up the project with pre-hook and black. This way, before ea
 
 2. **Configure Black**
 Create a `pyproject.toml` file in the root of the project directory, if it doesn't exist, and copy the following into the file:
-```
-[tool.black]
-    py36 = true
-    include = '\.pyi?$'
-    exclude = '''
-    /(
-        \.git
-      | \.hg
-      | \.mypy_cache
-      | \.tox
-      | \.venv
-      | _build
-      | buck-out
-      | build
-      | dist
-
-      # The following are specific to Black, you probably don't want those.
-      | blib2to3
-      | tests/data
-    )/
+```[tool.black]
+line-length = 120
+target-version = ['py37']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | \.env
+  | env
+  | venv
+  | \.venv3
+  | venv3
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
 ```
 3. **Configure pre-commit**
 Create a `.pre-commit-config.yaml` file in the root of the project directory, if it doesn't exist, and add the following to the file:
