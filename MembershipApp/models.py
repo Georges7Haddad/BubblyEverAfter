@@ -3,14 +3,19 @@ import datetime
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import ImageField
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-def year_choices():
-    return [(r, r) for r in range(1984, datetime.date.today().year + 1)]
+def current_year():
+    return datetime.date.today().year
+
+
+def max_value_current_year(value):
+    return MaxValueValidator(current_year())(value)
 
 
 optional = {"null": True, "blank": True, "default": None}
@@ -197,7 +202,7 @@ class Burn(models.Model):
 
     ticket = models.OneToOneField(Ticket, on_delete=models.CASCADE, **required)
 
-    year = models.IntegerField(choices=year_choices(), **required)
+    year = models.PositiveIntegerField(validators=[MinValueValidator(1984), max_value_current_year], **required)
 
     arrival_time = models.DateTimeField(**optional)
     departure_time = models.DateTimeField(**optional)
