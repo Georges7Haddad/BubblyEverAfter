@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
@@ -33,10 +34,12 @@ def login_request(request):
     return render(request=request, template_name="Membership/members_login.html", context={"form": form})
 
 
+@login_required(login_url="/member/login")
 def member_profile(request):
     return render(request, "Membership/member_profile.html")
 
 
+@login_required(login_url="/member/login")
 def leader_profile(request):
     return render(request, "Membership/leader_profile.html")
 
