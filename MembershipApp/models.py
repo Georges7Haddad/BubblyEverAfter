@@ -1,7 +1,8 @@
 # Create your models here.
 import datetime
 
-from django.contrib.auth.models import User
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
@@ -22,14 +23,9 @@ optional = {"null": True, "blank": True, "default": None}
 required = {"null": False, "blank": False}
 
 
-class Member(models.Model):
-    """
-    This is a member in our camp with their contact information
-    """
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
+class BubblyMember(AbstractUser):
     # Personal info
+    username = models.CharField(max_length=127, unique=True)
     is_leadership = models.BooleanField(default=False)
     birthday = models.DateField(**required)
     gender_identity = models.CharField(max_length=127, help_text="To ensure camp diversity", **optional)
@@ -44,12 +40,6 @@ class Member(models.Model):
     paypal_email = models.EmailField(**required)
     verified_email = models.BooleanField(default=False)
 
-    class Meta:
-        abstract = True
-
-
-class BubblyMember(Member):
-    # Burning man info
     playa_name = models.CharField(max_length=127, **optional)
     burning_man_profile_email = models.EmailField(
         **required, help_text="Burning Man profile email address (MUST match https://profiles.burningman.org/ email)",
@@ -64,8 +54,11 @@ class BubblyMember(Member):
     allergies = models.TextField(**optional)
     medical_issues = models.TextField(**optional)
 
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = ["birthday", "country", "city", "phone_number", "paypal_email", "burning_man_profile_email"]
+
     def __str__(self):
-        return self.user.username
+        return self.username
 
 
 class Ticket(models.Model):
@@ -93,7 +86,10 @@ class Ticket(models.Model):
     number = models.CharField(max_length=127, **optional, help_text="ID number found on the back of your ticket",)
 
     holder = models.ForeignKey(
-        BubblyMember, on_delete=models.CASCADE, **required, help_text="Name of the current vehicle pass holder",
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        **required,
+        help_text="Name of the current vehicle pass holder",
     )
     price = models.PositiveIntegerField(**optional)
 
@@ -117,7 +113,10 @@ class VehiclePass(models.Model):
         for i in ["Small Car (hatchback)", "Mid Sized Car", "Van", "SUV", "PickUp Truck", "Small RV", "Large RV",]
     ]
     holder = models.ForeignKey(
-        BubblyMember, on_delete=models.CASCADE, **required, help_text="Name of the current vehicle pass holder",
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        **required,
+        help_text="Name of the current vehicle pass holder",
     )
     secured = models.BooleanField(help_text="Please tick if you have a vehicle pass", default=False)
     needed = models.BooleanField(help_text="Please tick if you need a vehicle pass", default=False)
@@ -162,31 +161,19 @@ class Accommodation(models.Model):
     type = models.CharField(max_length=127, choices=ACCOMMODATION_CHOICES)
     is_full = models.BooleanField(default=False)
     name = models.CharField(max_length=127, **required)
-    # Users
-    # id 1, joe haddad
-    # id 2, georges haddad
-    # id 3, jad chamoun
-    # Accomodation
-    # id 1, shiftpod, joe's shiftpod
-    # id 2, shiftpod, jad's shiftpod
-    # UserAccomodation (this is the third table to achieve many to many)
-    # user_id, accomodation_id
-    # 1,1
-    # 2,1
-    # 3,2
 
-    members = models.ManyToManyField(BubblyMember, through="UserAccommodationRelation")
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL, through="UserAccommodationRelation")
 
     def __str__(self):
         return self.name
 
 
 class UserAccommodationRelation(models.Model):
-    member = models.ForeignKey(BubblyMember, on_delete=models.CASCADE, **required)
+    member = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **required)
     accommodation = models.ForeignKey(Accommodation, on_delete=models.CASCADE, **required)
 
     def __str__(self):
-        return f"{self.member.user} is staying in {self.accommodation.name}"
+        return f"{self.member} is staying in {self.accommodation.name}"
 
 
 class Burn(models.Model):
@@ -195,7 +182,7 @@ class Burn(models.Model):
     """
 
     accommodations = models.ManyToManyField(Accommodation)
-    member = models.ForeignKey(BubblyMember, on_delete=models.CASCADE, **required)
+    member = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **required)
 
     # In case someone has many vehicle pass he chooses the one he's going with
     vehicle_pass = models.OneToOneField(VehiclePass, on_delete=models.CASCADE, **optional)
