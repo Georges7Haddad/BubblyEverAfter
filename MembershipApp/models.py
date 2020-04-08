@@ -11,12 +11,8 @@ from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-def current_year():
-    return datetime.date.today().year
-
-
 def max_value_current_year(value):
-    return MaxValueValidator(current_year())(value)
+    return MaxValueValidator(datetime.date.today().year)(value)
 
 
 optional = {"null": True, "blank": True, "default": None}
@@ -60,6 +56,9 @@ class BubblyMember(AbstractUser):
     def __str__(self):
         return self.username
 
+    def __repr__(self):
+        return f"BubblyMember {self.username}"
+
 
 class Ticket(models.Model):
     """
@@ -101,6 +100,12 @@ class Ticket(models.Model):
                 raise ValidationError(f"Since you secured a ticket, please enter the ticket's price")
         super(Ticket, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return f"Ticket {self.number}"
+
+    def __repr__(self):
+        return f"BubblyMember {self.holder}'s Ticket"
+
 
 class VehiclePass(models.Model):
     """
@@ -136,6 +141,12 @@ class VehiclePass(models.Model):
                 raise ValidationError(f"Since you secured a ticket, please enter the ticket's price")
         super(VehiclePass, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return f"VehiclePass {self.number}"
+
+    def __repr__(self):
+        return f"BubblyMember {self.holder}'s VehiclePass"
+
 
 class Accommodation(models.Model):
     """
@@ -167,13 +178,19 @@ class Accommodation(models.Model):
     def __str__(self):
         return self.name
 
+    def __repr__(self):
+        return f"BubblyMember {self.members}'s {self.type}"
+
 
 class UserAccommodationRelation(models.Model):
     member = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **required)
     accommodation = models.ForeignKey(Accommodation, on_delete=models.CASCADE, **required)
 
     def __str__(self):
-        return f"{self.member} is staying in {self.accommodation.name}"
+        return f"{self.member} is staying in {self.accommodation}"
+
+    def __repr__(self):
+        return f"{self.member} is staying in {self.accommodation}"
 
 
 class Burn(models.Model):
@@ -223,3 +240,9 @@ class Burn(models.Model):
         if self.type == "Own Transportation (will need vehicle pass)" and not self.vehicle_pass:
             raise ValidationError(f"Please fill in the details of your vehicle pass")
         super(Burn, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.member}'s Burn"
+
+    def __repr__(self):
+        return f"{self.member}'s Burn"

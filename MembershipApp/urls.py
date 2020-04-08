@@ -6,7 +6,8 @@ app_name = "MembershipApp"
 
 urlpatterns = [
     path("login/", views.login_request),
-    path("profile", views.member_profile),
-    path("leader/profile", views.leader_profile),
+    path("logout/", views.logout_request),
+    path("profile/", views.member_profile),
+    path("leader/dashboard/", views.leader_dashboard),
     path("register/", views.register),
 ]
