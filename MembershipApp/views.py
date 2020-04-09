@@ -1,10 +1,13 @@
-from django.contrib import messages
+import logging
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 
 from .forms import BubblyMemberForm
+
+logger = logging.getLogger(__name__)
 
 
 def leadership_required(function=None, login_url=None):
@@ -25,16 +28,15 @@ def login_request(request):
                 user = authenticate(username=username, password=password)
                 if user is not None:
                     login(request, user)
-                    messages.info(request, f"You are now logged in as {username}")
                     member = request.user
                     if member.is_leadership:
                         return redirect("/member/leader/dashboard/")
                     else:
                         return redirect("/member/profile/")
                 else:
-                    messages.error(request, "Invalid username or password.")
+                    logger.error(request, "Invalid username or password.")
             else:
-                messages.error(request, "Invalid username or password.")
+                logger.error(request, "Invalid username or password.")
         form = AuthenticationForm()
         return render(request=request, template_name="Membership/members_login.html", context={"form": form})
     else:
@@ -64,7 +66,7 @@ def register(request):
             return redirect("/member/profile/")
         else:
             for msg in bubbly_form.error_messages:
-                print(bubbly_form.error_messages[msg])
+                logger.error(bubbly_form.error_messages[msg])
                 return render(
                     request=request,
                     template_name="Membership/member_register.html",

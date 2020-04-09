@@ -63,6 +63,20 @@ TEMPLATES = [
     },
 ]
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {"format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}", "style": "{", },
+        "simple": {"format": "{name} {levelname} {message}", "style": "{", },
+    },
+    "handlers": {
+        "console": {"class": "logging.StreamHandler", "level": "DEBUG", "formatter": "simple"},
+        "file": {"level": "DEBUG", "class": "logging.FileHandler", "filename": "logs.log", "formatter": "simple"},
+    },
+    "root": {"handlers": ["console", "file"], "level": "WARNING", },
+}
+
 WSGI_APPLICATION = "BubblyEverAfter.wsgi.application"
 
 # Database
