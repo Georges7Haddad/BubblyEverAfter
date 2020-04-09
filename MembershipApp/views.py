@@ -1,5 +1,6 @@
 import logging
 
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import AuthenticationForm
@@ -34,9 +35,11 @@ def login_request(request):
                     else:
                         return redirect("/member/profile/")
                 else:
-                    logger.error(request, "Invalid username or password.")
+                    messages.warning(request, "Invalid username or password.")
+                    logger.warning(request, "Invalid username or password.")
             else:
-                logger.error(request, "Invalid username or password.")
+                messages.warning(request, "Invalid username or password.")
+                logger.warning(request, "Invalid username or password.")
         form = AuthenticationForm()
         return render(request=request, template_name="Membership/members_login.html", context={"form": form})
     else:
@@ -66,7 +69,8 @@ def register(request):
             return redirect("/member/profile/")
         else:
             for msg in bubbly_form.error_messages:
-                logger.error(bubbly_form.error_messages[msg])
+                logger.warning(bubbly_form.error_messages[msg])
+                messages.warning(bubbly_form.error_messages[msg])
                 return render(
                     request=request,
                     template_name="Membership/member_register.html",
