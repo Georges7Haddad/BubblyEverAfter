@@ -1,0 +1,58 @@
+{% extends 'Membership/table.html' %}
+{% block columns %}
+    <title>Vehicles</title>
+    <tr class="table100-head">
+        <th class="column1">Member</th>
+        <th class="column2">Secured</th>
+        <th class="column3">Needed</th>
+        <th class="column4">Ride Share</th>
+        <th class="column5">Number</th>
+        <th class="column6">Make</th>
+        <th class="column7">Model</th>
+        <th class="column8">Tow Hitch</th>
+        <th class="column9">Price</th>
+    </tr>
+    <col style="width:12%">
+    <col style="width:7%">
+    <col style="width:7%">
+    <col style="width:5%">
+    <col style="width:12%">
+    <col style="width:12%">
+    <col style="width:9%">
+    <col style="width:7%">
+    <col style="width:9%">
+    <caption>Vehicles</caption>
+
+{% endblock %}
+
+{% block values %}
+    {% for vehicle in vehicles %}
+        <tr>
+            <td><a href="/member/leader/{{ vehicle.holder }}/details/"> {{ vehicle.holder }}</a></td>
+            <td class="column2">{{ vehicle.secured }}</td>
+            <td class="column3">{{ vehicle.needed }}</td>
+            {% if vehicle.secured == 1 %}
+                <td class="column4">{{ vehicle.ride_share }}</td>
+                <td class="column5">{{ vehicle.number }}</td>
+                <td class="column6">{{ vehicle.make }}</td>
+                <td class="column7">{{ vehicle.model }}</td>
+                <td class="column8">{{ vehicle.tow_hitch }}</td>
+                <td class="column9">{{ vehicle.price }}</td>
+            {% else %}
+                <td class="column4">X</td>
+                <td class="column5">X</td>
+                <td class="column6">X</td>
+                <td class="column7">X</td>
+                <td class="column8">X</td>
+                <td class="column9">X</td>
+            {% endif %}
+        </tr>
+
+    {% endfor %}
+    <form action="/member/leader/accommodations/">
+        <button type="submit" class="btn btn-light">Accommodations</button>
+    </form>
+    <form action="/member/leader/dashboard/">
+        <button type="submit" class="btn btn-light">Return to Dashboard</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'Membership/table.html' %}
+{% block columns %}
+    <title>Tickets
+
+    </title>
+    <tr class="table100-head">
+        <th class="column1">Member</th>
+        <th class="column2">Secured</th>
+        <th class="column3">Type</th>
+        <th class="column4">Number</th>
+        <th class="column5">Price</th>
+    </tr>
+
+    <col style="width:20%">
+    <col style="width:20%">
+    <col style="width:20%">
+    <col style="width:20%">
+    <col style="width:20%">
+    <caption>Tickets</caption>
+
+{% endblock %}
+
+{% block values %}
+    {% for ticket in tickets %}
+        <tr>
+            <td><a href="/member/leader/{{ ticket.holder }}/details/"> {{ ticket.holder }}</a></td>
+            <td class="column2">{{ ticket.secured }}</td>
+            {% if ticket.secured == 1 %}
+                <td class="column3">{{ ticket.status }}</td>
+                <td class="column4">{{ ticket.number }}</td>
+                <td class="column5">{{ ticket.price }}</td>
+            {% else %}
+                <td class="column3">X</td>
+                <td class="column4">X</td>
+                <td class="column5">X</td>
+            {% endif %}
+        </tr>
+
+    {% endfor %}
+
+    <form action="/member/leader/dashboard/">
+        <button type="submit" class="btn btn-light">Return to Dashboard</button>
+    </form>
+    <form action="/member/leader/accommodations/">
+        <button type="submit" class="btn btn-light">Accommodations</button>
+    </form>
+{% endblock %}

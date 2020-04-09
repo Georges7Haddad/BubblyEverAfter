@@ -1,0 +1,50 @@
+[
+  {
+    "fields": {
+      "type": "Shiftpod",
+      "is_full": false,
+      "name": "georgeshaddad' Shiftpod"
+    },
+    "model": "MembershipApp.accommodation"
+  },
+  {
+    "fields": {
+      "type": "No Bake Tent",
+      "is_full": true,
+      "name": "georges' No Bake Tent"
+    },
+    "model": "MembershipApp.accommodation"
+  },
+  {
+    "fields": {
+      "type": "RV",
+      "is_full": false,
+      "name": "kamil' RV"
+    },
+    "model": "MembershipApp.accommodation"
+  },
+  {
+    "fields": {
+      "type": "Kodiak Tent",
+      "is_full": true,
+      "name": "sara' Kodiak Tent"
+    },
+    "model": "MembershipApp.accommodation"
+  },
+  {
+    "fields": {
+      "type": "Siesta2 Tent",
+      "is_full": false,
+      "name": "karim' Siesta2 Tent"
+    },
+    "model": "MembershipApp.accommodation"
+  },
+  {
+    "fields": {
+      "type": "Other",
+      "is_full": true,
+      "name": "ghiwa' other"
+    },
+    "model": "MembershipApp.accommodation"
+  }
+]

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leader Dashboard</title>
+</head>
+<body>
+<p>Welcome Leader</p>
+</body>
+<form action="/member/logout/">
+    <button type="submit">Logout</button>
+</form>
+<form action="/member/leader/tickets/">
+    <button type="submit">Tickets</button>
+</form>
+<form action="/member/leader/accommodations/">
+    <button type="submit">Accommodations</button>
+</form>
+<form action="/member/leader/vehicles/">
+    <button type="submit">Vehicles</button>
+</form>
+<form method="POST">
+    {% csrf_token %}
+    {{ member_search_form.as_p }}
+    <button style="background-color:#F4EB16; color:blue" class="btn btn-outline-info" type="submit">Get</button>
+</form>
+</html>

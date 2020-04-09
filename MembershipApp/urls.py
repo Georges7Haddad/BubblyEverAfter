@@ -10,4 +10,8 @@ urlpatterns = [
     path("profile/", views.member_profile),
     path("leader/dashboard/", views.leader_dashboard),
     path("register/", views.register),
+    path("leader/tickets/", views.leader_tickets),
+    path("leader/accommodations/", views.leader_accommodations),
+    path("leader/vehicles/", views.leader_vehicles),
+    path("leader/<username>/details/", views.leader_member_details),
 ]

@@ -57,7 +57,7 @@ class BubblyMember(AbstractUser):
         return self.username
 
     def __repr__(self):
-        return f"BubblyMember {self.username}"
+        return self.username
 
 
 class Ticket(models.Model):
@@ -101,10 +101,10 @@ class Ticket(models.Model):
         super(Ticket, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"Ticket {self.number}"
+        return f"{self.holder}'s Ticket"
 
     def __repr__(self):
-        return f"BubblyMember {self.holder}'s Ticket"
+        return f"{self.holder}'s Ticket"
 
 
 class VehiclePass(models.Model):
@@ -142,10 +142,10 @@ class VehiclePass(models.Model):
         super(VehiclePass, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"VehiclePass {self.number}"
+        return f"{self.holder}'s VehiclePass"
 
     def __repr__(self):
-        return f"BubblyMember {self.holder}'s VehiclePass"
+        return f"{self.holder}'s VehiclePass"
 
 
 class Accommodation(models.Model):
@@ -176,10 +176,10 @@ class Accommodation(models.Model):
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, through="UserAccommodationRelation")
 
     def __str__(self):
-        return self.name
+        return f"{self.name}'s Accommodation"
 
     def __repr__(self):
-        return f"BubblyMember {self.members}'s {self.type}"
+        return f"{self.name}'s Accommodation"
 
 
 class UserAccommodationRelation(models.Model):

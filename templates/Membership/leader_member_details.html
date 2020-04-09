@@ -1,0 +1,58 @@
+{% extends 'Membership/table.html' %}
+Username: {{ member.username }}
+Birthday: {{ member.birthday }} Country: {{ member.country }} City: {{ member.city }} Phone number: {{ member.phone_number }}
+Gender Identity: {{ member.gender_identity }} Ethnic Identity: {{ member.ethnic_identity }} Allergies: {{ member.allergies }}
+Facebook:{{ member.facebook }} Medical Issues: {{ member.medical_issues }} Paypal Email: {{ member.paypal_email }}
+Virgin Burner: {{ member.is_virgin_burner }} Burning Man Email: {{ member.burning_man_profile_email }}
+Playa Name: {{ member.playa_name }} Years Attended: {{ member.years_attending_burning_man }} Leader? {{ member.is_leadership }}
+
+{% block columns %}
+    <tr class="table100-head">
+        <th class="column1">Username</th>
+        <th class="column2">Birthday</th>
+        <th class="column3">Gender Identity</th>
+        <th class="column4">Ethnic Identity</th>
+        <th class="column5">Allergies</th>
+        <th class="column6">Facebook</th>
+        <th class="column7">Medical Issues</th>
+        <th class="column8">Paypal Email</th>
+        <th class="column9">Virgin Burner</th>
+        <th class="column9">Burning Man Email</th>
+        <th class="column9">Playa Name</th>
+        <th class="column9">Years Attended</th>
+        <th class="column9">Leader</th>
+    </tr>
+    {#    <col style="width:12%">#}
+    {#    <col style="width:7%">#}
+    {#    <col style="width:7%">#}
+    {#    <col style="width:5%">#}
+    {#    <col style="width:12%">#}
+    {#    <col style="width:12%">#}
+    {#    <col style="width:9%">#}
+    {#    <col style="width:7%">#}
+    {#    <col style="width:9%">#}
+
+{% endblock %}
+
+{% block values %}
+    <tr>
+        <td><a href="/member/leader/{{ member.username }}/details/"> {{ member.username }}</a></td>
+        <td class="column2">{{ member.birthday }}</td>
+        <td class="column3">{{ member.gender_identity }}</td>
+        <td class="column4">{{ member.ethnic_identity }}</td>
+        <td class="column5">{{ member.allergies }}</td>
+        <td class="column6">{{ member.facebook }}</td>
+        <td class="column7">{{ member.medical_issues }}</td>
+        <td class="column8">{{ member.paypal_email }}</td>
+        <td class="column9">{{ member.is_virgin_burner }}</td>
+        <td class="column9">{{ member.burning_man_profile_email }}</td>
+        <td class="column9">{{ member.playa_name }}</td>
+        <td class="column9">{{ member.years_attending_burning_man }}</td>
+        <td class="column9">{{ member.is_leadership }}</td>
+    </tr>
+
+    <form action="/member/leader/dashboard/">
+        <button type="submit" class="btn btn-light">Return to Dashboard</button>
+    </form>
+{% endblock %}
+
