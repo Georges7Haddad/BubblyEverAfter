@@ -1,0 +1,140 @@
+[
+  {
+    "fields": {
+      "member": 1,
+      "vehicle_pass": 1,
+      "ticket": 1,
+      "year": 2020,
+      "arrival_time": "2020-04-23T17:05:45Z",
+      "departure_time": "2020-04-30T17:05:55Z",
+      "type": "Own Transportation (will need vehicle pass)",
+      "camp_dues": 45,
+      "camp_dues_paid": 20,
+      "strike_deposit": 20,
+      "strike_deposit_paid": 10,
+      "meal_plan": true,
+      "meal_plan_paid": 40,
+      "notes": "",
+      "accommodations": [
+        1
+      ]
+    },
+    "model": "MembershipApp.burn",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "member": 2,
+      "vehicle_pass": 2,
+      "ticket": 2,
+      "year": 2020,
+      "arrival_time": "2020-04-06T17:06:56Z",
+      "departure_time": "2020-04-14T00:00:00Z",
+      "type": "Burner Bus",
+      "camp_dues": 60,
+      "camp_dues_paid": 30,
+      "strike_deposit": 20,
+      "strike_deposit_paid": 0,
+      "meal_plan": false,
+      "meal_plan_paid": 0,
+      "notes": "",
+      "accommodations": [
+        2
+      ]
+    },
+    "model": "MembershipApp.burn",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "member": 3,
+      "vehicle_pass": 3,
+      "ticket": 3,
+      "year": 2020,
+      "arrival_time": "2020-04-07T17:08:06Z",
+      "departure_time": "2020-04-16T17:08:04Z",
+      "type": "Other",
+      "camp_dues": 100,
+      "camp_dues_paid": 90,
+      "strike_deposit": 30,
+      "strike_deposit_paid": 15,
+      "meal_plan": true,
+      "meal_plan_paid": 0,
+      "notes": "",
+      "accommodations": [
+        3
+      ]
+    },
+    "model": "MembershipApp.burn",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "member": 4,
+      "vehicle_pass": 4,
+      "ticket": 4,
+      "year": 2020,
+      "arrival_time": "2020-04-13T17:08:50Z",
+      "departure_time": "2020-04-23T17:08:51Z",
+      "type": "Burner Air",
+      "camp_dues": 0,
+      "camp_dues_paid": 50,
+      "strike_deposit": 0,
+      "strike_deposit_paid": 30,
+      "meal_plan": false,
+      "meal_plan_paid": 30,
+      "notes": "",
+      "accommodations": [
+        4
+      ]
+    },
+    "model": "MembershipApp.burn",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "member": 5,
+      "vehicle_pass": 5,
+      "ticket": 5,
+      "year": 2020,
+      "arrival_time": "2020-04-20T12:00:00Z",
+      "departure_time": "2020-04-30T17:09:35Z",
+      "type": "Carpool",
+      "camp_dues": 0,
+      "camp_dues_paid": 0,
+      "strike_deposit": 0,
+      "strike_deposit_paid": 0,
+      "meal_plan": false,
+      "meal_plan_paid": 0,
+      "notes": "",
+      "accommodations": [
+        5
+      ]
+    },
+    "model": "MembershipApp.burn",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "member": 6,
+      "vehicle_pass": 6,
+      "ticket": 6,
+      "year": 2020,
+      "arrival_time": "2020-04-13T12:00:00Z",
+      "departure_time": "2020-04-22T17:10:05Z",
+      "type": "Burner Bus",
+      "camp_dues": 50,
+      "camp_dues_paid": 20,
+      "strike_deposit": 30,
+      "strike_deposit_paid": 15,
+      "meal_plan": true,
+      "meal_plan_paid": 50,
+      "notes": "",
+      "accommodations": [
+        6
+      ]
+    },
+    "model": "MembershipApp.burn",
+    "pk": 6
+  }
+]
