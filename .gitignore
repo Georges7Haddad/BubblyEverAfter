@@ -107,9 +107,5 @@ static/
 local_testing.py
 **/.DS_Store
 
-
-test_captcha_submit.txt
-venv3/
-gov_api/*
-misc_stats/
-*.log*
+# sqlite
+*.sqlite*
