@@ -20,7 +20,7 @@ pylint==2.3.1
 python-mimeparse==1.6.0
 pytz==2019.3
 PyYAML==5.3.1
-regex==2020.2.20
+regex==2020.4.4
 requests==2.23.0
 six==1.14.0
 sqlparse==0.3.0
