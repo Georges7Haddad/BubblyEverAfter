@@ -42,7 +42,7 @@ def login_request(request):
                 logger.warning("Invalid Username or Password")
                 messages.warning(request, "Invalid Username or Password")
         form = AuthenticationForm()
-        return render(request=request, template_name="Membership/members_login.html", context={"form": form})
+        return render(request=request, template_name="MembershipApp/members_login.html", context={"form": form})
     else:
         return redirect("/member/profile/")
 
@@ -50,6 +50,11 @@ def login_request(request):
 def logout_request(request):
     logout(request)
     return redirect("/member/login/")
+
+
+@login_required(login_url="/member/login/")
+def member_profile(request):
+    return render(request, "MembershipApp/member_profile.html")
 
 
 def register(request):
@@ -64,17 +69,12 @@ def register(request):
                 messages.warning(request, bubbly_form.error_messages[msg])
                 return render(
                     request=request,
-                    template_name="Membership/member_register.html",
+                    template_name="MembershipApp/member_register.html",
                     context={"bubbly_form": bubbly_form},
                 )
 
     bubbly_form = BubblyMemberForm()
     return render(request, "Membership/member_register.html", context={"bubbly_form": bubbly_form})
-
-
-@login_required(login_url="/member/login/")
-def member_profile(request):
-    return render(request, "Membership/member_profile.html")
 
 
 @leadership_required(login_url="/member/login/")
