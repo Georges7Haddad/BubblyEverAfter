@@ -1,5 +1,4 @@
 import logging
-
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -41,7 +40,7 @@ def login_request(request):
                 messages.warning(request, "Invalid username or password.")
                 logger.warning(request, "Invalid username or password.")
         form = AuthenticationForm()
-        return render(request=request, template_name="Membership/members_login.html", context={"form": form})
+        return render(request=request, template_name="MembershipApp/members_login.html", context={"form": form})
     else:
         return redirect("/member/profile/")
 
@@ -53,12 +52,12 @@ def logout_request(request):
 
 @login_required(login_url="/member/login/")
 def member_profile(request):
-    return render(request, "Membership/member_profile.html")
+    return render(request, "MembershipApp/member_profile.html")
 
 
 @leadership_required(login_url="/member/login/")
 def leader_dashboard(request):
-    return render(request, "Membership/leader_profile.html")
+    return render(request, "MembershipApp/leader_profile.html")
 
 
 def register(request):
@@ -73,9 +72,9 @@ def register(request):
                 logger.warning(bubbly_form.error_messages[msg])
                 return render(
                     request=request,
-                    template_name="Membership/member_register.html",
+                    template_name="MembershipApp/member_register.html",
                     context={"bubbly_form": bubbly_form},
                 )
 
     bubbly_form = BubblyMemberForm()
-    return render(request, "Membership/member_register.html", context={"bubbly_form": bubbly_form})
+    return render(request, "MembershipApp/member_register.html", context={"bubbly_form": bubbly_form})
