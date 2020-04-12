@@ -1,0 +1,41 @@
+{% extends 'MembershipApp/base.html' %}
+
+{% block body %}
+
+  <div class="container">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <h4>{{ header }}</h4>
+
+      {% for field in form %}
+      <div class="form-group row">
+          {% if field.name == "width" or field.name == "length" or field.name == "height" %}
+            <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }} (in meters)</label>
+          {% elif field.name == "voltage"%}
+            <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }} (in volts)</label>
+          {% elif field.name == "wattage"%}
+            <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }} (in watts)</label>
+          {% elif field.name == "unit_price"%}
+            <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }} (in $)</label>
+          {% else %}
+            <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }}</label>
+          {% endif %}
+        <div class="col-10">
+          {{ field }}
+        </div>
+      </div>
+      {% endfor %}
+
+      <div class="form-group row">
+        <div class="offset-sm-2 col-sm-6">
+
+          <button type="submit" class="btn btn-primary">Add Item</button>
+
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+{% endblock %}
