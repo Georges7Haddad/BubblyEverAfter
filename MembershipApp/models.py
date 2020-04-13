@@ -80,16 +80,16 @@ class Ticket(models.Model):
         ]
     ]
 
-    secured = models.BooleanField(default=False, help_text="Please tick if you have a ticket ")
-    status = models.CharField(max_length=127, choices=STATUS_CHOICES)
-    number = models.CharField(max_length=127, **optional, help_text="ID number found on the back of your ticket",)
-
     holder = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         **required,
         help_text="Name of the current vehicle pass holder",
     )
+    secured = models.BooleanField(default=False, help_text="Please tick if you have a ticket ")
+    status = models.CharField(max_length=127, choices=STATUS_CHOICES)
+    number = models.CharField(max_length=127, **optional, help_text="ID number found on the back of your ticket", )
+
     price = models.PositiveIntegerField(**optional)
 
     def save(self, *args, **kwargs):
@@ -169,9 +169,9 @@ class Accommodation(models.Model):
             "Other",
         ]
     ]
+    name = models.CharField(max_length=127, **required)
     type = models.CharField(max_length=127, choices=ACCOMMODATION_CHOICES)
     is_full = models.BooleanField(default=False)
-    name = models.CharField(max_length=127, **required)
 
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, through="UserAccommodationRelation")
 
@@ -198,7 +198,7 @@ class Burn(models.Model):
     Model containing information for each member's burn(burning man event)
     """
 
-    accommodations = models.ManyToManyField(Accommodation)
+    accommodations = models.ManyToManyField(Accommodation, through="BurnAccommodationRelation")
     member = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **required)
 
     # In case someone has many vehicle pass he chooses the one he's going with
@@ -246,3 +246,14 @@ class Burn(models.Model):
 
     def __repr__(self):
         return f"{self.member}'s Burn"
+
+
+class BurnAccommodationRelation(models.Model):
+    burn = models.ForeignKey(Burn, on_delete=models.CASCADE, **required)
+    accommodation = models.ForeignKey(Accommodation, on_delete=models.CASCADE, **required)
+
+    def __str__(self):
+        return f"{self.burn.member} is staying in {self.accommodation} for {self.burn.year} {self.burn}"
+
+    def __repr__(self):
+        return f"{self.burn.member} is staying in {self.accommodation} for {self.burn.year} {self.burn}"

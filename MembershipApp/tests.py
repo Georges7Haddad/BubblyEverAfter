@@ -49,7 +49,7 @@ class LoginTest(TestCase):
     def test_leader_login(self):
         logged_in = self.client.post("/member/login/", self.leader_credentials, follow=True)
         self.assertRedirects(
-            response=logged_in, status_code=302, target_status_code=200, expected_url="/member/leader/dashboard/"
+            response=logged_in, status_code=302, target_status_code=200, expected_url="/leader/dashboard/"
         )
 
     def test_login_already_logged_in(self):
@@ -107,12 +107,12 @@ class LogoutTest(TestCase):
         """
         self.client.login(**self.leader_credentials)
         self.client.get("/member/logout/")
-        response = self.client.get("/member/leader/dashboard/")
+        response = self.client.get("/leader/dashboard/")
         self.assertRedirects(
             response=response,
             status_code=302,
             target_status_code=200,
-            expected_url="/member/login/?next=%2Fmember%2Fleader%2Fdashboard%2F",
+            expected_url="/member/login/?next=%2Fleader%2Fdashboard%2F",
         )
         response2 = self.client.get("/member/profile/")
         self.assertRedirects(
@@ -139,12 +139,12 @@ class LoginRequiredTest(TestCase):
             target_status_code=200,
             expected_url="/member/login/?next=%2Fmember%2Fprofile%2F",
         )
-        response = self.client.get("/member/leader/dashboard/")
+        response = self.client.get("/leader/dashboard/")
         self.assertRedirects(
             response=response,
             status_code=302,
             target_status_code=200,
-            expected_url="/member/login/?next=%2Fmember%2Fleader%2Fdashboard%2F",
+            expected_url="/member/login/?next=%2Fleader%2Fdashboard%2F",
         )
 
     def test_member_permissions(self):
@@ -155,10 +155,10 @@ class LoginRequiredTest(TestCase):
         self.assertRedirects(
             response=logged_in, status_code=302, target_status_code=200, expected_url="/member/profile/"
         )
-        response = self.client.get("/member/leader/dashboard/")
+        response = self.client.get("/leader/dashboard/")
         self.assertRedirects(
             response=response,
             status_code=302,
             target_status_code=302,
-            expected_url="/member/login/?next=%2Fmember%2Fleader%2Fdashboard%2F",
+            expected_url="/member/login/?next=%2Fleader%2Fdashboard%2F",
         )

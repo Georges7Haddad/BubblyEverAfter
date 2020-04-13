@@ -1,0 +1,7 @@
+{% extends 'MembershipApp/base.html' %}
+{% block body %}
+    <a class="btn btn--primary" href="/leader/burns/">
+        <span class="btn__text"> Burns </span>
+    </a>
+    {% include "MembershipApp/table.html" with data=burns fields=fields title="Burns' Accommodations" %}
+{% endblock %}

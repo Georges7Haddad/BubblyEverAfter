@@ -1,0 +1,17 @@
+{% extends "MembershipApp/base.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="input-icon">
+        <form style="left: 70%" method="POST">
+            {% csrf_token %}
+            <div class="left">
+                <div class="col-12">  {{ member_search_form }}  </div>
+                <div class="col-12">
+                    <button type="submit" style="float: contour" class="btn btn--primary">Get Member</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% include "MembershipApp/leader/boxes.html" %}
+{% endblock %}

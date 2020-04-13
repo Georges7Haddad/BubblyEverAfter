@@ -1,0 +1,17 @@
+{% extends 'MembershipApp/base.html' %}
+{% block body %}
+    <a class="btn btn--primary" href="/leader/tickets/">
+        <span class="btn__text"> Tickets </span>
+    </a>
+
+    <a class="btn btn--primary" style="float: right" href="/leader/accommodations/">
+        <span class="btn__text"> Accommodations </span>
+    </a>
+    {% include "MembershipApp/table.html" with data=vehicles fields=fields title="Vehicles" %}
+    <div class="progress-horizontal">
+        <div class="progress-horizontal__bar" data-value={{ secured_percentage }}></div>
+        <span class="progress-horizontal__label h5">Secured: {{ secured_number }}</span>
+    </div>
+
+
+{% endblock %}

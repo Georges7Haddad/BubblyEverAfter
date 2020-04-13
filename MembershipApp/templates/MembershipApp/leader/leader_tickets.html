@@ -1,0 +1,14 @@
+{% extends 'MembershipApp/base.html' %}
+{% block body %}
+    <div class="progress-horizontal">
+        <div class="progress-horizontal__bar" data-value={{ secured_percentage }}></div>
+        <span class="progress-horizontal__label h5">Secured: {{ secured_number }}</span>
+    </div>
+    <div>
+        <a class="btn btn--primary" style="position: center; left:90%" href="/leader/vehicles/">
+            <span class="btn__text"> Vehicles </span>
+        </a>
+    </div>
+
+    {% include "MembershipApp/table.html" with data=tickets fields=fields title="Tickets" %}
+{% endblock %}

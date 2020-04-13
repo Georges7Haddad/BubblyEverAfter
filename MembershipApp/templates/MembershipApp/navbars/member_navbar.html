@@ -40,7 +40,7 @@
                             <div class="bar__module">
                                 <ul class="menu-horizontal text-left">
                                     <li><a href="/member/profile/">
-                                        My Membership
+                                        My Profile
                                     </a></li>
                                     <li><a href="{% static "MembershipApp/#" %}">
                                         My Tickets
@@ -55,7 +55,8 @@
                         </div>
                         <div class="col-lg-5 text-right text-left-xs text-left-sm order-lg-3">
                             <div class="bar__module">
-                                {% block leader %}
+
+                            {% block leader %}
                                 {% endblock %}
                                 <a class="btn btn--sm type--uppercase" href="/member/logout/"> <span
                                         class="btn__text">
