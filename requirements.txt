@@ -16,7 +16,7 @@ pbr==5.4.5
 phonenumbers==8.11.4
 Pillow==7.1.1
 pre-commit==2.2.0
-pylint==2.3.1
+pylint==2.4.4
 python-mimeparse==1.6.0
 pytz==2019.3
 PyYAML==5.3.1
