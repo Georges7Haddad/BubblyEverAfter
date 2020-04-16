@@ -246,3 +246,13 @@ class Burn(models.Model):
 
     def __repr__(self):
         return f"{self.member}'s Burn"
+
+
+class Contact(models.Model):
+    # Contact us form
+    name = models.CharField(max_length=127)
+    social_media = models.URLField(max_length=1023)
+    email = models.EmailField(max_length=127)
+    playa_name = models.CharField(max_length=127, **optional)
+    Please_tell_us_3_adjectives_that_describe_you_most = models.TextField(max_length=1023)
+    how_can_we_collaborate_and_get_to_know_you_better = models.TextField(max_length=16383)
