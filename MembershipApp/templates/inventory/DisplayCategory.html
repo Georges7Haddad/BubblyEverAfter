@@ -8,61 +8,107 @@
 
     <h3 style="margin-left:1%">{{ header }}</h3>
 
-     <a href="{% url 'inventory:Add_Item' category_id %}" style= "margin-left:1%" class="btn btn-warning btn-sm btn-pad" role="button"  >Add</a> <br><br>
-
+{% if category.items_type == "non_electrical_items" %}
+    <a href="{% url 'inventory:Add_Item' category.id %}" class="btn btn-warning btn-sm btn-pad" role="button" style="margin-left: 1%" >Add</a><br><br>
+{% else %}
+    <a href="{% url 'inventory:Add_Electrical_Item' category.id %}" class="btn btn-warning btn-sm btn-pad" role="button"  style="margin-left: 1%" >Add</a><br><br>
+{% endif %}
 
 <form class="form-inline md-form mr-auto mb-4" style="margin-left: 1%">
   <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" >
   <button class="btn btn-outline-warning btn-rounded btn-sm my-0" type="submit" style="width: 100px">Search</button>
 </form>
 
+    {% if category.items_type == "non_electrical_items" %}
 
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                  <th>Member</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Width (m)</th>
+                  <th>Height (m)</th>
+                  <th>Length (m)</th>
+                  <th>Quantity</th>
+                  <th>Unit Price ($)</th>
+                  <th>Picture</th>
+                <th></th>
+              </tr>
+            </thead>
 
+            <tbody>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-          <th>Member</th>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Width (m)</th>
-          <th>Height (m)</th>
-          <th>Length (m)</th>
-          <th>Voltage (V)</th>
-          <th>Wattage (w)</th>
-          <th>Quantity</th>
-          <th>Unit Price ($)</th>
-          <th>Picture</th>
-        <th></th>
-      </tr>
-    </thead>
+              {% for item in items %}
 
-    <tbody>
+              <tr>
+                  <td>{{ item.member }}</td>
+                  <td>{{ item.title }}</td>
+                  <td>{{ item.description }}</td>
+                  <td>{{ item.width }}</td>
+                  <td>{{ item.height }}</td>
+                  <td>{{ item.length }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>{{ item.unit_price }}</td>
+                  <td><a href="{{ item.picture.url }}" title="click here to see the full sized image"><img src="{{ item.picture.url }}" style="width:50px;height:50px;" ></a></td>
 
-      {% for item in items %}
+                  <td>
+                      <a href="{% url 'inventory:Edit_Item' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" >Edit</a>
+                      <a href="{% url 'inventory:Delete_Item' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" >Delete</a>
+                  </td>
+              </tr>
 
-      <tr>
-          <td>{{ item.member }}</td>
-          <td>{{ item.title }}</td>
-          <td>{{ item.description }}</td>
-          <td>{{ item.width }}</td>
-          <td>{{ item.height }}</td>
-          <td>{{ item.length }}</td>
-          <td>{{ item.voltage }}</td>
-          <td>{{ item.wattage }}</td>
-          <td>{{ item.quantity }}</td>
-          <td>{{ item.unit_price }}</td>
-          {% if item.picture %}
-          <td><a href="{{ item.picture.url }}" title="click here to see the full sized image"><img src="{{ item.picture.url }}" style="width:50px;height:50px;" ></a></td>
-            {% endif %}
-          <td>
-              <a href="{% url 'inventory:Edit_Item' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" >Edit</a>
-              <a href="{% url 'inventory:Delete_Item' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" >Delete</a>
-          </td>
-      </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    {% elif category.items_type == "electrical_items"  %}
+              <table class="table table-hover">
+            <thead>
+              <tr>
+                  <th>Member</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Width (m)</th>
+                  <th>Height (m)</th>
+                  <th>Length (m)</th>
+                  <th>Quantity</th>
+                  <th>Unit Price ($)</th>
+                  <th>Picture</th>
+                  <th>Voltage</th>
+                  <th>Wattage</th>
 
-      {% endfor %}
-    </tbody>
-  </table>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              {% for item in items %}
+
+              <tr>
+                  <td>{{ item.member }}</td>
+                  <td>{{ item.title }}</td>
+                  <td>{{ item.description }}</td>
+                  <td>{{ item.width }}</td>
+                  <td>{{ item.height }}</td>
+                  <td>{{ item.length }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>{{ item.unit_price }}</td>
+                  {% if item.picture %}
+                  <td><a href="{{ item.picture.url }}" title="click here to see the full sized image"><img src="{{ item.picture.url }}" style="width:50px;height:50px;" ></a></td>
+                    {% endif %}
+                  <td>{{ item.voltage }}</td>
+                    <td>{{ item.wattage }}</td>
+                  <td>
+                      <a href="{% url 'inventory:Edit_Electrical_Item' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" >Edit</a>
+                      <a href="{% url 'inventory:Delete_Item' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" >Delete</a>
+                  </td>
+              </tr>
+
+              {% endfor %}
+            </tbody>
+          </table>
+
+    {% endif %}
 
 {% endblock %}
