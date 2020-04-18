@@ -1,8 +1,8 @@
+from django.apps import apps
 from django.contrib import admin
-from inventory.models import *
 
-# Register your models here.
 
-admin.site.register(Category)
-admin.site.register(Item)
-admin.site.register(ElectricalItem)
+app = apps.get_app_config("inventory")
+
+for model_name, model in app.models.items():
+    admin.site.register(model)

@@ -9,9 +9,9 @@
     <h3 style="margin-left:1%">{{ header }}</h3>
 
 {% if category.items_type == "non_electrical_items" %}
-    <a href="{% url 'inventory:Add_Item' category.id %}" class="btn btn-warning btn-sm btn-pad" role="button" style="margin-left: 1%" >Add</a><br><br>
+    <a href="{% url 'inventory:add_item' category.id %}" class="btn btn-warning btn-sm btn-pad" role="button" style="margin-left: 1%" >Add</a><br><br>
 {% else %}
-    <a href="{% url 'inventory:Add_Electrical_Item' category.id %}" class="btn btn-warning btn-sm btn-pad" role="button"  style="margin-left: 1%" >Add</a><br><br>
+    <a href="{% url 'inventory:add_electrical_item' category.id %}" class="btn btn-warning btn-sm btn-pad" role="button"  style="margin-left: 1%" >Add</a><br><br>
 {% endif %}
 
 <form class="form-inline md-form mr-auto mb-4" style="margin-left: 1%">
@@ -50,11 +50,14 @@
                   <td>{{ item.length }}</td>
                   <td>{{ item.quantity }}</td>
                   <td>{{ item.unit_price }}</td>
+                    {% if item.picture %}
                   <td><a href="{{ item.picture.url }}" title="click here to see the full sized image"><img src="{{ item.picture.url }}" style="width:50px;height:50px;" ></a></td>
-
+                    {% else %}
+                        <td><i> no pic </i></td>
+                    {% endif %}
                   <td>
-                      <a href="{% url 'inventory:Edit_Item' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" >Edit</a>
-                      <a href="{% url 'inventory:Delete_Item' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" >Delete</a>
+                      <a href="{% url 'inventory:edit_item' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" >Edit</a>
+                      <a href="{% url 'inventory:delete_item' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" >Delete</a>
                   </td>
               </tr>
 
@@ -96,12 +99,14 @@
                   <td>{{ item.unit_price }}</td>
                   {% if item.picture %}
                   <td><a href="{{ item.picture.url }}" title="click here to see the full sized image"><img src="{{ item.picture.url }}" style="width:50px;height:50px;" ></a></td>
-                    {% endif %}
-                  <td>{{ item.voltage }}</td>
-                    <td>{{ item.wattage }}</td>
+                                      {% else %}
+                        <td><i> no pic </i></td>
+                  {% endif %}
+                  <td>{{ item.electricalitem.voltage }}</td>
+                    <td>{{ item.electricalitem.wattage }}</td>
                   <td>
-                      <a href="{% url 'inventory:Edit_Electrical_Item' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" >Edit</a>
-                      <a href="{% url 'inventory:Delete_Item' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" >Delete</a>
+                      <a href="{% url 'inventory:edit_electrical_item' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" >Edit</a>
+                      <a href="{% url 'inventory:delete_item' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" >Delete</a>
                   </td>
               </tr>
 

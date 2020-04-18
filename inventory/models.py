@@ -12,7 +12,7 @@ class Item(models.Model):
     height = models.PositiveIntegerField(null=True, blank=True, help_text="in meters")
     length = models.PositiveIntegerField(null=True, blank=True, help_text="in meters")
     quantity = models.PositiveIntegerField()
-    unit_price = models.PositiveIntegerField()
+    unit_price = models.PositiveIntegerField(help_text="in $")
     picture = models.FileField(null=True, blank=True)
 
     def __str__(self):
@@ -31,7 +31,7 @@ class Category(models.Model):
         choices=[("non_electrical_items", "Non Electrical Items"), ("electrical_items", "Electrical Items")],
         default="non_electrical_items",
     )
-    items = models.ManyToManyField(Item and ElectricalItem, blank=True)
+    items = models.ManyToManyField(Item, blank=True)
 
     def __str__(self):
         return "Category: {0}".format(self.name)

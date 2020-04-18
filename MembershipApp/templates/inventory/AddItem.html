@@ -10,16 +10,8 @@
 
       {% for field in form %}
       <div class="form-group row">
-          {% if field.name == "width" or field.name == "length" or field.name == "height" %}
-            <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }} (in meters)</label>
-          {% elif field.name == "unit_price"%}
-            <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }} (in $)</label>
-          {% else %}
-            <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }}</label>
-          {% endif %}
-        <div class="col-10">
+          <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }} {{field.help_text}}</label>
           {{ field }}
-        </div>
       </div>
       {% endfor %}
 
