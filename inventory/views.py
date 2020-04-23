@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
+from inventory.decorators import user_is_item_creator
 from inventory.forms import *
 from inventory.models import Item, Category, ElectricalItem
 
@@ -29,29 +30,7 @@ def add_item(request, category_id):
         form = AddItemForm(request.POST, request.FILES)
         print(form.errors)
         if form.is_valid():
-            member = form.cleaned_data["member"]
-            title = form.cleaned_data["title"]
-            description = form.cleaned_data["description"]
-            width = form.cleaned_data["width"]
-            height = form.cleaned_data["height"]
-            length = form.cleaned_data["length"]
-            quantity = form.cleaned_data["quantity"]
-            unit_price = form.cleaned_data["unit_price"]
-            picture = form.cleaned_data["picture"]
-            # item = Item(member=member,title=title,description=description,width=width,height=height,length=length,quantity=quantity,unit_price=unit_price,picture=picture)
-            # item.save()
-            item = Item.objects.create(
-                member=member,
-                title=title,
-                description=description,
-                width=width,
-                height=height,
-                length=length,
-                quantity=quantity,
-                unit_price=unit_price,
-                picture=picture,
-            )
-            item.save()
+            item = form.save()
             category = Category.objects.get(pk=category_id)
             category.items.add(item)
             category.save()
@@ -68,33 +47,7 @@ def add_electrical_item(request, category_id):
         form = AddElectricalItemForm(request.POST, request.FILES)
         print(form.errors)
         if form.is_valid():
-            member = form.cleaned_data["member"]
-            title = form.cleaned_data["title"]
-            description = form.cleaned_data["description"]
-            width = form.cleaned_data["width"]
-            height = form.cleaned_data["height"]
-            length = form.cleaned_data["length"]
-            quantity = form.cleaned_data["quantity"]
-            unit_price = form.cleaned_data["unit_price"]
-            picture = form.cleaned_data["picture"]
-            voltage = form.cleaned_data["voltage"]
-            wattage = form.cleaned_data["wattage"]
-            # item = Item(member=member,title=title,description=description,width=width,height=height,length=length,quantity=quantity,unit_price=unit_price,picture=picture)
-            # item.save()
-            item = ElectricalItem.objects.create(
-                member=member,
-                title=title,
-                description=description,
-                width=width,
-                height=height,
-                length=length,
-                quantity=quantity,
-                unit_price=unit_price,
-                picture=picture,
-                voltage=voltage,
-                wattage=wattage,
-            )
-            item.save()
+            item = form.save()
             category = Category.objects.get(pk=category_id)
             category.items.add(item)
             category.save()
@@ -106,6 +59,7 @@ def add_electrical_item(request, category_id):
         return render(request, "inventory/AddItem.html", {"form": form})
 
 
+@user_is_item_creator
 def edit_item(request, item_id):
     item = Item.objects.get(pk=item_id)
     if request.method == "POST":
@@ -120,6 +74,7 @@ def edit_item(request, item_id):
         return render(request, "inventory/EditItem.html", {"form": form})
 
 
+@user_is_item_creator
 def edit_electrical_item(request, item_id):
     item = ElectricalItem.objects.get(pk=item_id)
     if request.method == "POST":
@@ -134,6 +89,7 @@ def edit_electrical_item(request, item_id):
         return render(request, "inventory/EditItem.html", {"form": form})
 
 
+@user_is_item_creator
 def delete_item(request, item_id):
     Item.objects.filter(pk=item_id).delete()
     return redirect("inventory:index")
