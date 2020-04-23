@@ -39,43 +39,41 @@
                         <div class="bar__module">
                             <a href="{% static "MembershipApp/index.html" %}"> <img class="logo logo-dark" alt="logo"
                                                                                     src="{% static "MembershipApp/img/logo_dark.jpg" %}">
-                                <img class="logo logo-light" alt="logo" src="img/logo-light.png"> </a>
+                                <img class="logo logo-light" alt="logo" src="{% static "MembershipApp/img/logo.jpg" %}">
+                            </a>
                         </div>
                     </div>
                     <div class="col-lg-11 col-md-12 text-right text-left-xs text-left-sm">
                         <div class="bar__module">
                             <ul class="menu-horizontal text-left">
-                                <li><a href="#">
-                                    home&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</a></li>
+                                <li><a href="./">
+                                    home </a></li>
                                 <li class="dropdown"> <span class="dropdown__trigger">
-                                        About&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+                                        About</span>
                                     <div class="dropdown__container">
                                         <div class="container">
                                             <div class="row">
                                                 <div class="dropdown__content col-lg-2">
                                                     <ul class="menu-vertical">
-                                                        <li><a href="#">Community Ethos</a></li>
-                                                        <li><a href="#">Extra bubbly: Events &amp; picnics</a></li>
+                                                        <li><a href="/legal">Community Ethos</a></li>
+                                                        <li><a href="/about">About us</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </li>
-                                <li><a href="#">
-                                    Events&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</a></li>
-                                <li><a href="#">
-                                    Burning man 2019&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</a></li>
+                                <li><a href="/display_events">
+                                    Events </a></li>
+                                <li><a href="/burningman">
+                                    Burning man 2019</a></li>
                             </ul>
                         </div>
                         <div class="bar__module">
-                            <a class="btn btn--sm type--uppercase" href="{% static "#customise-template" %}"> <span
+                            <a class="btn btn--sm type--uppercase" href="/member/register"> <span
                                     class="btn__text">
                                     Apply</span> </a>
-                            <a class="btn btn--sm btn--primary type--uppercase" href="#purchase-template"> <span
+                            <a class="btn btn--sm btn--primary type--uppercase" href="/contact"> <span
                                     class="btn__text">
                                     Contact us</span> </a>
                         </div>

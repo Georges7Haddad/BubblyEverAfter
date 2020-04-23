@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 
-from MembershipApp.forms import ContactForm
+from MembershipApp.forms import ContactForm, CreateEvent
+from MembershipApp.models import bubblyevents
+from MembershipApp.views import leadership_required
 
 
 def index(request):
@@ -34,3 +36,33 @@ def contact(request):
 
     contact_form = ContactForm()
     return render(request, "MembershipApp/contact.html", context={"contact_form": contact_form})
+
+
+def display_events(request):
+    events = bubblyevents.objects.all()
+    context = {
+        "events": events
+    }
+    return render(request, "MembershipApp/display_events.html", context)
+
+
+@leadership_required(login_url="/member/login/")
+def leader_dashboard(request):
+    return render(request, "MembershipApp/leader_profile.html")
+
+
+def create_event(request):
+    if request.method == "POST":
+        event_form = CreateEvent(request.POST)
+        if event_form.is_valid():
+            event_form.save()
+            return redirect("/display_events")
+        else:
+            return render(
+                request=request,
+                template_name="MembershipApp/createvent.html",
+                context={"CreateEvent": CreateEvent},
+            )
+
+    event_form = CreateEvent()
+    return render(request, "MembershipApp/createvent.html", context={"event_form": event_form})

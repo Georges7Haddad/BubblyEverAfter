@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 
-from .models import Contact
+from .models import Contact, bubblyevents
 
 
 class BubblyMemberForm(UserCreationForm):
@@ -41,3 +41,15 @@ class ContactForm(ModelForm):
             'social_media',
             'Please_tell_us_3_adjectives_that_describe_you_most',
             'how_can_we_collaborate_and_get_to_know_you_better']
+
+
+class CreateEvent(ModelForm):
+    class Meta:
+        model = bubblyevents
+        fields = [
+            'name',
+            'location',
+            'schedule',
+            'description',
+            'event_website',
+        ]

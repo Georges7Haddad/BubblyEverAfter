@@ -256,3 +256,12 @@ class Contact(models.Model):
     playa_name = models.CharField(max_length=127, **optional)
     Please_tell_us_3_adjectives_that_describe_you_most = models.TextField(max_length=1023)
     how_can_we_collaborate_and_get_to_know_you_better = models.TextField(max_length=16383)
+
+
+class bubblyevents(models.Model):
+    # create new event form
+    name = models.CharField(max_length=127)
+    location = models.CharField(max_length=127)
+    schedule = models.CharField(max_length=127)
+    description = models.CharField(max_length=1023)
+    event_website = models.CharField(max_length=255)
