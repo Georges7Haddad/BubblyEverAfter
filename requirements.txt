@@ -11,7 +11,7 @@ extras==1.0.0
 linecache2==1.0.0
 parse==1.15.0
 parse-type==0.5.2
-pathspec==0.7.0
+pathspec==0.8.0
 pbr==5.4.5
 phonenumbers==8.11.4
 Pillow==7.1.1
