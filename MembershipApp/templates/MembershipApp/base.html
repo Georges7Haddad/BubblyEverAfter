@@ -33,64 +33,9 @@
 <script src="{% static "MembershipApp/js/scripts.js" %}"></script>
 {% block scripts %}
 {% endblock %}
-</body>
 
-<footer class="space--sm footer-2">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-md-3 col-xs-6">
-                <h6 class="type--uppercase">Company</h6>
-                <ul class="list--hover">
-                    <li><a href="/about">About Company</a></li>
-                    <li><a href="/contact">Work With Us</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-6 col-md-3 col-xs-6">
-                <h6 class="type--uppercase">Apply</h6>
-                <ul class="list--hover">
-                    <li><a href="./">Home</a></li>
-                    <li><a href="/member/register">Apply to camp</a></li>
-                    <li>
-                        <a href="https://accounts.google.com/signin/v2/identifier?service=wise&passive=1209600&continue=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F188hmLwwL_h-4FlKfq675TmoP0vlZFebk-umBQ1FlzqY%2Fedit%3Fusp%3Dsharing&followup=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F188hmLwwL_h-4FlKfq675TmoP0vlZFebk-umBQ1FlzqY%2Fedit%3Fusp%3Dsharing&ltmpl=sheets&flowName=GlifWebSignIn&flowEntry=ServiceLogin">Apply
-                            to speak</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-6 col-md-3 col-xs-6">
-                <h6 class="type--uppercase">BEE</h6>
-                <ul class="list--hover">
-                    <li><a href="/burningman">Burning Man 2019</a></li>
-                    <li><a href="/legal">Community Ethos</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-6 col-md-3 col-xs-6">
-                <h6 class="type--uppercase">Support</h6>
-                <ul class="list--hover">
-                    <li><a href="/contact">Contact</a></li>
-                    <li><a href="#">FAQ</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6"><span class="type--fine-print">© <span class="update-year">2020</span> BubblyEverAfter</span>
-                <a class="type--fine-print" href="#">Privacy Policy</a> <a class="type--fine-print" href="#">Legal</a>
-            </div>
-            <div class="col-sm-6 text-right text-left-xs">
-                <ul class="social-list list-inline list--hover">
-                    <li><a href="#"><i class="socicon socicon-google icon icon--xs"></i></a></li>
-                    <li><a href="#"><i class="socicon socicon-twitter icon icon--xs"></i></a></li>
-                    <li><a href="#"><i class="socicon socicon-facebook icon icon--xs"></i></a></li>
-                    <li><a href="#"><i class="socicon socicon-instagram icon icon--xs"></i></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
-</div>
-<div class="main-container"></div>
-<script src="{% static "MembershipApp/js/jquery-3.1.1.min.js" %}"></script>
-<script src="{% static "MembershipApp/js/parallax.js" %}"></script>
-<script src="{% static "MembershipApp/js/smooth-scroll.min.js" %}"></script>
-<script src="{% static "MembershipApp/js/scripts.js" %}"></script>
+{% include "MembershipApp/navbars/footer.html" %}
+</body>
 
 
 </html>

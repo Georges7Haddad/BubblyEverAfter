@@ -258,10 +258,11 @@ class Contact(models.Model):
     how_can_we_collaborate_and_get_to_know_you_better = models.TextField(max_length=16383)
 
 
-class bubblyevents(models.Model):
+class BubblyEvents(models.Model):
     # create new event form
     name = models.CharField(max_length=127)
     location = models.CharField(max_length=127)
-    schedule = models.CharField(max_length=127)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
     description = models.CharField(max_length=1023)
-    event_website = models.CharField(max_length=255)
+    facebook_link = models.CharField(max_length=255)

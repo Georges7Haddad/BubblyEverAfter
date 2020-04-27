@@ -1,7 +1,8 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 
 from MembershipApp.forms import ContactForm, CreateEvent
-from MembershipApp.models import bubblyevents
+from MembershipApp.models import BubblyEvents
 from MembershipApp.views import leadership_required
 
 
@@ -39,7 +40,7 @@ def contact(request):
 
 
 def display_events(request):
-    events = bubblyevents.objects.all()
+    events = BubblyEvents.objects.all()
     context = {
         "events": events
     }
@@ -58,6 +59,7 @@ def create_event(request):
             event_form.save()
             return redirect("/display_events")
         else:
+            messages.warning(request, "Please fill all fields appropriately ")
             return render(
                 request=request,
                 template_name="MembershipApp/createvent.html",
