@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_countries",
     "MembershipApp",
+    "invoices"
 ]
 
 MIDDLEWARE = [
@@ -106,3 +107,7 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT_DIR, "static")
 STATIC_URL = "/static/"
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')

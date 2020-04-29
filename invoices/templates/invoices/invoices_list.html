@@ -1,0 +1,43 @@
+{% extends "MembershipApp/base.html" %}
+{% load static %}
+{% block body %}
+    <meta charset="utf-8">
+    <title>InvoiceList</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+
+<table>
+    <thead>
+    <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Order ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Total</th>
+        <th scope="col">Action</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for invoice in invoices %}
+        <tr>
+            <td><strong class="item-date">{{ invoice.date }}</strong></td>
+            <td class="item-id">{{ invoice.id }}</td>
+            <td class="item-name">{{ invoice.title }}</td>
+            <td class="item-price">${{ invoice.rate }}</td>
+            <td class="item-quantity">{{ invoice.quantity }}</td>
+            <td class="item-total">${% widthratio invoice.quantity 1 invoice.rate %}</td>
+            <td><a href="{% url 'invoices:detail' int=invoice.id %}" class="view-invoice">View Invoice</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="5">Total Cost</td>
+        <td>${{ temp }}</td>
+    </tr>
+    </tfoot>
+</table>
+<a href="add" class="button button1">Add Invoice</a>
+{% endblock %}

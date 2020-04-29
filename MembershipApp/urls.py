@@ -2,6 +2,7 @@ from django.urls import path
 
 from . import views
 
+
 app_name = "MembershipApp"
 
 urlpatterns = [
@@ -11,3 +12,4 @@ urlpatterns = [
     path("leader/dashboard/", views.leader_dashboard),
     path("register/", views.register),
 ]
+
