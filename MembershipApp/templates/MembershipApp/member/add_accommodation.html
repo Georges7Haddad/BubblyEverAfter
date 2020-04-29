@@ -1,0 +1,10 @@
+{% extends "MembershipApp/base.html" %}
+{% block body %}
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            {{ accommodation_form }}
+            <button>Submit</button>
+        </form>
+    </div>
+{% endblock %}

@@ -6,6 +6,10 @@
                         class="icon icon--sm icon icon-Ticket color--primary"></i>
                     <h5><a href="/leader/tickets/">Manage Tickets</a></h5>
                     <p> Manage all members' tickets</p>
+                    <div class="progress-horizontal">
+                        <div class="progress-horizontal__bar" data-value={{ ticket_percentage }}></div>
+                        <span class="progress-horizontal__label h5">Secured: {{ ticket_number }}</span>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
@@ -13,27 +17,21 @@
                         class="icon icon--sm icon-Car-2 color--primary"> </i>
                     <h5><a href="/leader/vehicles/">Manage Vehicles</a></h5>
                     <p> Manage all members' vehicles </p>
+                    <div class="progress-horizontal">
+                        <div class="progress-horizontal__bar" data-value={{ vehicle_percentage }}></div>
+                        <span class="progress-horizontal__label h5">Secured: {{ vehicle_number }}</span>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="feature feature-3 boxed boxed--lg boxed--border box-shadow"><i
-                        class="icon icon--sm icon-Tent color--primary"></i>
-                    <h5><a href="/leader/accommodations/">Manage Accommodations</a></h5>
-                    <p> Manage all accommodations </p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="feature feature-3 boxed boxed--lg boxed--border box-shadow"><i
-                        class="icon icon--sm icon-Tent color--primary"></i>
-                    <h5><a href="/leader/membersaccommodations/">Manage Members' Accommodations</a></h5>
-                    <p> Manage accommodations by member </p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="feature feature-3 boxed boxed--lg boxed--border box-shadow"><i
-                        class="icon icon--sm icon-Letter-Open color--primary"></i>
+                        class="icon icon--sm icon-File-Fire color--primary"></i>
                     <h5><a href="/leader/burns/">Manage Burns</a></h5>
                     <p> Manage all members' burns </p>
+                    <div class="progress-horizontal">
+                        <div class="progress-horizontal__bar" data-value={{ burn_percentage }}></div>
+                        <span class="progress-horizontal__label h5">Burnt Members: {{ burn_number }}</span>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">

@@ -1,0 +1,14 @@
+{% extends "MembershipApp/base.html" %}
+{% block body %}
+    <div class="container">
+        {% for ticket in tickets %}
+            {{ ticket.member }}<br>
+            {{ ticket.secured }}<br>
+            {{ ticket.number }}<br>
+            {{ ticket.price }}<br>
+        {% endfor %}
+        <a class="btn btn--primary btn--icon" href="/ticket/insert/">
+            <span class="btn__text"><i class="icon icon--sm icon-Ticket "> </i>Add Ticket</span>
+        </a>
+    </div>
+{% endblock %}

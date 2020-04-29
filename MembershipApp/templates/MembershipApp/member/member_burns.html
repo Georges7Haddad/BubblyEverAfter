@@ -1,0 +1,16 @@
+{% extends "MembershipApp/base.html" %}
+{% block body %}
+    <div class="container">
+        {% for burn in burns %}
+            {{ burn.member }}<br>
+            {{ burn.year }}<br>
+            {{ burn.strike_deposit_paid }}<br>
+            {{ burn.strike_deposit }}<br>
+            {{ burn.camp_dues }}<br>
+            {{ burn.camp_dues_paid }}<br>
+        {% endfor %}
+        <a class="btn btn--primary btn--icon" href="/burn/insert/">
+            <span class="btn__text"><i class="icon icon--sm icon-File-Fire "> </i>Add Burn</span>
+        </a>
+    </div>
+{% endblock %}

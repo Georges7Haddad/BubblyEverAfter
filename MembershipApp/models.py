@@ -80,7 +80,7 @@ class Ticket(models.Model):
         ]
     ]
 
-    holder = models.ForeignKey(
+    member = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         **required,
@@ -101,10 +101,10 @@ class Ticket(models.Model):
         super(Ticket, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.holder}'s Ticket"
+        return f"{self.member}'s {self.number} Ticket"
 
     def __repr__(self):
-        return f"{self.holder}'s Ticket"
+        return f"{self.member}'s {self.number} Ticket"
 
 
 class VehiclePass(models.Model):
@@ -115,9 +115,9 @@ class VehiclePass(models.Model):
 
     TYPE_CHOICES = [
         (i, i)
-        for i in ["Small Car (hatchback)", "Mid Sized Car", "Van", "SUV", "PickUp Truck", "Small RV", "Large RV",]
+        for i in ["Small Car (hatchback)", "Mid Sized Car", "Van", "SUV", "PickUp Truck", "Small RV", "Large RV", ]
     ]
-    holder = models.ForeignKey(
+    member = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         **required,
@@ -136,16 +136,16 @@ class VehiclePass(models.Model):
     def save(self, *args, **kwargs):
         if self.secured:
             if not self.number:
-                raise ValidationError(f"Since you secured a ticket, please enter the ticket's number")
+                raise ValidationError(f"Since you secured a Vehicle Pass, please enter the vehicle pass' number")
             if not self.price:
-                raise ValidationError(f"Since you secured a ticket, please enter the ticket's price")
+                raise ValidationError(f"Since you secured a Vehicle Pass, please enter the vehicle pass' number")
         super(VehiclePass, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.holder}'s VehiclePass"
+        return f"{self.member}'s {self.number} VehiclePass"
 
     def __repr__(self):
-        return f"{self.holder}'s VehiclePass"
+        return f"{self.member}'s {self.number} VehiclePass"
 
 
 class Accommodation(models.Model):
@@ -212,9 +212,10 @@ class Burn(models.Model):
     departure_time = models.DateTimeField(**optional)
 
     TRANSPORTATION_CHOICES = [
-        (i, i) for i in ["Burner Air", "Burner Bus", "Carpool", "Own Transportation (will need vehicle pass)", "Other",]
+        (i, i) for i in
+        ["Burner Air", "Burner Bus", "Carpool", "Own Transportation (will need vehicle pass)", "Other", ]
     ]
-    type = models.CharField(max_length=127, choices=TRANSPORTATION_CHOICES, **required)
+    transportation = models.CharField(max_length=127, choices=TRANSPORTATION_CHOICES, **required)
 
     camp_dues = models.PositiveIntegerField(
         default=0, **required, help_text="Payment that each camping member should pay to join bubbly camp",
@@ -237,15 +238,15 @@ class Burn(models.Model):
     notes = models.TextField(**optional)
 
     def save(self, *args, **kwargs):
-        if self.type == "Own Transportation (will need vehicle pass)" and not self.vehicle_pass:
+        if self.transportation == "Own Transportation (will need vehicle pass)" and not self.vehicle_pass:
             raise ValidationError(f"Please fill in the details of your vehicle pass")
         super(Burn, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.member}'s Burn"
+        return f"{self.member}'s {self.year} Burn"
 
     def __repr__(self):
-        return f"{self.member}'s Burn"
+        return f"{self.member}'s {self.year} Burn"
 
 
 class BurnAccommodationRelation(models.Model):
@@ -253,7 +254,7 @@ class BurnAccommodationRelation(models.Model):
     accommodation = models.ForeignKey(Accommodation, on_delete=models.CASCADE, **required)
 
     def __str__(self):
-        return f"{self.burn.member} is staying in {self.accommodation} for {self.burn.year} {self.burn}"
+        return f"{self.burn.member} is staying in {self.accommodation} in {self.burn.year}"
 
     def __repr__(self):
-        return f"{self.burn.member} is staying in {self.accommodation} for {self.burn.year} {self.burn}"
+        return f"{self.burn.member} is staying in {self.accommodation} in {self.burn.year}"

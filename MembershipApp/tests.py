@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from .models import BubblyMember
+from .models import BubblyMember, Ticket, VehiclePass
 
 
 def member_and_leader_factory(self):
@@ -34,20 +34,36 @@ def member_and_leader_factory(self):
     return self.member, self.leader
 
 
+def ticket_vehicle_objects(self):
+    Ticket.objects.create(secured=True, status="DGS", number=7654321, member_id=1, price=700)
+    VehiclePass.objects.create(
+        secured=True,
+        needed=False,
+        ride_share=2,
+        member_id=1,
+        number=98627434,
+        make="Land Rover",
+        model=2006,
+        price=2400,
+        tow_hitch=False,
+    )
+
+
 class LoginTest(TestCase):
     def setUp(self):
         self.member, self.leader = member_and_leader_factory(self)
+        ticket_vehicle_objects(self)
         self.member_credentials = {"username": "member_username", "password": "testing"}
         self.leader_credentials = {"username": "leader_username", "password": "testing"}
 
     def test_member_login(self):
-        logged_in = self.client.post("/member/login/", self.member_credentials, follow=True)
+        logged_in = self.client.post("/login/", self.member_credentials, follow=True)
         self.assertRedirects(
-            response=logged_in, status_code=302, target_status_code=200, expected_url="/member/profile/"
+            response=logged_in, status_code=302, target_status_code=200, expected_url=f"/member/{self.member.username}/"
         )
 
     def test_leader_login(self):
-        logged_in = self.client.post("/member/login/", self.leader_credentials, follow=True)
+        logged_in = self.client.post("/login/", self.leader_credentials, follow=True)
         self.assertRedirects(
             response=logged_in, status_code=302, target_status_code=200, expected_url="/leader/dashboard/"
         )
@@ -56,13 +72,13 @@ class LoginTest(TestCase):
         """
         If the user tries to log in and is already logged in, he returns to his profile
         """
-        logged_in = self.client.post("/member/login/", self.member_credentials, follow=True)
+        logged_in = self.client.post("/login/", self.member_credentials, follow=True)
         self.assertRedirects(
-            response=logged_in, status_code=302, target_status_code=200, expected_url="/member/profile/"
+            response=logged_in, status_code=302, target_status_code=200, expected_url=f"/member/{self.member.username}/"
         )
-        response = self.client.get("/member/login/")
+        response = self.client.get("/login/")
         self.assertRedirects(
-            response=response, status_code=302, target_status_code=200, expected_url="/member/profile/"
+            response=response, status_code=302, target_status_code=200, expected_url=f"/member/{self.member.username}/"
         )
 
 
@@ -92,13 +108,13 @@ class LogoutTest(TestCase):
         Member cannot access his profile after logout
         """
         self.client.login(**self.member_credentials)
-        self.client.get("/member/logout/")
-        response = self.client.get("/member/profile/")
+        self.client.get("/logout/")
+        response = self.client.get(f"/member/{self.member.username}/")
         self.assertRedirects(
             response=response,
             status_code=302,
             target_status_code=200,
-            expected_url="/member/login/?next=%2Fmember%2Fprofile%2F",
+            expected_url=f"/login/?next=%2Fmember%2F{self.member.username}%2F",
         )
 
     def test_logout_leader(self):
@@ -106,20 +122,20 @@ class LogoutTest(TestCase):
         Leader cannot access his dashboard or his profile after logout
         """
         self.client.login(**self.leader_credentials)
-        self.client.get("/member/logout/")
+        self.client.get("/logout/")
         response = self.client.get("/leader/dashboard/")
         self.assertRedirects(
             response=response,
             status_code=302,
             target_status_code=200,
-            expected_url="/member/login/?next=%2Fleader%2Fdashboard%2F",
+            expected_url="/login/?next=%2Fleader%2Fdashboard%2F",
         )
-        response2 = self.client.get("/member/profile/")
+        response2 = self.client.get(f"/member/{self.leader.username}/")
         self.assertRedirects(
             response=response2,
             status_code=302,
             target_status_code=200,
-            expected_url="/member/login/?next=%2Fmember%2Fprofile%2F",
+            expected_url=f"/login/?next=%2Fmember%2F{self.leader.username}%2F",
         )
 
 
@@ -132,33 +148,33 @@ class LoginRequiredTest(TestCase):
         """
         If the user is not logged in, he cannot access a member or leader's page
         """
-        response = self.client.get("/member/profile/")
+        response = self.client.get("/member/georges/")
         self.assertRedirects(
             response=response,
             status_code=302,
             target_status_code=200,
-            expected_url="/member/login/?next=%2Fmember%2Fprofile%2F",
+            expected_url="/login/?next=%2Fmember%2Fgeorges%2F",
         )
         response = self.client.get("/leader/dashboard/")
         self.assertRedirects(
             response=response,
             status_code=302,
             target_status_code=200,
-            expected_url="/member/login/?next=%2Fleader%2Fdashboard%2F",
+            expected_url="/login/?next=%2Fleader%2Fdashboard%2F",
         )
 
     def test_member_permissions(self):
         """
         If the user is logged as a member, he cannot access a leader's page
         """
-        logged_in = self.client.post("/member/login/", self.member_credentials, follow=True)
+        logged_in = self.client.post("/login/", self.member_credentials, follow=True)
         self.assertRedirects(
-            response=logged_in, status_code=302, target_status_code=200, expected_url="/member/profile/"
+            response=logged_in, status_code=302, target_status_code=200, expected_url=f"/member/{self.member.username}/"
         )
         response = self.client.get("/leader/dashboard/")
         self.assertRedirects(
             response=response,
             status_code=302,
             target_status_code=302,
-            expected_url="/member/login/?next=%2Fleader%2Fdashboard%2F",
+            expected_url="/login/?next=%2Fleader%2Fdashboard%2F",
         )

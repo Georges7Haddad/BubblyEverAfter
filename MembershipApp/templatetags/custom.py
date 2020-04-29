@@ -7,5 +7,10 @@ def get_item(dictionary, key):
 
 
 @register.filter
+def get_element(array, index):
+    return array[index]
+
+
+@register.filter
 def get_attribute(obj, attr):
     return getattr(obj, attr)

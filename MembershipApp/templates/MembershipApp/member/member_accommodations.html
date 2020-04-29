@@ -1,0 +1,14 @@
+{% extends "MembershipApp/base.html" %}
+{% block body %}
+    <div class="container">
+        {% for accommodation in accommodations %}
+            {{ accommodation.name }}<br>
+            {{ accommodation.type }}<br>
+            {{ accommodation.is_full }}<br>
+            {{ accommodation.members.all }}<br>
+        {% endfor %}
+        <a class="btn btn--primary btn--icon" href="/accommodation/insert/">
+            <span class="btn__text"><i class="icon icon--sm icon-Tent "> </i>Add Accommodation</span>
+        </a>
+    </div>
+{% endblock %}

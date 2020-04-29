@@ -1,10 +1,4 @@
 {% extends 'MembershipApp/base.html' %}
 {% block body %}
-    <a class="btn btn--primary" href="/leader/membersaccommodations/">
-        <span class="btn__text"> Members' Accommodations </span>
-    </a>
-    <a class="btn btn--primary" style="float: right" href="/leader/burnsaccommodations/">
-        <span class="btn__text"> Burns' Accommodations </span>
-    </a>
-    {% include "MembershipApp/table.html" with data=burns fields=fields title="Burns" %}
+    {% include "MembershipApp/table.html" with data=burns title="Burns" %}
 {% endblock %}

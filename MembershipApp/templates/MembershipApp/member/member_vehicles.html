@@ -1,0 +1,15 @@
+{% extends "MembershipApp/base.html" %}
+{% block body %}
+    <div class="container">
+        {% for vehicle in vehicles %}
+            {{ vehicle.member }}<br>
+            {{ vehicle.price }}<br>
+            {{ vehicle.number }}<br>
+            {{ vehicle.secured }}<br>
+            {{ vehicle.make }}<br>
+        {% endfor %}
+        <a class="btn btn--primary btn--icon" href="/vehicle_pass/insert/">
+            <span class="btn__text"><i class="icon icon--sm icon-Car-2 "> </i>Add Vehicle Pass</span>
+        </a>
+    </div>
+{% endblock %}

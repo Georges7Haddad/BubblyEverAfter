@@ -1,0 +1,18 @@
+{% extends "MembershipApp/base.html" %}
+{% block body %}
+    <div class="container">
+        Username: {{ member.username }}<br>
+        Birthday: {{ member.birthday }}<br> Country: {{ member.country }} <br>City: {{ member.city }}<br> Phone
+        number:
+        {{ member.phone_number }}<br>
+        Gender Identity: {{ member.gender_identity }}<br> Ethnic Identity: {{ member.ethnic_identity }}<br>
+        Allergies:
+        {{ member.allergies }}<br>
+        Facebook:{{ member.facebook }} <br>Medical Issues: {{ member.medical_issues }}<br> Paypal Email:
+        {{ member.paypal_email }}<br>
+        Virgin Burner: {{ member.is_virgin_burner }} <br>Burning Man Email: {{ member.burning_man_profile_email }}
+        <br>
+        Playa Name: {{ member.playa_name }} <br>Years Attended: {{ member.years_attending_burning_man }}<br> Leader?
+        {{ member.is_leadership }}
+    </div>
+{% endblock %}
