@@ -15,11 +15,8 @@
         <div class="button-group">
             {% for category in categories %}
                 <a href="{% url 'inventory:display_category' category.id %}" class="btn btn-primary btn-md btn-trim" role="button" style="width: 300px; margin-left:2%" >{{category.name}}</a>
-                {% if category.items_type == "non_electrical_items" %}
-                    <a href="{% url 'inventory:add_item' category.id %}" class="btn btn-warning btn-sm btn-pad" role="button"  >Add</a><br><br>
-                {% else %}
-                    <a href="{% url 'inventory:add_electrical_item' category.id %}" class="btn btn-warning btn-sm btn-pad" role="button"  >Add</a><br><br>
-                {% endif %}
+                <a href="{% url 'inventory:add_item' category.id %}" class="btn  btn-sm " role="button"  >Add Item</a>
+                <a href="{% url 'inventory:add_electrical_item' category.id %}" class="btn  btn-sm " role="button"  >Add Electrical Item</a><br><br>
             {% endfor %}
         </div>
     </li>

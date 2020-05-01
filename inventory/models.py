@@ -26,11 +26,6 @@ class ElectricalItem(Item):
 
 class Category(models.Model):
     name = models.CharField(max_length=127)
-    items_type = models.CharField(
-        max_length=50,
-        choices=[("non_electrical_items", "Non Electrical Items"), ("electrical_items", "Electrical Items")],
-        default="non_electrical_items",
-    )
     items = models.ManyToManyField(Item, blank=True)
 
     def __str__(self):

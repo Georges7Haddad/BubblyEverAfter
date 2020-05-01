@@ -18,7 +18,7 @@ class AddItemForm(forms.ModelForm):
         ]
 
 
-class AddElectricalItemForm(forms.ModelForm):
+class AddElectricalItemForm(AddItemForm):
     class Meta:
         model = ElectricalItem
         fields = [
