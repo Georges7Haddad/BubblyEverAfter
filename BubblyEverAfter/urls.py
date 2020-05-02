@@ -19,10 +19,13 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
+app_name= 'BubblyEverAfter'
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("member/", include("MembershipApp.urls")),
-    path('invoices/', include('invoices.urls')),
+    path("member/profile/invoices/", include('invoices.urls', namespace="invoices")),
+
 ]
 urlpatterns+= staticfiles_urlpatterns()
 urlpatterns+= static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

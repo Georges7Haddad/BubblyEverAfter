@@ -2,7 +2,6 @@ table {
   border-collapse: separate;
   border-spacing: 0;
   color: #4a4a4d;
-  font: 14px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 th,
 td {
@@ -56,7 +55,7 @@ tfoot tr:last-child {
 }
 
 a.button {
-    background-color: #4CAF50; /* Green */
+    background-color: #56abff;
   border: none;
   color: white;
   padding: 16px 32px;
@@ -72,10 +71,10 @@ a.button {
 a.button1 {
   background-color: white;
   color: black;
-  border: 2px solid #4CAF50;
+  border: 2px solid #56abff;
 }
 
 a.button1:hover {
-  background-color: #4CAF50;
+  background-color: #56abff;
   color: white;
 }

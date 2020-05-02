@@ -1,26 +1,19 @@
 {% extends "MembershipApp/base.html" %}
 {% load static %}
-{% block header %}
+{% block body %}
 <html>
-
-	<head>
-		<meta charset="utf-8">
-		<title>Invoice</title>
 		<link rel="stylesheet" type="text/css" href="{% static 'css/style_details.css' %}">
-	</head>
-	<body>
-		<header>
 			<h1>Invoice</h1>
-			<address contenteditable>
-				<p>Jonathan Neal</p>
-				<p>101 E. Chapman Ave<br>Orange, CA 92866</p>
-				<p>(800) 555-1234</p>
-			</address>
-		</header>
+			<!--<address>
+				<br>
+				101 E. Chapman Ave
+                Orange, CA 92866
+				(800) 555-1234
+			</address>-->
 		<article>
 			<h1>Recipient</h1>
 			<address contenteditable>
-				<p>Bubble Ever After<br>Some Guy</p>
+				<p>Bubble Ever After<br>{{name}}</p>
 			</address>
 			<table class="meta">
 				<tr>
@@ -53,11 +46,7 @@
 						<td>{{invoice.rate}}</td>
 						<td>{{invoice.quantity}}</td>
 						<td>${% widthratio invoice.quantity 1 invoice.rate %}</td>
-
-
-
                             <td>
-
                         {% csrf_token %}
                                 <input id="id_image" type="file" class="inputfile" name="receipt">
                                 <label for="id_image">Choose a file</label>
@@ -83,7 +72,6 @@
 				</tr>
 			</table>-->
 		</article>
-	</body>
 
 <!--<form action="{% url 'invoices:receipt' int=invoice.id %}" method="post" enctype="multipart/form-data">
 
@@ -92,6 +80,5 @@
 
     <input type="submit" value="Submit" />
 </form>-->
-
 </html>
 {% endblock %}
