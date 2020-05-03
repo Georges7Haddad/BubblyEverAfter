@@ -7,19 +7,19 @@ from MembershipApp.views import leadership_required
 
 
 def index(request):
-    return render(request, 'MembershipApp/index.html')
+    return render(request, "MembershipApp/index.html")
 
 
 def burningman(request):
-    return render(request, 'MembershipApp/burningman.html')
+    return render(request, "MembershipApp/burningman.html")
 
 
 def legal(request):
-    return render(request, 'MembershipApp/community_ethos.html')
+    return render(request, "MembershipApp/community_ethos.html")
 
 
 def about(request):
-    return render(request, 'MembershipApp/about.html')
+    return render(request, "MembershipApp/about.html")
 
 
 def contact(request):
@@ -30,9 +30,7 @@ def contact(request):
             return redirect("/home")
         else:
             return render(
-                request=request,
-                template_name="MembershipApp/contact.html",
-                context={"contact_form": contact_form},
+                request=request, template_name="MembershipApp/contact.html", context={"contact_form": contact_form},
             )
 
     contact_form = ContactForm()
@@ -41,9 +39,7 @@ def contact(request):
 
 def display_events(request):
     events = BubblyEvents.objects.all()
-    context = {
-        "events": events
-    }
+    context = {"events": events}
     return render(request, "MembershipApp/display_events.html", context)
 
 
@@ -61,9 +57,7 @@ def create_event(request):
         else:
             messages.warning(request, "Please fill all fields appropriately ")
             return render(
-                request=request,
-                template_name="MembershipApp/createvent.html",
-                context={"CreateEvent": CreateEvent},
+                request=request, template_name="MembershipApp/createvent.html", context={"CreateEvent": CreateEvent},
             )
 
     event_form = CreateEvent()

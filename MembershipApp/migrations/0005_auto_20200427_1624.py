@@ -6,33 +6,27 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('MembershipApp', '0004_bubblyevents_event_website'),
+        ("MembershipApp", "0004_bubblyevents_event_website"),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='bubblyevents',
-            name='event_website',
-        ),
-        migrations.RemoveField(
-            model_name='bubblyevents',
-            name='schedule',
-        ),
+        migrations.RemoveField(model_name="bubblyevents", name="event_website",),
+        migrations.RemoveField(model_name="bubblyevents", name="schedule",),
         migrations.AddField(
-            model_name='bubblyevents',
-            name='end_date',
+            model_name="bubblyevents",
+            name="end_date",
             field=models.DateTimeField(default=django.utils.timezone.now),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='bubblyevents',
-            name='facebook_link',
+            model_name="bubblyevents",
+            name="facebook_link",
             field=models.CharField(default=django.utils.timezone.now, max_length=255),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='bubblyevents',
-            name='start_date',
+            model_name="bubblyevents",
+            name="start_date",
             field=models.DateTimeField(default=django.utils.timezone.now),
             preserve_default=False,
         ),

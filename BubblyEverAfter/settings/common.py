@@ -25,7 +25,6 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "dev_secret_key")
 # Application definition
 
 INSTALLED_APPS = [
-
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -35,7 +34,7 @@ INSTALLED_APPS = [
     "django_countries",
     "MembershipApp",
     "inventory",
-    "StaticWebsite"
+    "StaticWebsite",
 ]
 
 MIDDLEWARE = [
