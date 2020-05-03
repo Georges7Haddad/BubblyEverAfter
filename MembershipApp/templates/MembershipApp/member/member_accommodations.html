@@ -1,14 +1,23 @@
-{% extends "MembershipApp/base.html" %}
-{% block body %}
-    <div class="container">
-        {% for accommodation in accommodations %}
-            {{ accommodation.name }}<br>
-            {{ accommodation.type }}<br>
-            {{ accommodation.is_full }}<br>
-            {{ accommodation.members.all }}<br>
-        {% endfor %}
-        <a class="btn btn--primary btn--icon" href="/accommodation/insert/">
-            <span class="btn__text"><i class="icon icon--sm icon-Tent "> </i>Add Accommodation</span>
-        </a>
-    </div>
+{% extends "MembershipApp/member/items.html" %}
+{% block Title %} Your Accommodations {% endblock %}
+{% block AddTitle %} Add Accommodation {% endblock %}
+{% block form %} {{ accommodation_form }} {% endblock %}
+{% block items %}
+    {% for accommodation in accommodations %}
+        <div class="col-md-4">
+            <div class="feature feature-1 boxed boxed--border bg--white">
+                <h4>Name: {{ accommodation.name }}</h4>
+                <p><strong>Type:</strong> {{ accommodation.type }}<br>
+                    <strong>Full:</strong> {{ accommodation.is_full }}<br>
+                    <strong>Members:</strong>
+                    {% for member in accommodation.members.all %}
+                        {{ member }}/{% endfor %}<br>
+                </p>
+                {% if user.username == username %}
+                    <button type="button" class="btn btn-light type--uppercase"><a
+                            href="/accommodation/{{ accommodation.id }}/edit/">Edit</a></button>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

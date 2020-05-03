@@ -9,3 +9,14 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", },
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", },
 ]
+DATABASES = {
+    "default": {
+        "ENGINE": "postgresql.postgresql.svc.cluster.local",
+        "NAME": "BubblyEverAfter",
+        "USER": "postgres",
+        "PASSWORD": "fNO4Vpy2pc",
+        "HOST": "bea.kebbeblaban.com",
+        "PORT": "5432",
+        "OPTIONS": {"connect_timeout": 60, },
+    }
+}

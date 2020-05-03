@@ -5,30 +5,25 @@
     <link href="{% static "MembershipApp/css/search-bar.css" %}" rel="stylesheet"/>
 {% endblock %}
 {% block body %}
-    <div class="imagebg" data-scrim-bottom="5" style="margin-top: 100px">
-        <div class="background-image-holder">
-            <img alt="background" src="{% static "MembershipApp/img/dashboard.jpg" %}"/>
-        </div>
-        <div class="s130" style="margin-bottom: -505px; margin-top: -45px">
-            <form method="POST">
-                {% csrf_token %}
-                <div class="inner-form">
-                    <div class="input-field first-wrap" style="background-color: #b8daff">
-                        <div class="svg-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
-                            </svg>
-                        </div>
-                        {{ member_search_form }}
-                        <div class="input-field second-wrap">
-                            <button class="btn-search" style="background-color: #3e7cc2">SEARCH</button>
-                        </div>
+    <div class="s130" style="margin-bottom: -505px; margin-top: -45px">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="inner-form">
+                <div class="input-field first-wrap" style="background-color: #b8daff">
+                    <div class="svg-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                        </svg>
+                    </div>
+                    {{ member_search_form }}
+                    <div class="input-field second-wrap">
+                        <button class="btn-search" style="background-color: #3e7cc2">SEARCH</button>
                     </div>
                 </div>
-            </form>
-        </div>
-        {% include "MembershipApp/leader/boxes.html" with ticket_percentage=tickets_percentage ticket_number=tickets_number vehicle_percentage=vehicles_percentage vehicle_number=vehicles_number burn_percentage=burn_percentage burn_number=burn_number %}
+            </div>
+        </form>
     </div>
+    {% include "MembershipApp/leader/boxes.html" with ticket_percentage=tickets_percentage ticket_number=tickets_number vehicle_percentage=vehicles_percentage vehicle_number=vehicles_number burn_percentage=burn_percentage burn_number=burn_number %}
     <div class="container">
         <div class="row">
             <div class="col-md-12">

@@ -1,0 +1,44 @@
+{% extends "MembershipApp/base.html" %}
+{% load static %}
+{% block body %}
+    <section class="text-center imagebg" data-overlay="4" style="margin-top: 100px">
+        <div class="background-image-holder"><img alt="background"
+                                                  src="{% static "MembershipApp/img/profile_background.jpg" %}"></div>
+        <div class="container" style="margin-bottom: 90px;">
+            <div class="row">
+                <div class="col-md-10 col-lg-8">
+                    <h1 style="margin-top: -40px">{% block Title %}{% endblock %}</h1>
+                    <p class="lead" style="margin-top: -40px"> #StayBubbly </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="modal-instance">
+                {% if user.username == username %}
+                    <a class="btn btn--primary type--uppercase modal-trigger">
+                    <span class="btn__text btn--icon"><i class="icon-Ticket"></i>
+                        {% block AddTitle %}
+                        {% endblock %}
+                    </span>
+                    </a>
+                {% endif %}
+                <div class="modal-container">
+                    <div class="modal-content">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {% block form %}
+                            {% endblock %}
+                            <button type="submit" class="btn btn--primary type--uppercase"> Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div><!--end of modal instance-->
+            <div class="row">
+                {% block items %}
+                {% endblock %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

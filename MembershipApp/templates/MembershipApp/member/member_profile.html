@@ -1,18 +1,136 @@
 {% extends "MembershipApp/base.html" %}
+{% load static %}
 {% block body %}
-    <div class="container">
-        Username: {{ member.username }}<br>
-        Birthday: {{ member.birthday }}<br> Country: {{ member.country }} <br>City: {{ member.city }}<br> Phone
-        number:
-        {{ member.phone_number }}<br>
-        Gender Identity: {{ member.gender_identity }}<br> Ethnic Identity: {{ member.ethnic_identity }}<br>
-        Allergies:
-        {{ member.allergies }}<br>
-        Facebook:{{ member.facebook }} <br>Medical Issues: {{ member.medical_issues }}<br> Paypal Email:
-        {{ member.paypal_email }}<br>
-        Virgin Burner: {{ member.is_virgin_burner }} <br>Burning Man Email: {{ member.burning_man_profile_email }}
-        <br>
-        Playa Name: {{ member.playa_name }} <br>Years Attended: {{ member.years_attending_burning_man }}<br> Leader?
-        {{ member.is_leadership }}
-    </div>
+
+    <section class="text-center imagebg" data-overlay="4" style="margin-top: 100px">
+        <div class="background-image-holder"><img alt="background"
+                                                  src="{% static "MembershipApp/img/profile_background.jpg" %}"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8">
+                    <h1>Your info</h1>
+                    <p class="lead"> #StayBubbly </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="boxed boxed--lg boxed--border">
+                    <div class="text-block text-center">
+                        {% if member.photo.url != null %}
+                            <img alt="Profile Picture" src="{{ MEDIA_URL }}{{ member.photo.url }}" class="image--sm"/>
+                        {% else %}
+                            <img alt="Profile Picture" src="{% static "MembershipApp/img/empty_profile.png" %}">
+                        {% endif %}
+                        <span class="h5">{{ member.first_name }} {{ member.last_name }}</span>
+                        {% if member.is_leadership %}
+                            <span class="label">Leader</span>
+                        {% endif %}
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="boxed boxed--lg boxed--border">
+                    <div id="account-profile" class="account-tab">
+                        <h4>Profile</h4>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>First Name:</label>
+                                    {{ bubbly_form.first_name }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Last Name:</label>
+                                    {{ bubbly_form.last_name }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Username:</label>
+                                    {{ bubbly_form.username }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Birthday:</label>
+                                    {{ bubbly_form.birthday }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Gender Identity:</label>
+                                    {{ bubbly_form.gender_identity }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Ethnic Identity:</label>
+                                    {{ bubbly_form.ethnic_identity }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Country:</label>
+                                    {{ bubbly_form.country }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label>City:</label>
+                                    {{ bubbly_form.city }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Phone number:</label>
+                                    {{ bubbly_form.phone_number }}
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Facebook:</label>
+                                    {{ bubbly_form.facebook }}
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Paypal email:</label>
+                                    {{ bubbly_form.paypal_email }}
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Playa name:</label>
+                                    {{ bubbly_form.playa_name }}
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Burning Man profile:</label>
+                                    {{ bubbly_form.burning_man_profile_email }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Virgin burner:</label>
+                                    {{ bubbly_form.is_virgin_burner }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Year attending Burning Man:</label>
+                                    {{ bubbly_form.years_attending_burning_man }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Referring number:</label>
+                                    {{ bubbly_form.referring_member }}
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Allergies:</label>
+                                    {{ bubbly_form.allergies }}
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Medical Issues:</label>
+                                    {{ bubbly_form.medical_issues }}
+                                </div>
+                                <div class="col-md-12">
+                                    <label> Password:</label>
+                                    {{ bubbly_form.password1 }}
+                                </div>
+                                <div class="col-md-12">
+                                    <label> Password:</label>
+                                    {{ bubbly_form.password2 }}
+                                </div>
+                                {% if user.username == member.username %}
+                                    <div class="col-lg-3 col-md-4">
+                                        <button type="submit" class="btn btn--primary type--uppercase">Save Profile
+                                        </button>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
+

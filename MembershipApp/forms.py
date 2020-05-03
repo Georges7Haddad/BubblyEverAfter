@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import ModelForm
+from django.forms import ModelForm, widgets
 
 from MembershipApp.models import Ticket, VehiclePass, Accommodation, Burn
 
@@ -71,7 +71,13 @@ class TicketForm(ModelForm):
         ]
 
 
+class CustomCheckboxWidget(widgets.CheckboxInput):
+    template_name = "MembershipApp/checkbox.html"
+
+
 class VehiclePassForm(ModelForm):
+    tow_hitch = forms.BooleanField(widget=CustomCheckboxWidget)
+
     class Meta:
         model = VehiclePass
         fields = [
@@ -82,7 +88,6 @@ class VehiclePassForm(ModelForm):
             "number",
             "make",
             "model",
-            "tow_hitch",
             "price",
         ]
 

@@ -1,14 +1,20 @@
-{% extends "MembershipApp/base.html" %}
-{% block body %}
-    <div class="container">
-        {% for ticket in tickets %}
-            {{ ticket.member }}<br>
-            {{ ticket.secured }}<br>
-            {{ ticket.number }}<br>
-            {{ ticket.price }}<br>
-        {% endfor %}
-        <a class="btn btn--primary btn--icon" href="/ticket/insert/">
-            <span class="btn__text"><i class="icon icon--sm icon-Ticket "> </i>Add Ticket</span>
-        </a>
-    </div>
+{% extends "MembershipApp/member/items.html" %}
+{% block Title %} Your Tickets {% endblock %}
+{% block AddTitle %} Add Ticket {% endblock %}
+{% block form %} {{ ticket_form }} {% endblock %}
+{% block items %}
+    {% for ticket in tickets %}
+        <div class="col-md-4">
+            <div class="feature feature-1 boxed boxed--border bg--white">
+                <h4>Ticket number {{ ticket.number }}</h4>
+                <p><strong>Status:</strong> {{ ticket.status }}<br>
+                    <strong>Secured:</strong> {{ ticket.secured }}<br>
+                    <strong>Price:</strong> {{ ticket.price }} $<br></p>
+                {% if user.username == username %}
+                    <button type="button" class="btn btn-light type--uppercase"><a
+                            href="/ticket/{{ ticket.id }}/edit/">Edit</a></button>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

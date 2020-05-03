@@ -9,7 +9,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Sum
 from django.http import HttpResponseNotFound, HttpResponseBadRequest
-from django.shortcuts import render, redirect, get_list_or_404
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 
 from .forms import (
     BubblyMemberForm,
@@ -21,7 +21,8 @@ from .forms import (
     VehiclePassForm,
     AccommodationForm,
 )
-from .models import Ticket, VehiclePass, BubblyMember, Burn, BurnAccommodationRelation, Accommodation
+from .models import Ticket, VehiclePass, BubblyMember, Burn, BurnAccommodationRelation, Accommodation, \
+    UserAccommodationRelation
 
 logger = logging.getLogger(__name__)
 
@@ -134,21 +135,61 @@ def register(request):
             for msg in bubbly_form.error_messages:
                 logger.warning(bubbly_form.error_messages[msg])
                 messages.warning(request, bubbly_form.error_messages[msg])
-                return render(
-                    request=request,
-                    template_name="MembershipApp/member_register.html",
-                    context={"bubbly_form": bubbly_form},
-                )
-
-    bubbly_form = BubblyMemberForm()
-    return render(request, "MembershipApp/member_register.html", context={"bubbly_form": bubbly_form})
+            return render(
+                request=request,
+                template_name="MembershipApp/member_register.html",
+                context={"bubbly_form": bubbly_form},
+            )
+    else:
+        bubbly_form = BubblyMemberForm()
+        return render(request, "MembershipApp/member_register.html", context={"bubbly_form": bubbly_form})
 
 
 @login_required(login_url="/login/")
 def member_profile(request, username):
     try:
-        member = BubblyMember.objects.get(username=username)
-        return render(request, "MembershipApp/member/member_profile.html", {"member": member})
+        member = get_object_or_404(BubblyMember, username=username)
+        if request.method == "POST":
+            bubbly_form = BubblyMemberForm(data=request.POST, instance=member)
+            if bubbly_form.is_valid():
+                bubbly_form.save(commit=False)
+                member.save()
+                return redirect(f"/member/{username}/")
+            else:
+                for msg in bubbly_form.error_messages:
+                    logger.warning(bubbly_form.error_messages[msg])
+                    messages.warning(request, bubbly_form.error_messages[msg])
+                return render(
+                    request=request,
+                    template_name="MembershipApp/member/member_profile.html",
+                    context={"bubbly_form": bubbly_form},
+                )
+        else:
+            bubbly_form = BubblyMemberForm(
+                initial={
+                    "username": member.username,
+                    "birthday": member.birthday,
+                    "gender_identity": member.gender_identity,
+                    "ethnic_identity": member.ethnic_identity,
+                    "country": member.country,
+                    "city": member.city,
+                    "phone_number": member.phone_number,
+                    "facebook": member.facebook,
+                    "paypal_email": member.paypal_email,
+                    "playa_name": member.playa_name,
+                    "burning_man_profile_email": member.burning_man_profile_email,
+                    "is_virgin_burner": member.is_virgin_burner,
+                    "years_attending_burning_man": member.years_attending_burning_man,
+                    "referring_member": member.referring_member,
+                    "allergies": member.allergies,
+                    "medical_issues": member.medical_issues,
+                    "first_name": member.first_name,
+                    "last_name": member.last_name,
+                }
+            )
+            return render(
+                request, "MembershipApp/member/member_profile.html", {"member": member, "bubbly_form": bubbly_form}
+            )
     except ObjectDoesNotExist as err:
         logger.warning(f"Did not find user {username}")
         return HttpResponseNotFound(f"Did not find user {username}")
@@ -330,7 +371,18 @@ def tickets_view(request, username):
     try:
         member = BubblyMember.objects.get(username=username)
         tickets = Ticket.objects.filter(member=member)
-        return render(request, "MembershipApp/member/member_tickets.html", {"tickets": tickets})
+        if request.method == "POST":
+            ticket_form = TicketForm(request.POST)
+            if ticket_form.is_valid():
+                ticket_form.save()
+                return redirect(f"/member/{request.user}/tickets")
+            else:
+                logger.warning("Invalid Form")
+                messages.warning(request, "Invalid Form")
+        else:
+            ticket_form = TicketForm()
+            return render(request, "MembershipApp/member/member_tickets.html",
+                          {"ticket_form": ticket_form, "tickets": tickets, "username": username})
     except ObjectDoesNotExist as err:
         logger.warning(f"Did not find user {username}")
         return HttpResponseNotFound(f"Did not find user {username}")
@@ -341,7 +393,18 @@ def vehicles_view(request, username):
     try:
         member = BubblyMember.objects.get(username=username)
         vehicles = VehiclePass.objects.filter(member=member)
-        return render(request, "MembershipApp/member/member_vehicles.html", {"vehicles": vehicles})
+        if request.method == "POST":
+            vehicle_form = VehiclePassForm(request.POST)
+            if vehicle_form.is_valid():
+                vehicle_form.save()
+                return redirect(f"/member/{request.user}/vehicles")
+            else:
+                logger.warning("Invalid Form")
+                messages.warning(request, "Invalid Form")
+        else:
+            vehicle_form = VehiclePassForm()
+            return render(request, "MembershipApp/member/member_vehicles.html",
+                          {"vehicle_form": vehicle_form, "vehicles": vehicles, "username": username})
     except ObjectDoesNotExist as err:
         logger.warning(f"Did not find user {username}")
         return HttpResponseNotFound(f"Did not find user {username}")
@@ -352,7 +415,22 @@ def accommodations_view(request, username):
     try:
         member = BubblyMember.objects.get(username=username)
         accommodations = Accommodation.objects.filter(members=member)
-        return render(request, "MembershipApp/member/member_accommodations.html", {"accommodations": accommodations})
+        if request.method == "POST":
+            accommodation_form = AccommodationForm(request.POST)
+            if accommodation_form.is_valid():
+                accommodation_form.save()
+                accom = Accommodation.objects.get(name=accommodation_form.cleaned_data["name"])
+                UserAccommodationRelation.objects.create(accommodation=accom, member=member)
+                return redirect(f"/member/{request.user}/accommodations")
+            else:
+                logger.warning("Invalid Form")
+                messages.warning(request, "Invalid Form")
+        else:
+            accommodation_form = AccommodationForm()
+            return render(
+                request, "MembershipApp/member/member_accommodations.html",
+                {"accommodation_form": accommodation_form, "accommodations": accommodations, "username": username}
+            )
     except ObjectDoesNotExist as err:
         logger.warning(f"Did not find user {username}")
         return HttpResponseNotFound(f"Did not find user {username}")
@@ -363,48 +441,65 @@ def burns_view(request, username):
     try:
         member = BubblyMember.objects.get(username=username)
         burns = Burn.objects.filter(member=member)
-        return render(request, "MembershipApp/member/member_burns.html", {"burns": burns})
+        if request.method == "POST":
+            burn_form = BurnForm(request.POST)
+            if burn_form.is_valid():
+                burn_form.save()
+                return redirect(f"/member/{request.user}/burns")
+            else:
+                logger.warning("Invalid Form")
+                messages.warning(request, "Invalid Form")
+        else:
+            burn_form = BurnForm()
+            return render(request, "MembershipApp/member/member_burns.html",
+                          {"burn_form": burn_form, "burns": burns, "username": username})
     except ObjectDoesNotExist as err:
         logger.warning(f"Did not find user {username}")
         return HttpResponseNotFound(f"Did not find user {username}")
 
 
 @login_required(login_url="/login/")
-def add_ticket(request):
+def edit_ticket(request, pk):
     if request.method == "POST":
-        ticket_form = TicketForm(request.POST)
+        ticket = get_object_or_404(Ticket, id=pk)
+        ticket_form = TicketForm(request.POST, instance=ticket)
         if ticket_form.is_valid():
-            ticket_form.save()
+            ticket_form.save(commit=False)
+            ticket.save()
             return redirect(f"/member/{request.user}/tickets")
         else:
             logger.warning("Invalid Form")
             messages.warning(request, "Invalid Form")
     else:
         ticket_form = TicketForm()
-        return render(request, "MembershipApp/member/add_ticket.html", {"ticket_form": ticket_form})
+        return render(request, "MembershipApp/member/edit_ticket.html", {"ticket_form": ticket_form})
 
 
 @login_required(login_url="/login/")
-def add_vehicle(request):
+def edit_vehicle(request, pk):
     if request.method == "POST":
-        vehicle_form = VehiclePassForm(request.POST)
+        vehicle = get_object_or_404(VehiclePass, id=pk)
+        vehicle_form = VehiclePassForm(request.POST, instance=vehicle)
         if vehicle_form.is_valid():
-            vehicle_form.save()
+            vehicle_form.save(commit=False)
+            vehicle.save()
             return redirect(f"/member/{request.user}/vehicles")
         else:
             logger.warning("Invalid Form")
             messages.warning(request, "Invalid Form")
     else:
         vehicle_form = VehiclePassForm()
-        return render(request, "MembershipApp/member/add_vehicle.html", {"vehicle_form": vehicle_form})
+        return render(request, "MembershipApp/member/edit_vehicle.html", {"vehicle_form": vehicle_form})
 
 
 @login_required(login_url="/login/")
-def add_accommodation(request):
+def edit_accommodation(request, pk):
     if request.method == "POST":
-        accommodation_form = AccommodationForm(request.POST)
+        accommodation = get_object_or_404(Accommodation, id=pk)
+        accommodation_form = AccommodationForm(request.POST, instance=accommodation)
         if accommodation_form.is_valid():
-            accommodation_form.save()
+            accommodation_form.save(commit=False)
+            accommodation.save()
             return redirect(f"/member/{request.user}/accommodations")
         else:
             logger.warning("Invalid Form")
@@ -412,20 +507,22 @@ def add_accommodation(request):
     else:
         accommodation_form = AccommodationForm()
         return render(
-            request, "MembershipApp/member/add_accommodation.html", {"accommodation_form": accommodation_form}
+            request, "MembershipApp/member/edit_accommodation.html", {"accommodation_form": accommodation_form}
         )
 
 
 @login_required(login_url="/login/")
-def add_burn(request):
+def edit_burn(request, pk):
     if request.method == "POST":
-        burn_form = BurnForm(request.POST)
+        burn = get_object_or_404(Burn, id=pk)
+        burn_form = BurnForm(request.POST, instance=burn)
         if burn_form.is_valid():
-            burn_form.save()
+            burn_form.save(commit=False)
+            burn.save()
             return redirect(f"/member/{request.user}/burns")
         else:
             logger.warning("Invalid Form")
             messages.warning(request, "Invalid Form")
     else:
         burn_form = BurnForm()
-        return render(request, "MembershipApp/member/add_burn.html", {"burn_form": burn_form})
+        return render(request, "MembershipApp/member/edit_burn.html", {"burn_form": burn_form})
