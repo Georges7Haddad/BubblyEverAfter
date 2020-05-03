@@ -5,20 +5,20 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('MembershipApp', '0001_initial'),
+        ("MembershipApp", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Contact',
+            name="Contact",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=127)),
-                ('socialmedia', models.URLField(max_length=1023)),
-                ('email', models.BooleanField(default=False)),
-                ('playa_name', models.CharField(blank=True, default=None, max_length=127, null=True)),
-                ('adjectives', models.TextField(max_length=1023)),
-                ('collab', models.TextField(max_length=16383)),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("name", models.CharField(max_length=127)),
+                ("socialmedia", models.URLField(max_length=1023)),
+                ("email", models.BooleanField(default=False)),
+                ("playa_name", models.CharField(blank=True, default=None, max_length=127, null=True)),
+                ("adjectives", models.TextField(max_length=1023)),
+                ("collab", models.TextField(max_length=16383)),
             ],
         ),
     ]

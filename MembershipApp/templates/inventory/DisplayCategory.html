@@ -1,0 +1,68 @@
+{% extends "MembershipApp/base.html" %}
+
+{% block header %}
+    <title>{{name}}</title>
+{% endblock %}
+
+{% block body %}
+    <!DOCTYPE html>
+    <html>
+
+    <h3 style="margin-left:1%">{{ header }}</h3>
+
+
+    <a href="{% url 'inventory:add_item' category.id %}" class="btn btn-sm btn-pad" role="button" style="margin-left: 1%" >Add Item</a>
+    <a href="{% url 'inventory:add_electrical_item' category.id %}" class="btn btn-sm btn-pad" role="button"  style="margin-left: 1%" >Add Electrical Item</a><br><br>
+
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search.." style="margin-left: 1%;max-width: 357px"><br><br>
+
+    <table class="table table-responsive table-hover" id = "myTable">
+        <thead>
+        <tr>
+            <th>Member</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Width (m)</th>
+            <th>Height (m)</th>
+            <th>Length (m)</th>
+            <th>Quantity</th>
+            <th>Unit Price ($)</th>
+            <th>Picture</th>
+            <th>Voltage</th>
+            <th>Wattage</th>
+            <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td>{{ item.member }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.width }}</td>
+                <td>{{ item.height }}</td>
+                <td>{{ item.length }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.unit_price }}</td>
+                {% if item.picture %}
+                    <td><a href="{{ item.picture.url }}" title="click here to see the full sized image"><img src="{{ item.picture.url }}" style="width:50px;height:50px;" ></a></td>
+                                      {% else %}
+                    <td><i> no pic </i></td>
+                {% endif %}
+                <td>{{ item.electricalitem.voltage }}</td>
+                <td>{{ item.electricalitem.wattage }}</td>
+                <td>
+                    <a href="{% url 'inventory:edit_item' item.pk %}" class=" btn-sm "  role="button" aria-pressed="true" >Edit</a>
+                    <a href="{% url 'inventory:delete_item' item.pk %}" class=" btn-sm" role="button" aria-pressed="true" >Delete</a>
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+    </html>
+<script src="/static/MembershipApp/js/SearchTable.js"></script>
+
+{% endblock %}
