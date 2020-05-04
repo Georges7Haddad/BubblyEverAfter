@@ -17,6 +17,7 @@
         <th scope="col">Total</th>
         <th scope="col">Action</th>
         <th scope="col">Status</th>
+        <th scope="col">Member</th>
 
     </tr>
     </thead>
@@ -31,6 +32,8 @@
             <td class="item-total">${% widthratio invoice.quantity 1 invoice.price %}</td>
             <td><a href="{% url 'invoices:detail' int=invoice.id %}" class="view-invoice">View Invoice</a></td>
             <td class="item-status">{{ invoice.status }}</td>
+            <td class="item-status">{{ invoice.user}}</td>
+
         </tr>
     {% endfor %}
     </tbody>
@@ -41,6 +44,5 @@
     </tr>
     </tfoot>
 </table>
-<a href="add" class="button button1">Add Invoice</a>
-<a href="export" class="button button1">Export Balance Sheet in Excel Format</a>
+<a href="add" class="button button1">Send Invoice</a>
 {% endblock %}

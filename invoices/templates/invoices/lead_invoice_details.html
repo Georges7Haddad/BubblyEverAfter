@@ -46,16 +46,10 @@
                         <td>{{invoice.quantity}}</td>
 						<td>${{invoice.price}}</td>
 						<td>${% widthratio invoice.quantity 1 invoice.price %}</td>
-                            <td>
-                        {% csrf_token %}
-                                <input id="id_image" type="file" class="inputfile" name="receipt">
-                                <label for="id_image">Choose a file</label>
-                            </td>
+                        <td><a href="{{invoice.receipt.url}}">View Receipt</a> </td>
 					</tr>
 				</tbody>
 			</table>
-            <input type="submit" class="sub" value="Submit"/>
-</form>
 			<!--<a class="add">+</a>
 			<table class="balance">
 				<tr>
@@ -71,7 +65,7 @@
 					<td><span data-prefix>$</span><span>600.00</span></td>
 				</tr>
 			</table>-->
-		</article>
+
 
 <!--<form action="{% url 'invoices:receipt' int=invoice.id %}" method="post" enctype="multipart/form-data">
 
