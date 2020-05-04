@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     "django.forms",
     "django_countries",
     "MembershipApp",
+    "inventory",
+    "StaticWebsite",
 ]
 
 MIDDLEWARE = [
@@ -105,8 +107,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT_DIR, "static")
-STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(PROJECT_ROOT_DIR, "static_website")
+STATIC_URL = "/static_website/"
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT_DIR, "media")
 MEDIA_URL = "/media/"

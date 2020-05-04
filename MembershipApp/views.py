@@ -165,28 +165,7 @@ def member_profile(request, username):
                     context={"bubbly_form": bubbly_form},
                 )
         else:
-            bubbly_form = BubblyMemberForm(
-                initial={
-                    "username": member.username,
-                    "birthday": member.birthday,
-                    "gender_identity": member.gender_identity,
-                    "ethnic_identity": member.ethnic_identity,
-                    "country": member.country,
-                    "city": member.city,
-                    "phone_number": member.phone_number,
-                    "facebook": member.facebook,
-                    "paypal_email": member.paypal_email,
-                    "playa_name": member.playa_name,
-                    "burning_man_profile_email": member.burning_man_profile_email,
-                    "is_virgin_burner": member.is_virgin_burner,
-                    "years_attending_burning_man": member.years_attending_burning_man,
-                    "referring_member": member.referring_member,
-                    "allergies": member.allergies,
-                    "medical_issues": member.medical_issues,
-                    "first_name": member.first_name,
-                    "last_name": member.last_name,
-                }
-            )
+            bubbly_form = BubblyMemberForm(instance=member)
             return render(
                 request, "MembershipApp/member/member_profile.html", {"member": member, "bubbly_form": bubbly_form}
             )
@@ -460,8 +439,8 @@ def burns_view(request, username):
 
 @login_required(login_url="/login/")
 def edit_ticket(request, pk):
+    ticket = get_object_or_404(Ticket, id=pk)
     if request.method == "POST":
-        ticket = get_object_or_404(Ticket, id=pk)
         ticket_form = TicketForm(request.POST, instance=ticket)
         if ticket_form.is_valid():
             ticket_form.save(commit=False)
@@ -471,14 +450,14 @@ def edit_ticket(request, pk):
             logger.warning("Invalid Form")
             messages.warning(request, "Invalid Form")
     else:
-        ticket_form = TicketForm()
+        ticket_form = TicketForm(instance=ticket)
         return render(request, "MembershipApp/member/edit_ticket.html", {"ticket_form": ticket_form})
 
 
 @login_required(login_url="/login/")
 def edit_vehicle(request, pk):
+    vehicle = get_object_or_404(VehiclePass, id=pk)
     if request.method == "POST":
-        vehicle = get_object_or_404(VehiclePass, id=pk)
         vehicle_form = VehiclePassForm(request.POST, instance=vehicle)
         if vehicle_form.is_valid():
             vehicle_form.save(commit=False)
@@ -488,14 +467,14 @@ def edit_vehicle(request, pk):
             logger.warning("Invalid Form")
             messages.warning(request, "Invalid Form")
     else:
-        vehicle_form = VehiclePassForm()
+        vehicle_form = VehiclePassForm(instance=vehicle)
         return render(request, "MembershipApp/member/edit_vehicle.html", {"vehicle_form": vehicle_form})
 
 
 @login_required(login_url="/login/")
 def edit_accommodation(request, pk):
+    accommodation = get_object_or_404(Accommodation, id=pk)
     if request.method == "POST":
-        accommodation = get_object_or_404(Accommodation, id=pk)
         accommodation_form = AccommodationForm(request.POST, instance=accommodation)
         if accommodation_form.is_valid():
             accommodation_form.save(commit=False)
@@ -505,7 +484,7 @@ def edit_accommodation(request, pk):
             logger.warning("Invalid Form")
             messages.warning(request, "Invalid Form")
     else:
-        accommodation_form = AccommodationForm()
+        accommodation_form = AccommodationForm(instance=accommodation)
         return render(
             request, "MembershipApp/member/edit_accommodation.html", {"accommodation_form": accommodation_form}
         )
@@ -513,8 +492,8 @@ def edit_accommodation(request, pk):
 
 @login_required(login_url="/login/")
 def edit_burn(request, pk):
+    burn = get_object_or_404(Burn, id=pk)
     if request.method == "POST":
-        burn = get_object_or_404(Burn, id=pk)
         burn_form = BurnForm(request.POST, instance=burn)
         if burn_form.is_valid():
             burn_form.save(commit=False)
@@ -524,5 +503,5 @@ def edit_burn(request, pk):
             logger.warning("Invalid Form")
             messages.warning(request, "Invalid Form")
     else:
-        burn_form = BurnForm()
+        burn_form = BurnForm(instance=burn)
         return render(request, "MembershipApp/member/edit_burn.html", {"burn_form": burn_form})

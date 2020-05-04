@@ -4292,7 +4292,7 @@
 
                 // For statically positoned elements, we need to get the element
                 // that is determining the offset
-                if ($offsetParent.css('position') === 'static') {
+                if ($offsetParent.css('position') === 'static_website') {
                     $offsetParent = $offsetParent.offsetParent();
                 }
 

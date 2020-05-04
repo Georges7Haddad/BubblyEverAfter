@@ -1,6 +1,6 @@
 {% load static %}
 {% load custom %}
-<div class="container" style="margin-top: 80px">
+<div class="container">
     <div class="row">
         <strong style="font-size: 22px; color: #1b1b1b; margin-left: 485px">{{ title }}
             {% if year == None %}
@@ -13,7 +13,8 @@
                 {% csrf_token %}
                 {{ year_form }}
             </form>
-            <a class="btn btn--primary btn--sm" style="float: right" href="/leader/burnsaccommodations/">
+            <a class="btn btn--primary btn--sm" style="float: right; margin-bottom: 40px"
+               href="/leader/burnsaccommodations/">
                 <span class="btn__text"> Burns' Accommodation </span>
             </a>
             <a class="btn btn--primary btn--sm" style="float: right; margin-right: 120px" href="/leader/vehicles/">
@@ -113,5 +114,4 @@
     <script src="{% static "MembershipApp/js/sorttable.js" %}"></script>
     <script src="{% static "MembershipApp/js/tablesearch.js" %}"></script>
     <script src="{% static "MembershipApp/js/button-show-hide.js" %}"></script>
-
 {% endblock %}

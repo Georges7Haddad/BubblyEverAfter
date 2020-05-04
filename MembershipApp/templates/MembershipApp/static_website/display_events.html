@@ -1,0 +1,41 @@
+{% extends "MembershipApp/base.html" %}
+{% load static %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="height-50 imagebg border--round" data-overlay="2">
+                <div class="background-image-holder"><img alt="background"
+                                                          src="{% static "MembershipApp/img/inner-8.jpg" %}"></div>
+                <div class="pos-vertical-center col-md-6 boxed boxed--lg bg--none">
+                    <h2>Our Events</h2>
+                    <p class="lead"> Stay up-to-date with all our events</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    {% for event in events %}
+        <div class="main-container">
+        <section class="text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-lg-6">
+                    <div class="cta">
+                        <h1>{{ event.name }}</h1>
+                        <h4> From {{ event.start_date }} until {{ event.end_date }}</h4>
+                        <h3>In {{ event.location }}</h3>
+                        <p>{{ event.description }}</p>
+                        <a class="btn btn--primary type--uppercase" href="{{ event.facebook_link }}"> <span
+                                class="btn__text">
+                            Learn more
+                        </span> </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</section>
+</div>
+
+{% endblock %}

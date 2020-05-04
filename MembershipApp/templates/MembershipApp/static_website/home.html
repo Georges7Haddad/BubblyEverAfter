@@ -1,0 +1,27 @@
+{% extends "MembershipApp/base.html" %}
+
+{% load static %}
+{% block body %}
+
+
+    <div class="main-container">
+    <section class="cover text-center bg--secondary">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <h1><b>Let's be Bubbly Ever After</b></h1>
+                    <p class="lead"><b>Together</b></p> <span class="block type--fine-print"><br></span></div>
+                <div class="col-md-12">
+                    <div class="triptych border--round"><img alt="Image"
+                                                             src="{% static "MembershipApp/img/agency-1.jpg" %}"> <img
+                            alt="Image" src="{% static "MembershipApp/img/agency-2.jpg" %}"> <img alt="Image"
+                                                                                                  src="{% static "MembershipApp/img/blog-6.jpg" %}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+</html>

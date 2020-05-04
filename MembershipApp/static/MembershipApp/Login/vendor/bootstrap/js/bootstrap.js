@@ -339,7 +339,7 @@ if (typeof jQuery === 'undefined') {
                 $(element).detach().trigger(Event.CLOSED).remove();
             };
 
-            // static
+            // static_website
 
             Alert._jQueryInterface = function _jQueryInterface(config) {
                 return this.each(function () {
@@ -507,7 +507,7 @@ if (typeof jQuery === 'undefined') {
                 this._element = null;
             };
 
-            // static
+            // static_website
 
             Button._jQueryInterface = function _jQueryInterface(config) {
                 return this.each(function () {
@@ -971,7 +971,7 @@ if (typeof jQuery === 'undefined') {
                 }
             };
 
-            // static
+            // static_website
 
             Carousel._jQueryInterface = function _jQueryInterface(config) {
                 return this.each(function () {
@@ -1356,7 +1356,7 @@ if (typeof jQuery === 'undefined') {
                 }
             };
 
-            // static
+            // static_website
 
             Collapse._getTargetFromElement = function _getTargetFromElement(element) {
                 var selector = Util.getSelectorFromElement(element);
@@ -1689,7 +1689,7 @@ if (typeof jQuery === 'undefined') {
                 return popperConfig;
             };
 
-            // static
+            // static_website
 
             Dropdown._jQueryInterface = function _jQueryInterface(config) {
                 return this.each(function () {
@@ -2214,7 +2214,7 @@ if (typeof jQuery === 'undefined') {
                         if (event.target !== event.currentTarget) {
                             return;
                         }
-                        if (_this17._config.backdrop === 'static') {
+                        if (_this17._config.backdrop === 'static_website') {
                             _this17._element.focus();
                         } else {
                             _this17.hide();
@@ -2346,7 +2346,7 @@ if (typeof jQuery === 'undefined') {
                 return scrollbarWidth;
             };
 
-            // static
+            // static_website
 
             Modal._jQueryInterface = function _jQueryInterface(config, relatedTarget) {
                 return this.each(function () {
@@ -2685,7 +2685,7 @@ if (typeof jQuery === 'undefined') {
                 $(this._selector).filter(Selector.ACTIVE).removeClass(ClassName.ACTIVE);
             };
 
-            // static
+            // static_website
 
             ScrollSpy._jQueryInterface = function _jQueryInterface(config) {
                 return this.each(function () {
@@ -2944,7 +2944,7 @@ if (typeof jQuery === 'undefined') {
                 }
             };
 
-            // static
+            // static_website
 
             Tab._jQueryInterface = function _jQueryInterface(config) {
                 return this.each(function () {
@@ -3596,7 +3596,7 @@ if (typeof jQuery === 'undefined') {
                 this.config.animation = initConfigAnimation;
             };
 
-            // static
+            // static_website
 
             Tooltip._jQueryInterface = function _jQueryInterface(config) {
                 return this.each(function () {
@@ -3787,7 +3787,7 @@ if (typeof jQuery === 'undefined') {
                 }
             };
 
-            // static
+            // static_website
 
             Popover._jQueryInterface = function _jQueryInterface(config) {
                 return this.each(function () {

@@ -258,3 +258,21 @@ class BurnAccommodationRelation(models.Model):
 
     def __repr__(self):
         return f"{self.burn.member} is staying in {self.accommodation} in {self.burn.year}"
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=127)
+    social_media = models.URLField(max_length=1023)
+    email = models.EmailField(max_length=127)
+    playa_name = models.CharField(max_length=127, **optional)
+    Please_tell_us_3_adjectives_that_describe_you_most = models.TextField(max_length=1023)
+    how_can_we_collaborate_and_get_to_know_you_better = models.TextField(max_length=16383)
+
+
+class BubblyEvent(models.Model):
+    name = models.CharField(max_length=127)
+    location = models.CharField(max_length=127)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    description = models.CharField(max_length=1023)
+    facebook_link = models.CharField(max_length=255)

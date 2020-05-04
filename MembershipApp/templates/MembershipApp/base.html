@@ -22,6 +22,8 @@
     {% include "MembershipApp/navbars/leader_navbar.html" %}
 {% elif user.is_authenticated %}
     {% include "MembershipApp/navbars/member_navbar.html" %}
+{% else %}
+    {% include "MembershipApp/navbars/anonymous_navbar.html" %}
 {% endif %}
 
 
@@ -32,6 +34,9 @@
 <script src="{% static "MembershipApp/js/scripts.js" %}"></script>
 {% block scripts %}
 {% endblock %}
+
+{% include "MembershipApp/navbars/footer.html" %}
 </body>
+
 
 </html>
