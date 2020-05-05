@@ -26,7 +26,6 @@ class CustomCheckboxMixin(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for fieldname, field in self.fields.items():
-
             if isinstance(field, BooleanField):
                 self.fields[fieldname].widget = CustomCheckboxWidget(help_text=self.fields[fieldname].help_text)
                 self.fields[fieldname].help_text = None
