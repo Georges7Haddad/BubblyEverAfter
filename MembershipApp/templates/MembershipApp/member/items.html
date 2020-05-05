@@ -25,13 +25,16 @@
                     </a>
                 {% endif %}
                 <div class="modal-container">
-                    <div class="modal-content">
-                        <form method="POST">
-                            {% csrf_token %}
-                            {% block form %}
-                            {% endblock %}
-                            <button type="submit" class="btn btn--primary type--uppercase"> Submit</button>
-                        </form>
+                    <div class="modal-content modal-backdrop">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add Ticket</h5>
+                            <form method="POST">
+                                {% csrf_token %}
+                                {% block form %}
+                                {% endblock %}
+                                <button type="submit" class="btn btn--primary type--uppercase"> Submit</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div><!--end of modal instance-->

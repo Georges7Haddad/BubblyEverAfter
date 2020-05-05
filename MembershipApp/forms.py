@@ -6,6 +6,14 @@ from django.forms import ModelForm, widgets
 from MembershipApp.models import Ticket, VehiclePass, Accommodation, Burn, Contact, BubblyEvent
 
 
+class DateInput(forms.DateInput):
+    input_type = "date"
+
+
+class CustomCheckboxWidget(widgets.CheckboxInput):
+    template_name = "MembershipApp/checkbox.html"
+
+
 class BubblyMemberForm(UserCreationForm):
     class Meta:
         model = get_user_model()
@@ -30,6 +38,7 @@ class BubblyMemberForm(UserCreationForm):
             "allergies",
             "medical_issues",
         ]
+        widgets = {"birthday": DateInput(), "is_virgin_burner": CustomCheckboxWidget()}
 
 
 class MemberSearchForm(forms.Form):
@@ -69,27 +78,18 @@ class TicketForm(ModelForm):
             "number",
             "price",
         ]
-
-
-class CustomCheckboxWidget(widgets.CheckboxInput):
-    template_name = "MembershipApp/checkbox.html"
+        widgets = {"secured": CustomCheckboxWidget()}
 
 
 class VehiclePassForm(ModelForm):
-    tow_hitch = forms.BooleanField(widget=CustomCheckboxWidget)
-
     class Meta:
         model = VehiclePass
-        fields = [
-            "member",
-            "secured",
-            "needed",
-            "ride_share",
-            "number",
-            "make",
-            "model",
-            "price",
-        ]
+        fields = ["member", "secured", "needed", "ride_share", "number", "make", "model", "price", "tow_hitch"]
+        widgets = {
+            "secured": CustomCheckboxWidget(),
+            "needed": CustomCheckboxWidget(),
+            "tow_hitch": CustomCheckboxWidget(),
+        }
 
 
 class AccommodationForm(ModelForm):
@@ -100,6 +100,9 @@ class AccommodationForm(ModelForm):
             "type",
             "is_full",
         ]
+        widgets = {
+            "is_full": CustomCheckboxWidget(),
+        }
 
 
 class BurnForm(ModelForm):
@@ -121,6 +124,7 @@ class BurnForm(ModelForm):
             "meal_plan_paid",
             "notes",
         ]
+        widgets = {"arrival_time": DateInput(), "departure_time": DateInput()}
 
 
 class ContactForm(ModelForm):

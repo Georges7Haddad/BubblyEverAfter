@@ -14,8 +14,9 @@
                         {{ member }}/{% endfor %}<br>
                 </p>
                 {% if user.username == username %}
-                    <button type="button" class="btn btn-light type--uppercase"><a
-                            href="/accommodation/{{ accommodation.id }}/edit/">Edit</a></button>
+                    <a href="/accommodation/{{ accommodation.id }}/edit/">
+                        <button type="button" class="btn btn-block btn-light type--uppercase">Edit</button>
+                    </a>
                 {% endif %}
             </div>
         </div>

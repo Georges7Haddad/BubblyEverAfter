@@ -7,8 +7,6 @@
 {% block body %}
     <div class="container">
         <h3>{{ header }}</h3>
-
-
         <a href="{% url 'inventory:add_item' category.id %}" class="btn btn-sm btn-pad" role="button">Add Item</a>
         <a href="{% url 'inventory:add_electrical_item' category.id %}" class="btn btn-sm btn-pad" role="button">Add
             Electrical Item</a><br><br>
@@ -16,7 +14,7 @@
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search.."
                style="max-width: 357px; float: right"><br><br>
 
-        <table class="table table-responsive table-hover" id="myTable">
+        <table class="border--round table--alternate-row sortable" id="myTable">
             <thead>
             <tr>
                 <th>Member</th>
@@ -72,12 +70,10 @@
                         </div><!--end of modal instance-->
                     </td>
                 </tr>
-
             {% endfor %}
             </tbody>
         </table>
     </div>
-{% endblock %}
-{% block script %}
     <script src="{% static "MembershipApp/js/SearchTable.js" %}"></script>
+    <script src="{% static "MembershipApp/js/sorttable.js" %}"></script>
 {% endblock %}

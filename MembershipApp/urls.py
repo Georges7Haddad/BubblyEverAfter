@@ -5,7 +5,7 @@ from . import views
 app_name = "MembershipApp"
 
 urlpatterns = [
-    path("login/", views.login_request),
+    path("login/", views.login_request, name="login"),
     path("logout/", views.logout_request),
     path("register/", views.register),
     path("member/<username>/", views.member_profile),

@@ -30,10 +30,11 @@ def contact(request):
         contact_form = ContactForm(request.POST)
         if contact_form.is_valid():
             contact_form.save()
-            return redirect("/home")
+            return redirect("/")
         else:
             return render(
-                request=request, template_name="MembershipApp/static_website/contact.html",
+                request=request,
+                template_name="MembershipApp/static_website/contact.html",
                 context={"contact_form": contact_form},
             )
 
@@ -56,7 +57,8 @@ def create_event(request):
         else:
             messages.warning(request, "Please fill all fields appropriately ")
             return render(
-                request=request, template_name="MembershipApp/static_website/createvent.html",
+                request=request,
+                template_name="MembershipApp/static_website/createvent.html",
                 context={"CreateEvent": CreateEvent},
             )
 

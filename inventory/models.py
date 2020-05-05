@@ -1,6 +1,8 @@
+from decimal import Decimal
+
+from django.core.validators import MinValueValidator
 from django.db import models
 
-# Create your models here.
 from MembershipApp.models import BubblyMember
 
 
@@ -8,11 +10,39 @@ class Item(models.Model):
     member = models.ForeignKey(BubblyMember, on_delete=models.CASCADE)
     title = models.CharField(max_length=127, blank=False)
     description = models.TextField()
-    width = models.PositiveIntegerField(null=True, blank=True, help_text="in meters")
-    height = models.PositiveIntegerField(null=True, blank=True, help_text="in meters")
-    length = models.PositiveIntegerField(null=True, blank=True, help_text="in meters")
+    width = models.DecimalField(
+        null=True,
+        blank=True,
+        decimal_places=3,
+        max_digits=12,
+        help_text="in meters",
+        validators=[MinValueValidator(Decimal("0.001"))],
+    )
+    height = models.DecimalField(
+        null=True,
+        blank=True,
+        decimal_places=3,
+        max_digits=12,
+        help_text="in meters",
+        validators=[MinValueValidator(Decimal("0.001"))],
+    )
+    length = models.DecimalField(
+        null=True,
+        blank=True,
+        decimal_places=3,
+        max_digits=12,
+        help_text="in meters",
+        validators=[MinValueValidator(Decimal("0.001"))],
+    )
     quantity = models.PositiveIntegerField()
-    unit_price = models.PositiveIntegerField(help_text="in $")
+    unit_price = models.DecimalField(
+        null=True,
+        blank=True,
+        decimal_places=2,
+        max_digits=12,
+        help_text="in $",
+        validators=[MinValueValidator(Decimal("0.001"))],
+    )
     picture = models.FileField(null=True, blank=True)
 
     def __str__(self):
@@ -20,8 +50,22 @@ class Item(models.Model):
 
 
 class ElectricalItem(Item):
-    voltage = models.PositiveIntegerField(null=False, blank=False, help_text="in Volts")
-    wattage = models.PositiveIntegerField(null=False, blank=False, help_text="in Watts")
+    voltage = models.DecimalField(
+        null=False,
+        blank=False,
+        help_text="in Volts",
+        decimal_places=3,
+        max_digits=12,
+        validators=[MinValueValidator(Decimal("0.001"))],
+    )
+    wattage = models.DecimalField(
+        null=False,
+        blank=False,
+        help_text="in Watts",
+        decimal_places=3,
+        max_digits=12,
+        validators=[MinValueValidator(Decimal("0.001"))],
+    )
 
 
 class Category(models.Model):

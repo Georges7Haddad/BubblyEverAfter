@@ -2,57 +2,27 @@
 
 {% load static %}
 {% block body %}
-    <div class="main-container">
-        <section class="text-center">
-            <div class="container">
 
-                <div class="row justify-content-center no-gutters">
-                    <div class="col-md-10 col-lg-8">
-                        <div class="boxed boxed--border">
+    <section class="text-center">
+        <div class="container">
 
+            <div class="row justify-content-center no-gutters">
+                <div class="col-md-10 col-lg-8">
+                    <div class="boxed boxed--border">
+                        <form method="POST">
+                            {% csrf_token %}
                             {{ contact_form }}
 
 
-                            <form class="text-left form-email row mx-0"
-                                  data-success="Thanks for your enquiry, we'll be in touch shortly."
-                                  data-error="Please fill in all fields correctly."
-                                  data-success-redirect="http://127.0.0.1:8000">
-                                <div class="col-md-12 text-center boxed">
-                                    <h5>ONE MORE THING BEFORE YOU CONSENT TO GETTING TO KNOW EACH OTHER BETTER
-                                        PLEASE.</h5>
-                                </div>
-                                <div class="col-md-3 col-6 text-center"><span class="block">1. Please jot down the three words you used to describe yourself some place.</span>
-                                    <div class="input-checkbox"><input type="checkbox" name="design"> <label> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-6 text-center"><span class="block">2. Please refer back to these words daily, as often as you can. <br>Repeat them to yourself, ideally in front of a mirror. Start with the sentence: "I am..."<br></span>
-                                    <div class="input-checkbox"><input type="checkbox" name="dev"> <label> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-6 text-center"><span class="block">3. Those are some awesome affirmations that we want you to keep handy to remind yourself of how you contribute to make the world a better place, just by being your self.</span>
-                                    <div class="input-checkbox"><input type="checkbox" name="brand"> <label> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 text-center boxed">
-                                    <h5>Thank you for being you and for getting to know Bubbly Ever After. We cannot
-                                        wait to get to know you better too.<br>If you feel comfortable consenting to
-                                        connecting with us, please do by clicking the box below. We'll be in touch
-                                        shortly.</h5>
-                                </div>
-                                <div class="col-4 text-center">
-                                    <div class="input-radio"><span>I agree to receiving marketing and promotional materials<br></span>
-                                        <input type="radio" name="budget" value="under5k" class="validate-required">
-                                        <label></label></div>
-                                </div>
-                                <div class="col-md-12 boxed">
-                                    <button type="submit" class="btn btn--primary type--uppercase">submit</button>
-                                </div>
-                            </form>
-                        </div>
+                            <div class="col-md-12 boxed">
+                                <button type="submit" class="btn btn--primary type--uppercase">submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-    </div>
+
 {% endblock %}

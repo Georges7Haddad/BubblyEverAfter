@@ -21,8 +21,15 @@ from .forms import (
     VehiclePassForm,
     AccommodationForm,
 )
-from .models import Ticket, VehiclePass, BubblyMember, Burn, BurnAccommodationRelation, Accommodation, \
-    UserAccommodationRelation
+from .models import (
+    Ticket,
+    VehiclePass,
+    BubblyMember,
+    Burn,
+    BurnAccommodationRelation,
+    Accommodation,
+    UserAccommodationRelation,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -46,19 +53,19 @@ def progress_bar(model):
         total = len(objects)
     elif model == VehiclePass:
         for burn in burns:
-            try:
-                objects.append(burn.vehicle_pass)
-                if burn.vehicle_pass.secured:
-                    secured_object += 1
-            except:
-                secured_object = secured_object
+            objects.append(burn.vehicle_pass)
+            if burn.vehicle_pass.secured:
+                secured_object += 1
         total = len(objects)
     else:
         secured_object = burns.count()
         total = model.objects.all().count()
-
-    secured_percentage = 100 * secured_object / total
-    secured_number = f"{secured_object}/{total}"
+    try:
+        secured_percentage = 100 * secured_object / total
+        secured_number = f"{secured_object}/{total}"
+    except:
+        secured_percentage = 0
+        secured_number = f"No {model} found"
     return secured_percentage, secured_number
 
 
@@ -360,8 +367,11 @@ def tickets_view(request, username):
                 messages.warning(request, "Invalid Form")
         else:
             ticket_form = TicketForm()
-            return render(request, "MembershipApp/member/member_tickets.html",
-                          {"ticket_form": ticket_form, "tickets": tickets, "username": username})
+            return render(
+                request,
+                "MembershipApp/member/member_tickets.html",
+                {"ticket_form": ticket_form, "tickets": tickets, "username": username},
+            )
     except ObjectDoesNotExist as err:
         logger.warning(f"Did not find user {username}")
         return HttpResponseNotFound(f"Did not find user {username}")
@@ -382,8 +392,11 @@ def vehicles_view(request, username):
                 messages.warning(request, "Invalid Form")
         else:
             vehicle_form = VehiclePassForm()
-            return render(request, "MembershipApp/member/member_vehicles.html",
-                          {"vehicle_form": vehicle_form, "vehicles": vehicles, "username": username})
+            return render(
+                request,
+                "MembershipApp/member/member_vehicles.html",
+                {"vehicle_form": vehicle_form, "vehicles": vehicles, "username": username},
+            )
     except ObjectDoesNotExist as err:
         logger.warning(f"Did not find user {username}")
         return HttpResponseNotFound(f"Did not find user {username}")
@@ -407,8 +420,9 @@ def accommodations_view(request, username):
         else:
             accommodation_form = AccommodationForm()
             return render(
-                request, "MembershipApp/member/member_accommodations.html",
-                {"accommodation_form": accommodation_form, "accommodations": accommodations, "username": username}
+                request,
+                "MembershipApp/member/member_accommodations.html",
+                {"accommodation_form": accommodation_form, "accommodations": accommodations, "username": username},
             )
     except ObjectDoesNotExist as err:
         logger.warning(f"Did not find user {username}")
@@ -430,8 +444,11 @@ def burns_view(request, username):
                 messages.warning(request, "Invalid Form")
         else:
             burn_form = BurnForm()
-            return render(request, "MembershipApp/member/member_burns.html",
-                          {"burn_form": burn_form, "burns": burns, "username": username})
+            return render(
+                request,
+                "MembershipApp/member/member_burns.html",
+                {"burn_form": burn_form, "burns": burns, "username": username},
+            )
     except ObjectDoesNotExist as err:
         logger.warning(f"Did not find user {username}")
         return HttpResponseNotFound(f"Did not find user {username}")
