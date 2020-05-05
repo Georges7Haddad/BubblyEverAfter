@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import ImageField
+from django.utils.safestring import mark_safe
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -24,8 +25,12 @@ class BubblyMember(AbstractUser):
     username = models.CharField(max_length=127, unique=True)
     is_leadership = models.BooleanField(default=False)
     birthday = models.DateField(**required)
-    gender_identity = models.CharField(max_length=127, help_text="To ensure camp diversity", **optional)
-    ethnic_identity = models.CharField(max_length=127, help_text="To ensure camp diversity", **optional)
+    gender_identity = models.CharField(
+        max_length=127, help_text=mark_safe("<small><i>To ensure camp diversity </small></i><br>"), **optional
+    )
+    ethnic_identity = models.CharField(
+        max_length=127, help_text=mark_safe("<small><i>To ensure camp diversity </small></i><br>"), **optional
+    )
     country = CountryField(**required)
     city = models.CharField(max_length=127, **required)
     photo = ImageField(**optional)
@@ -38,11 +43,14 @@ class BubblyMember(AbstractUser):
 
     playa_name = models.CharField(max_length=127, **optional)
     burning_man_profile_email = models.EmailField(
-        **required, help_text="Burning Man profile email address (MUST match https://profiles.burningman.org/ email)",
+        **required,
+        help_text=mark_safe(
+            "<small><i>Burning Man profile email address (MUST match https://profiles.burningman.org/ email) </small></i><br>"
+        ),
     )
     is_virgin_burner = models.BooleanField(default=True)
     years_attending_burning_man = models.CharField(
-        max_length=127, help_text="Please separate them with commas", **optional
+        max_length=127, help_text=mark_safe("<small><i>Please separate them with commas </small></i><br>"), **optional,
     )
 
     referring_member = models.ForeignKey("self", on_delete=models.SET_NULL, **optional)
@@ -84,11 +92,17 @@ class Ticket(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         **required,
-        help_text="Name of the current vehicle pass holder",
+        help_text=mark_safe("<small><i>Name of the current vehicle pass holder </small></i><br>"),
     )
-    secured = models.BooleanField(default=False, help_text="Please tick if you have a ticket ")
+    secured = models.BooleanField(
+        default=False, help_text=mark_safe("<small><i>Please tick if you have a ticket </small></i><br>")
+    )
     status = models.CharField(max_length=127, choices=STATUS_CHOICES)
-    number = models.CharField(max_length=127, **optional, help_text="ID number found on the back of your ticket", )
+    number = models.CharField(
+        max_length=127,
+        **optional,
+        help_text=mark_safe("<small><i>ID number found on the back of your ticket </small></i><br>"),
+    )
 
     price = models.PositiveIntegerField(**optional)
 
@@ -121,15 +135,27 @@ class VehiclePass(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         **required,
-        help_text="Name of the current vehicle pass holder",
+        help_text=mark_safe("<small><i>Name of the current vehicle pass holder</small></i><br>"),
     )
-    secured = models.BooleanField(help_text="Please tick if you have a vehicle pass", default=False)
-    needed = models.BooleanField(help_text="Please tick if you need a vehicle pass", default=False)
-    ride_share = models.PositiveIntegerField(help_text="Number of extra room with you", **required)
-    number = models.CharField(max_length=127, **optional, help_text="ID number found on the back of your ticket",)
+    secured = models.BooleanField(
+        help_text=mark_safe("<small><i>Please tick if you have a vehicle pass </small></i><br>"), default=False
+    )
+    needed = models.BooleanField(
+        help_text=mark_safe("<small><i>Please tick if you need a vehicle pass </small></i><br>"), default=False
+    )
+    ride_share = models.PositiveIntegerField(
+        help_text=mark_safe("<small><i>Number of extra room with you </small></i><br>"), **required
+    )
+    number = models.CharField(
+        max_length=127,
+        **optional,
+        help_text=mark_safe("<small><i>ID number found on the back of your ticket </small></i><br>"),
+    )
     make = models.CharField(max_length=127, **optional)
     model = models.CharField(max_length=127, **optional)
-    tow_hitch = models.BooleanField(default=False, help_text="Please tick if you have a tow hitch")
+    tow_hitch = models.BooleanField(
+        default=False, help_text=mark_safe("<small><i>Please tick if you have a tow hitch </small></i><br>")
+    )
 
     price = models.PositiveIntegerField(**optional)
 
@@ -218,7 +244,11 @@ class Burn(models.Model):
     transportation = models.CharField(max_length=127, choices=TRANSPORTATION_CHOICES, **required)
 
     camp_dues = models.PositiveIntegerField(
-        default=0, **required, help_text="Payment that each camping member should pay to join bubbly camp",
+        default=0,
+        **required,
+        help_text=mark_safe(
+            "<small><i>Payment that each camping member should pay to join bubbly camp </small></i><br>"
+        ),
     )
 
     camp_dues_paid = models.PositiveIntegerField(default=0, **required)
@@ -226,12 +256,17 @@ class Burn(models.Model):
     strike_deposit = models.PositiveIntegerField(
         default=0,
         **required,
-        help_text="Payment that each camping member should pay to make sure they help cleaning before leaving",
+        help_text=mark_safe(
+            "<small><i>Payment that each camping member should pay to make sure they help cleaning before leaving </small></i><br>"
+        ),
     )
     strike_deposit_paid = models.PositiveIntegerField(default=0, **required)
 
     meal_plan = models.BooleanField(
-        default=False, help_text="Payment that each camping member should pay to join the meal plan",
+        default=False,
+        help_text=mark_safe(
+            "<small><i>Payment that each camping member should pay to join the meal plan </small></i><br>"
+        ),
     )
     meal_plan_paid = models.PositiveIntegerField(default=0, **required)
 

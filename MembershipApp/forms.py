@@ -13,6 +13,14 @@ class DateInput(forms.DateInput):
 class CustomCheckboxWidget(widgets.CheckboxInput):
     template_name = "MembershipApp/checkbox.html"
 
+    def __init__(self, *args, **kwargs):
+        super(CustomCheckboxWidget, self).__init__(*args, **kwargs)
+        self.help_text = kwargs.get("help_text")
+
+    def _render(self, template_name, context, renderer=None):
+        context["help_text"] = self.help_text
+        return super(CustomCheckboxWidget, self)._render(template_name, context, renderer)
+
 
 class BubblyMemberForm(UserCreationForm):
     class Meta:
@@ -82,14 +90,15 @@ class TicketForm(ModelForm):
 
 
 class VehiclePassForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(VehiclePassForm, self).__init__(*args, **kwargs)
+        for fieldname in ["secured", "needed", "tow_hitch"]:
+            self.fields[fieldname].widget = CustomCheckboxWidget(help_text=self.fields[fieldname].help_text)
+            self.fields[fieldname].help_text = None
+
     class Meta:
         model = VehiclePass
         fields = ["member", "secured", "needed", "ride_share", "number", "make", "model", "price", "tow_hitch"]
-        widgets = {
-            "secured": CustomCheckboxWidget(),
-            "needed": CustomCheckboxWidget(),
-            "tow_hitch": CustomCheckboxWidget(),
-        }
 
 
 class AccommodationForm(ModelForm):

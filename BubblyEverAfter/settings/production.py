@@ -11,11 +11,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 DATABASES = {
     "default": {
-        "ENGINE": "postgresql.postgresql.svc.cluster.local",
-        "NAME": "BubblyEverAfter",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": "fNO4Vpy2pc",
-        "HOST": "bea.kebbeblaban.com",
+        "HOST": "postgresql.postgresql.svc.cluster.local",
         "PORT": "5432",
         "OPTIONS": {"connect_timeout": 60, },
     }

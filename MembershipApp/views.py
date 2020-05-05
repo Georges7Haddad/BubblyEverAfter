@@ -2,7 +2,7 @@ import datetime
 import logging
 
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ObjectDoesNotExist
@@ -157,10 +157,12 @@ def member_profile(request, username):
     try:
         member = get_object_or_404(BubblyMember, username=username)
         if request.method == "POST":
-            bubbly_form = BubblyMemberForm(data=request.POST, instance=member)
+            bubbly_form = BubblyMemberForm(data=request.POST, files=request.FILES, instance=member)
             if bubbly_form.is_valid():
+                member.photo = request.FILES.get("photo")
                 bubbly_form.save(commit=False)
                 member.save()
+                update_session_auth_hash(request, member)
                 return redirect(f"/member/{username}/")
             else:
                 for msg in bubbly_form.error_messages:
