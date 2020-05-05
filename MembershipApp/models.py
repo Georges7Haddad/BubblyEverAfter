@@ -197,8 +197,9 @@ class Accommodation(models.Model):
     ]
     name = models.CharField(max_length=127, **required)
     type = models.CharField(max_length=127, choices=ACCOMMODATION_CHOICES)
-    is_full = models.BooleanField(default=False,
-                                  help_text=mark_safe("<small><i>Please tick if your vehicle is full</small></i><br>"))
+    is_full = models.BooleanField(
+        default=False, help_text=mark_safe("<small><i>Please tick if your vehicle is full</small></i><br>")
+    )
 
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, through="UserAccommodationRelation")
 
