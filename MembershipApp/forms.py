@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import ModelForm, widgets
+from django.forms import ModelForm, widgets, BooleanField
 
 from MembershipApp.models import Ticket, VehiclePass, Accommodation, Burn, Contact, BubblyEvent
 
@@ -13,16 +13,26 @@ class DateInput(forms.DateInput):
 class CustomCheckboxWidget(widgets.CheckboxInput):
     template_name = "MembershipApp/checkbox.html"
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, help_text="", *args, **kwargs):
+        self.help_text = help_text
         super(CustomCheckboxWidget, self).__init__(*args, **kwargs)
-        self.help_text = kwargs.get("help_text")
 
     def _render(self, template_name, context, renderer=None):
         context["help_text"] = self.help_text
         return super(CustomCheckboxWidget, self)._render(template_name, context, renderer)
 
 
-class BubblyMemberForm(UserCreationForm):
+class CustomCheckboxMixin(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for fieldname, field in self.fields.items():
+
+            if isinstance(field, BooleanField):
+                self.fields[fieldname].widget = CustomCheckboxWidget(help_text=self.fields[fieldname].help_text)
+                self.fields[fieldname].help_text = None
+
+
+class BubblyMemberForm(UserCreationForm, CustomCheckboxMixin):
     class Meta:
         model = get_user_model()
         fields = [
@@ -46,7 +56,7 @@ class BubblyMemberForm(UserCreationForm):
             "allergies",
             "medical_issues",
         ]
-        widgets = {"birthday": DateInput(), "is_virgin_burner": CustomCheckboxWidget()}
+        widgets = {"birthday": DateInput()}
 
 
 class MemberSearchForm(forms.Form):
@@ -76,7 +86,7 @@ class YearGroupForm(forms.Form):
     ]
 
 
-class TicketForm(ModelForm):
+class TicketForm(ModelForm, CustomCheckboxMixin):
     class Meta:
         model = Ticket
         fields = [
@@ -86,22 +96,15 @@ class TicketForm(ModelForm):
             "number",
             "price",
         ]
-        widgets = {"secured": CustomCheckboxWidget()}
 
 
-class VehiclePassForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(VehiclePassForm, self).__init__(*args, **kwargs)
-        for fieldname in ["secured", "needed", "tow_hitch"]:
-            self.fields[fieldname].widget = CustomCheckboxWidget(help_text=self.fields[fieldname].help_text)
-            self.fields[fieldname].help_text = None
-
+class VehiclePassForm(ModelForm, CustomCheckboxMixin):
     class Meta:
         model = VehiclePass
         fields = ["member", "secured", "needed", "ride_share", "number", "make", "model", "price", "tow_hitch"]
 
 
-class AccommodationForm(ModelForm):
+class AccommodationForm(ModelForm, CustomCheckboxMixin):
     class Meta:
         model = Accommodation
         fields = [
@@ -109,9 +112,6 @@ class AccommodationForm(ModelForm):
             "type",
             "is_full",
         ]
-        widgets = {
-            "is_full": CustomCheckboxWidget(),
-        }
 
 
 class BurnForm(ModelForm):
