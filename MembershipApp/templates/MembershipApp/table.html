@@ -1,0 +1,117 @@
+{% load static %}
+{% load custom %}
+<div class="container">
+    <div class="row">
+        <strong style="font-size: 22px; color: #1b1b1b; margin-left: 485px">{{ title }}
+            {% if year == None %}
+            {% else %}
+                {{ year }}
+            {% endif %}
+        </strong>
+        <div class="col-md-12">
+            <form method="POST" style="width: 100px; margin-bottom: -39px">
+                {% csrf_token %}
+                {{ year_form }}
+            </form>
+            <a class="btn btn--primary btn--sm" style="float: right; margin-bottom: 40px"
+               href="/leader/burnsaccommodations/">
+                <span class="btn__text"> Burns' Accommodation </span>
+            </a>
+            <a class="btn btn--primary btn--sm" style="float: right; margin-right: 120px" href="/leader/vehicles/">
+                <span class="btn__text"> Vehicles </span>
+            </a>
+            <a class="btn btn--primary btn--sm" style="float: right; margin-right: 120px" href="/leader/burns/">
+                <span class="btn__text"> Burns </span>
+            </a>
+            <a class="btn btn--primary btn--sm" style="float: right; margin-right: 120px" href="/leader/tickets/">
+                <span class="btn__text"> Tickets </span>
+            </a>
+        </div>
+    </div>
+    <table id="myTable" class="border--round table--alternate-row sortable">
+        <thead>
+        <th>BURN</th>
+        {% for field in fields %}
+            <th>{{ field|upper }}
+                <div class="icon icon--xs icon-Search-People color--primary" style="float: right"
+                     onclick="show({{ forloop.counter }})"></div>
+                <input type="text" style="width: 100px;height: 27px; display: none" id="myInput{{ forloop.counter }}"
+                       onkeyup="myFunction1({{ forloop.counter }})"
+                       placeholder="Search...">
+            </th>
+        {% endfor %}
+        </thead>
+        <tbody>
+
+        {% for item in burns %}
+            <tr>
+                <td><a href="/burn/{{ item.pk }}/"> {{ item }} </a></td>
+                {% for element in fields %}
+
+                    {% if "/leader/tickets/" in request.path %}
+                        {% with value=item|get_attribute:"ticket" %}
+                            {% if value|get_attribute:element == null or value == "" %}
+                                <td class="table-danger"> X</td>
+                            {% elif element  in "ticket,vehicle_pass,accommodation,burn" %}
+                                <td><a href="/{{ element }}/{{ value.pk }}/"> {{ value }} </a></td>
+                            {% elif element  in "member" %}
+                                <td>
+                                    <a href="/{{ element }}/{{ value|get_attribute:element }}/">{{ value|get_attribute:element }} </a>
+                                </td>
+                            {% else %}
+                                <td> {{ value|get_attribute:element }} </td>
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                    {% if  "/leader/vehicles/" in request.path %}
+                        {% with value=item|get_attribute:"vehicle_pass" %}
+                            {% if value|get_attribute:element == null or value == "" %}
+                                <td class="table-danger"> X</td>
+                            {% elif element  in "ticket,vehicle_pass,accommodation,burn" %}
+                                <td><a href="/{{ element }}/{{ value.pk }}/"> {{ value }} </a></td>
+                            {% elif element  in "member" %}
+                                <td>
+                                    <a href="/{{ element }}/{{ value|get_attribute:element }}/">{{ value|get_attribute:element }} </a>
+                                </td>
+                            {% else %}
+                                <td> {{ value|get_attribute:element }} </td>
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                    {% if request.path == "/leader/burns/" %}
+                        {% with value=item|get_attribute:element %}
+                            {% if value|get_attribute:element == null or value == "" %}
+                                <td class="table-danger"> X</td>
+                            {% elif element  in "ticket,vehicle_pass,accommodation,burn" %}
+                                <td><a href="/{{ element }}/{{ value.pk }}/"> {{ value }} </a></td>
+                            {% elif element  in "member" %}
+                                <td>
+                                    <a href="/{{ element }}/{{ value }}/">{{ value }} </a>
+                                </td>
+                            {% else %}
+                                <td> {{ value }} </td>
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if burns.has_other_pages %}
+        <ul class="pagination">
+            {% for i in burns.paginator.page_range %}
+                {% if burns.number == i %}
+                    <span>{{ i }} <span class="sr-only">(current)</span></span>
+                {% else %}
+                    <a href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+{% block script %}
+    <script src="{% static "MembershipApp/js/sorttable.js" %}"></script>
+    <script src="{% static "MembershipApp/js/tablesearch.js" %}"></script>
+    <script src="{% static "MembershipApp/js/button-show-hide.js" %}"></script>
+{% endblock %}

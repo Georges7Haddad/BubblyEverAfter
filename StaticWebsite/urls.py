@@ -11,4 +11,5 @@ urlpatterns = [
     path("events", views.display_events),
     path("create_event", views.create_event),
     path("display_events", views.display_events),
+    path("terms/", views.terms_and_conditions),
 ]

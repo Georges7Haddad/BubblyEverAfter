@@ -1,0 +1,53 @@
+[
+  {
+    "fields": {
+      "secured": true,
+      "status": "DGS",
+      "number": 7654321,
+      "member": 1,
+      "price": 700
+    },
+    "model": "MembershipApp.ticket"
+  },
+  {
+    "fields": {
+      "secured": false,
+      "member": 2
+    },
+    "model": "MembershipApp.ticket"
+  },
+  {
+    "fields": {
+      "secured": true,
+      "status": "Main Sale",
+      "number": 492827,
+      "member": 3,
+      "price": 470
+    },
+    "model": "MembershipApp.ticket"
+  },
+  {
+    "fields": {
+      "secured": false,
+      "member": 4
+    },
+    "model": "MembershipApp.ticket"
+  },
+  {
+    "fields": {
+      "secured": true,
+      "status": "Pre Sale",
+      "number": 7654321,
+      "member": 5,
+      "price": 865
+    },
+    "model": "MembershipApp.ticket"
+  },
+  {
+    "fields": {
+      "secured": false,
+      "member": 6
+    },
+    "model": "MembershipApp.ticket"
+  }
+]

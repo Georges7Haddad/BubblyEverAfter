@@ -1,71 +1,66 @@
 {% block navbar %}
     {% load static %}
     <div class="nav-container">
-        <div>
-            <div class="bar bar--sm visible-xs">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-3 col-md-2">
-                            <a href="{% static "MembershipApp/index.html" %}">
+        <nav id="menu2" class="bar bar-2 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="dropdown" style="margin-right: 360px">
+                        <span class="dropdown__trigger btn btn--xs type--uppercase"
+                              style="font-size: 17px; color: #1b1b1b"><strong class="btn__text">Menu</strong></span>
+                        <div class="dropdown__container">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-3 col-lg-2 dropdown__content">
+                                        <ul class="menu-vertical">
+                                            <li><a href="/member/{{ user.username }}/">
+                                                My Profile
+                                            </a></li>
+                                            <li><a href="/member/{{ user.username }}/tickets">
+                                                My Tickets
+                                            </a></li>
+                                            <li><a href="/member/{{ user.username }}/vehicles">
+                                                My Vehicle Pass
+                                            </a></li>
+                                            <li><a href="/member/{{ user.username }}/burns">
+                                                My Burns
+                                            </a></li>
+                                            <li><a href="/member/{{ user.username }}/accommodations">
+                                                My Accommodations
+                                            </a></li>
+                                        </ul>
+                                    </div>
+                                </div><!--end row-->
+                            </div><!--end container-->
+                        </div><!--end dropdown container-->
+                    </div>
+                    <div class="col-lg-2 text-center text-left-sm hidden-xs order-lg-2">
+                        <div class="bar__module" style="margin-bottom: 100px">
+                            <a href="/">
                                 <img class="logo logo-light" alt="logo"
+                                     style="max-height: 100px; max-width: 100px"
                                      src="{% static "MembershipApp/img/logo.jpg" %}">
                                 <img class="logo logo-dark" alt="logo"
-                                     src="{% static "MembershipApp/img/logo_dark.jpg" %}">
+                                     style="max-height: 100px; max-width: 100px"
+                                     src="{% static "MembershipApp/img/logo.jpg" %}">
                             </a>
-
                         </div>
-                        <div class="col-9 col-md-10 text-right">
-                            <a href="{% static "MembershipApp/#" %}" class="hamburger-toggle"
-                               data-toggle-class="#menu2;hidden-xs hidden-sm"> <i
-                                    class="icon icon--sm stack-interface stack-menu"></i> </a>
+                    </div>
+                    <div class="col-lg-5 text-right text-left-xs text-left-sm order-lg-3">
+                        <div class="bar__module">
+                            {% block leader %}
+                            {% endblock %}
+                            <a class="btn btn--sm type--uppercase" style="float: right" href="/logout/"> <span
+                                    class="btn__text">
+                                    Logout
+                                </span> </a>
+                            <a class="btn btn--sm type--uppercase" style="float: right" href="/inventory/"> <span
+                                    class="btn__text">
+                                    Inventory
+                                </span> </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <nav id="menu2" class="bar bar-2 hidden-xs">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-2 text-center text-left-sm hidden-xs order-lg-2">
-                            <div class="bar__module">
-                                <a href="{% static "MembershipApp/index.html" %}">
-                                    <img class="logo logo-light" alt="logo"
-                                         src="{% static "MembershipApp/img/logo.jpg" %}">
-                                    <img class="logo logo-dark"
-                                         alt="logo"
-                                         src="{% static "MembershipApp/img/logo_dark.jpg" %}">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-5 order-lg-1">
-                            <div class="bar__module">
-                                <ul class="menu-horizontal text-left">
-                                    <li><a href="/member/profile/">
-                                        My Membership
-                                    </a></li>
-                                    <li><a href="{% static "MembershipApp/#" %}">
-                                        My Tickets
-                                    </a></li>
-                                    <li><a href="{% static "MembershipApp/#" %}">
-                                        My Vehicle Pass
-                                    </a></li>
-
-
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-5 text-right text-left-xs text-left-sm order-lg-3">
-                            <div class="bar__module">
-                                {% block leader %}
-                                {% endblock %}
-                                <a class="btn btn--sm type--uppercase" href="/member/logout/"> <span
-                                        class="btn__text">
-                                    Logout
-                                </span> </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
+        </nav>
     </div>
 {% endblock %}

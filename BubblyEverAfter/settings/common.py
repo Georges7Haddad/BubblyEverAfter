@@ -19,8 +19,6 @@ PROJECT_ROOT_DIR = os.path.dirname(os.path.join((os.path.dirname(os.path.realpat
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY", "dev_secret_key")
 
 # Application definition
 
@@ -31,6 +29,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.forms",
     "django_countries",
     "MembershipApp",
     "inventory",
@@ -48,6 +47,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "BubblyEverAfter.urls"
+
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 TEMPLATES = [
     {
@@ -106,8 +107,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT_DIR, "static")
-STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(PROJECT_ROOT_DIR, "static_website")
+STATIC_URL = "/static_website/"
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT_DIR, "media")
 MEDIA_URL = "/media/"

@@ -1,0 +1,98 @@
+[
+  {
+    "model": "MembershipApp.useraccommodationrelation",
+    "pk": 1,
+    "fields": {
+      "member": 2,
+      "accommodation": 2
+    }
+  },
+  {
+    "model": "MembershipApp.useraccommodationrelation",
+    "pk": 2,
+    "fields": {
+      "member": 1,
+      "accommodation": 1
+    }
+  },
+  {
+    "model": "MembershipApp.useraccommodationrelation",
+    "pk": 3,
+    "fields": {
+      "member": 3,
+      "accommodation": 3
+    }
+  },
+  {
+    "model": "MembershipApp.useraccommodationrelation",
+    "pk": 4,
+    "fields": {
+      "member": 5,
+      "accommodation": 5
+    }
+  },
+  {
+    "model": "MembershipApp.useraccommodationrelation",
+    "pk": 5,
+    "fields": {
+      "member": 4,
+      "accommodation": 4
+    }
+  },
+  {
+    "model": "MembershipApp.useraccommodationrelation",
+    "pk": 6,
+    "fields": {
+      "member": 6,
+      "accommodation": 6
+    }
+  },
+  {
+    "model": "MembershipApp.useraccommodationrelation",
+    "pk": 7,
+    "fields": {
+      "member": 3,
+      "accommodation": 5
+    }
+  },
+  {
+    "model": "MembershipApp.useraccommodationrelation",
+    "pk": 8,
+    "fields": {
+      "member": 1,
+      "accommodation": 5
+    }
+  },
+  {
+    "model": "MembershipApp.useraccommodationrelation",
+    "pk": 9,
+    "fields": {
+      "member": 6,
+      "accommodation": 1
+    }
+  },
+  {
+    "model": "MembershipApp.useraccommodationrelation",
+    "pk": 10,
+    "fields": {
+      "member": 4,
+      "accommodation": 3
+    }
+  },
+  {
+    "model": "MembershipApp.useraccommodationrelation",
+    "pk": 11,
+    "fields": {
+      "member": 6,
+      "accommodation": 5
+    }
+  },
+  {
+    "model": "MembershipApp.useraccommodationrelation",
+    "pk": 12,
+    "fields": {
+      "member": 3,
+      "accommodation": 6
+    }
+  }
+]

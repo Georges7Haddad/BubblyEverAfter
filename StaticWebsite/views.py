@@ -2,24 +2,27 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 
 from MembershipApp.forms import ContactForm, CreateEvent
-from MembershipApp.models import BubblyEvents
-from MembershipApp.views import leadership_required
+from MembershipApp.models import BubblyEvent
 
 
 def index(request):
-    return render(request, "MembershipApp/index.html")
+    return render(request, "MembershipApp/static_website/home.html")
 
 
 def burningman(request):
-    return render(request, "MembershipApp/burningman.html")
+    return render(request, "MembershipApp/static_website/burningman.html")
 
 
 def legal(request):
-    return render(request, "MembershipApp/community_ethos.html")
+    return render(request, "MembershipApp/static_website/community_ethos.html")
 
 
 def about(request):
-    return render(request, "MembershipApp/about.html")
+    return render(request, "MembershipApp/static_website/about.html")
+
+
+def terms_and_conditions(request):
+    return render(request, "MembershipApp/static_website/terms_and_conditions.html")
 
 
 def contact(request):
@@ -27,25 +30,22 @@ def contact(request):
         contact_form = ContactForm(request.POST)
         if contact_form.is_valid():
             contact_form.save()
-            return redirect("/home")
+            return redirect("/")
         else:
             return render(
-                request=request, template_name="MembershipApp/contact.html", context={"contact_form": contact_form},
+                request=request,
+                template_name="MembershipApp/static_website/contact.html",
+                context={"contact_form": contact_form},
             )
 
     contact_form = ContactForm()
-    return render(request, "MembershipApp/contact.html", context={"contact_form": contact_form})
+    return render(request, "MembershipApp/static_website/contact.html", context={"contact_form": contact_form})
 
 
 def display_events(request):
-    events = BubblyEvents.objects.all()
+    events = BubblyEvent.objects.all()
     context = {"events": events}
-    return render(request, "MembershipApp/display_events.html", context)
-
-
-@leadership_required(login_url="/member/login/")
-def leader_dashboard(request):
-    return render(request, "MembershipApp/leader_profile.html")
+    return render(request, "MembershipApp/static_website/display_events.html", context)
 
 
 def create_event(request):
@@ -57,8 +57,10 @@ def create_event(request):
         else:
             messages.warning(request, "Please fill all fields appropriately ")
             return render(
-                request=request, template_name="MembershipApp/createvent.html", context={"CreateEvent": CreateEvent},
+                request=request,
+                template_name="MembershipApp/static_website/createvent.html",
+                context={"CreateEvent": CreateEvent},
             )
 
     event_form = CreateEvent()
-    return render(request, "MembershipApp/createvent.html", context={"event_form": event_form})
+    return render(request, "MembershipApp/static_website/createvent.html", context={"event_form": event_form})
