@@ -1,0 +1,86 @@
+[
+  {
+    "fields": {
+      "secured": true,
+      "needed": false,
+      "ride_share": 2,
+      "member": 1,
+      "number": 98627434,
+      "make": "Land Rover",
+      "model": "2006",
+      "price": 2400,
+      "tow_hitch": false
+    },
+    "model": "MembershipApp.vehiclepass"
+  },
+  {
+    "fields": {
+      "secured": false,
+      "needed": true,
+      "ride_share": 2,
+      "member": 2,
+      "number": 23579,
+      "make": "Ford Raptor",
+      "model": "2018",
+      "price": 7000,
+      "tow_hitch": true
+    },
+    "model": "MembershipApp.vehiclepass"
+  },
+  {
+    "fields": {
+      "secured": true,
+      "needed": false,
+      "ride_share": 0,
+      "member": 3,
+      "number": 78534982,
+      "make": "Wrangler",
+      "model": "2009",
+      "price": 4500,
+      "tow_hitch": true
+    },
+    "model": "MembershipApp.vehiclepass"
+  },
+  {
+    "fields": {
+      "secured": false,
+      "needed": false,
+      "ride_share": 1,
+      "member": 4,
+      "number": 57932,
+      "make": "Duster",
+      "model": "2017",
+      "price": 1900,
+      "tow_hitch": false
+    },
+    "model": "MembershipApp.vehiclepass"
+  },
+  {
+    "fields": {
+      "secured": true,
+      "needed": false,
+      "ride_share": 3,
+      "member": 5,
+      "number": 98627434,
+      "make": "BMW X5",
+      "model": "2015",
+      "price": 3900,
+      "tow_hitch": false
+    },
+    "model": "MembershipApp.vehiclepass"
+  },
+  {
+    "fields": {
+      "secured": false,
+      "needed": true,
+      "ride_share": 0,
+      "member": 6,
+      "number": 318255246,
+      "make": "Audi Q7",
+      "model": "2018",
+      "price": 11000,
+      "tow_hitch": true
+    },
+    "model": "MembershipApp.vehiclepass"
+  }
+]

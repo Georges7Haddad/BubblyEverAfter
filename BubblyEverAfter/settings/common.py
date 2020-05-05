@@ -19,8 +19,6 @@ PROJECT_ROOT_DIR = os.path.dirname(os.path.join((os.path.dirname(os.path.realpat
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY", "dev_secret_key")
 
 # Application definition
 
@@ -31,8 +29,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.forms",
     "django_countries",
     "MembershipApp",
+    "inventory",
+    "StaticWebsite",
 ]
 
 MIDDLEWARE = [
@@ -46,6 +47,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "BubblyEverAfter.urls"
+
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 TEMPLATES = [
     {
@@ -67,14 +70,14 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
-        "verbose": {"format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}", "style": "{", },
-        "simple": {"format": "{name} {levelname} {message}", "style": "{", },
+        "verbose": {"format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}", "style": "{",},
+        "simple": {"format": "{name} {levelname} {message}", "style": "{",},
     },
     "handlers": {
         "console": {"class": "logging.StreamHandler", "level": "DEBUG", "formatter": "simple"},
         "file": {"level": "DEBUG", "class": "logging.FileHandler", "filename": "logs.log", "formatter": "simple"},
     },
-    "root": {"handlers": ["console", "file"], "level": "WARNING", },
+    "root": {"handlers": ["console", "file"], "level": "WARNING",},
 }
 
 WSGI_APPLICATION = "BubblyEverAfter.wsgi.application"
@@ -106,3 +109,6 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT_DIR, "static")
 STATIC_URL = "/static/"
+
+MEDIA_ROOT = os.path.join(PROJECT_ROOT_DIR, "media")
+MEDIA_URL = "/media/"

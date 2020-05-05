@@ -1,0 +1,32 @@
+{% extends "MembershipApp/base.html" %}
+
+{% load static %}
+{% block body %}
+    <div class="main-container">
+    <section class="imagebg" data-overlay="4">
+        <div class="background-image-holder"><img alt="background" src="{% static "MembershipApp/img/hero-1.jpg" %}">
+        </div>
+        <div class="container">
+            <div class="row justify-content-center no-gutters">
+                <div class="col-md-10 col-lg-8">
+                    <div class="boxed boxed--border">
+
+                        <h1>Create a new event</h1>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-12"> {{ CreateEvent }}  </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn--primary">Create</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
+

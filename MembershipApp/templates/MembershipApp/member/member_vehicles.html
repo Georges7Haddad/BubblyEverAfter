@@ -1,0 +1,26 @@
+{% extends "MembershipApp/member/items.html" %}
+{% block Title %} Your Vehicles Pass {% endblock %}
+{% block AddTitle %} Add Vehicle Pass {% endblock %}
+{% block form %} {{ vehicle_form }} {% endblock %}
+{% block items %}
+    {% for vehicle in vehicles %}
+        <div class="col-md-4">
+            <div class="feature feature-1 boxed boxed--border bg--white">
+                <h5>Vehicle pass number {{ vehicle.number }}</h5>
+                <p> Owner: {{ vehicle.member }}<br>
+                    Secured: {{ vehicle.secured }}<br>
+                    Needed: {{ vehicle.needed }}<br>
+                    Ride Share: {{ vehicle.ride_share }}<br>
+                    Make: {{ vehicle.make }}<br>
+                    Model: {{ vehicle.model }}<br>
+                    Tow Hitch available: {{ vehicle.tow_hitch }}<br>
+                    Price: {{ vehicle.price }} $<br></p>
+                {% if user.username == username %}
+                    <a href="/vehicle_pass/{{ vehicle.id }}/edit/">
+                        <button type="button" class="btn btn-block btn-light type--uppercase">Edit</button>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

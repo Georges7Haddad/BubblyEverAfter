@@ -1,0 +1,68 @@
+{% extends 'MembershipApp/base.html' %}
+{% load custom %}
+{% block body %}
+    <div class="container" style="margin-bottom: 1000px">
+        <strong style="font-size: 22px; color: #1b1b1b; margin-left: 420px">
+            {% if year is None %}
+                Accommodations
+            {% else %}
+                Accommodations {{ year }}
+            {% endif %}
+        </strong>
+        <form class="col-md-2" style="margin-bottom: -39px" method="POST">
+            {% csrf_token %}
+            {{ year_group_form }}
+        </form>
+        <div class="col-md-10">
+            <a class="btn btn--primary btn--sm" style="float: right" href="/leader/burnsaccommodations/">
+                <span class="btn__text"> Burns' Accommodation </span>
+            </a>
+            <a class="btn btn--primary btn--sm" style="float: right; margin-right: 20px" href="/leader/vehicles/">
+                <span class="btn__text"> Vehicles </span>
+            </a>
+            <a class="btn btn--primary btn--sm" style="float: right; margin-right: 20px" href="/leader/burns/">
+                <span class="btn__text"> Burns </span>
+            </a>
+            <a class="btn btn--primary btn--sm" style="float: right; margin-right: 20px" href="/leader/tickets/">
+                <span class="btn__text"> Tickets </span>
+            </a>
+        </div>
+        {% if group == "Burn" %}
+            {% for acco in accomm %}
+                <div class="col-md-10 col-lg-5" style="float: left;">
+                    <div class="feature feature-3 boxed boxed--lg boxed--border box-shadow"><i
+                            class="icon icon--sm icon-File-Fire color--primary"> </i>
+                        <h5>{{ acco|get_element:0|get_attribute:"burn" }}</h5>
+                        <p>
+                            {% for accom in acco %}
+                                {{ accom.accommodation }}
+                                <br>
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% elif group == "Accommodation" %}
+            {% for acco in accomm %}
+                {% with accomodation=acco|get_element:0|get_attribute:"accommodation" %}
+                    <div class="col-md-10 col-lg-5" style="float: left;">
+                        <div class="feature feature-3 boxed boxed--lg boxed--border box-shadow"><i
+                                class="icon icon--sm icon-Tent color--primary"> </i>
+                            <h5>{{ accomodation }}</h5>
+                            <p>
+                                {% for i in accomm %}
+                                    {% for k in i %}
+                                        {% if accomodation == k.accommodation %}
+                                            <a href="/member/{{ k.burn|get_attribute:"member" }}/"> {{ k.burn|get_attribute:"member" }}</a>
+                                            <br>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
