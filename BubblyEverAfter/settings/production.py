@@ -20,3 +20,4 @@ DATABASES = {
         "OPTIONS": {"connect_timeout": 60,},
     }
 }
+
