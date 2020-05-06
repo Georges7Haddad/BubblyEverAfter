@@ -1,0 +1,33 @@
+{% extends "MembershipApp/member/items.html" %}
+{% block Title %} Your Burns {% endblock %}
+{% block AddTitle %} Add Burn {% endblock %}
+{% block form %} {{ burn_form }} {% endblock %}
+{% block items %}
+    {% for burn in burns %}
+        <div class="col-md-4">
+            <div class="feature feature-1 boxed boxed--border bg--white">
+                <h5>Burn number {{ burn.number }}</h5>
+                <p> Owner: {{ burn.member }}<br>
+                    Vehicle Pass: {{ burn.vehicle_pass }}<br>
+                    Ticket: {{ burn.ticket }}<br>
+                    Year: {{ burn.year }}<br>
+                    Arrival Time: {{ burn.arrival_time }}<br>
+                    Departure Time: {{ burn.departure_time }}<br>
+                    Transportation: {{ burn.transportation }} $<br>
+                    Camp dues: {{ burn.camp_dues }} $<br>
+                    Camp dues paid: {{ burn.camp_dues_paidn }} $<br>
+                    Strike deposit: {{ burn.strike_deposit }} $<br>
+                    Strike deposit paid: {{ burn.strike_deposit_paid }} $<br>
+                    Meal plan: {{ burn.meal_plan }}<br>
+                    Meal plan paid: {{ burn.meal_plan_paid }}<br>
+                    Notes: {{ burn.notes }}
+                </p>
+                {% if user.username == username %}
+                    <a href="/burn/{{ burn.id }}/edit/">
+                        <button type="button" class="btn btn-block btn-light type--uppercase">Edit</button>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

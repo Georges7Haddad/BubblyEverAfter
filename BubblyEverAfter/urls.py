@@ -13,19 +13,22 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.urls import path, include
-from django.conf.urls.static import static
+
 from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import path, include
 
-app_name= 'BubblyEverAfter'
+app_name = "BubblyEverAfter"
 
-urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("member/", include("MembershipApp.urls")),
-    path("member/profile/invoices/", include('invoices.urls', namespace="invoices")),
-
-]
-urlpatterns+= staticfiles_urlpatterns()
-urlpatterns+= static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+urlpatterns = (
+    [
+        path("invoices/", include("invoices.urls", namespace="invoices")),
+        path("admin/", admin.site.urls),
+        path("", include("StaticWebsite.urls")),
+        path("", include("MembershipApp.urls")),
+        path("inventory/", include("inventory.urls")),
+    ]
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+)

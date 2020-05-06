@@ -1,4 +1,4 @@
-{% extends "MembershipApp/base.html" %}
+
 {% load static %}
 {% block body %}
 <html>
@@ -36,35 +36,35 @@
 						<th>Item</th>
                         <th>Quantity</th>
 						<th>Price</th>
-						<th>Total</th>
-						<th>Settle Invoice</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>{{invoice.title}}</td>
-                        <td>{{invoice.quantity}}</td>
-						<td>${{invoice.price}}</td>
-						<td>${% widthratio invoice.quantity 1 invoice.price %}</td>
-                        <td><a href="{{invoice.receipt.url}}">View Receipt</a> </td>
-					</tr>
-				</tbody>
-			</table>
-			<!--<a class="add">+</a>
-			<table class="balance">
-				<tr>
-					<th><span contenteditable>Total</span></th>
-					<td><span data-prefix>$</span><span>600.00</span></td>
-				</tr>
-				<tr>
-					<th><span contenteditable>Amount Paid</span></th>
-					<td><span data-prefix>$</span><span contenteditable>0.00</span></td>
-				</tr>
-				<tr>
-					<th><span contenteditable>Balance Due</span></th>
-					<td><span data-prefix>$</span><span>600.00</span></td>
-				</tr>
-			</table>-->
+                        <th>Total</th>
+                        <th>Settle Invoice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ invoice.title }}</td>
+                    <td>{{ invoice.quantity }}</td>
+                    <td>${{ invoice.price }}</td>
+                    <td>${% widthratio invoice.quantity 1 invoice.price %}</td>
+                    <td><a style="color: #3e7cc2" href="{{ invoice.receipt.url }}">View Receipt</a></td>
+                </tr>
+                </tbody>
+            </table>
+                <!--<a class="add">+</a>
+                <table class="balance">
+                    <tr>
+                        <th><span contenteditable>Total</span></th>
+                        <td><span data-prefix>$</span><span>600.00</span></td>
+                    </tr>
+                    <tr>
+                        <th><span contenteditable>Amount Paid</span></th>
+                        <td><span data-prefix>$</span><span contenteditable>0.00</span></td>
+                    </tr>
+                    <tr>
+                        <th><span contenteditable>Balance Due</span></th>
+                        <td><span data-prefix>$</span><span>600.00</span></td>
+                    </tr>
+                </table>-->
 
 
 <!--<form action="{% url 'invoices:receipt' int=invoice.id %}" method="post" enctype="multipart/form-data">

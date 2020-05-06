@@ -1,0 +1,21 @@
+{% extends "MembershipApp/member/items.html" %}
+{% block Title %} Your Tickets {% endblock %}
+{% block AddTitle %} Add Ticket {% endblock %}
+{% block form %} {{ ticket_form }} {% endblock %}
+{% block items %}
+    {% for ticket in tickets %}
+        <div class="col-md-4">
+            <div class="feature feature-1 boxed boxed--border bg--white">
+                <h4>Ticket number {{ ticket.number }}</h4>
+                <p><strong>Status:</strong> {{ ticket.status }}<br>
+                    <strong>Secured:</strong> {{ ticket.secured }}<br>
+                    <strong>Price:</strong> {{ ticket.price }} $<br></p>
+                {% if user.username == username %}
+                    <a href="/ticket/{{ ticket.id }}/edit/">
+                        <button type="button" class="btn btn-block btn-light type--uppercase">Edit</button>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import ImageField
+from django.utils.safestring import mark_safe
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -24,8 +25,12 @@ class BubblyMember(AbstractUser):
     username = models.CharField(max_length=127, unique=True)
     is_leadership = models.BooleanField(default=False)
     birthday = models.DateField(**required)
-    gender_identity = models.CharField(max_length=127, help_text="To ensure camp diversity", **optional)
-    ethnic_identity = models.CharField(max_length=127, help_text="To ensure camp diversity", **optional)
+    gender_identity = models.CharField(
+        max_length=127, help_text=mark_safe("<small><i>To ensure camp diversity </small></i><br>"), **optional
+    )
+    ethnic_identity = models.CharField(
+        max_length=127, help_text=mark_safe("<small><i>To ensure camp diversity </small></i><br>"), **optional
+    )
     country = CountryField(**required)
     city = models.CharField(max_length=127, **required)
     photo = ImageField(**optional)
@@ -38,11 +43,14 @@ class BubblyMember(AbstractUser):
 
     playa_name = models.CharField(max_length=127, **optional)
     burning_man_profile_email = models.EmailField(
-        **required, help_text="Burning Man profile email address (MUST match https://profiles.burningman.org/ email)",
+        **required,
+        help_text=mark_safe(
+            "<small><i>Burning Man profile email address (MUST match https://profiles.burningman.org/ email) </small></i><br>"
+        ),
     )
     is_virgin_burner = models.BooleanField(default=True)
     years_attending_burning_man = models.CharField(
-        max_length=127, help_text="Please separate them with commas", **optional
+        max_length=127, help_text=mark_safe("<small><i>Please separate them with commas </small></i><br>"), **optional,
     )
 
     referring_member = models.ForeignKey("self", on_delete=models.SET_NULL, **optional)
@@ -57,7 +65,7 @@ class BubblyMember(AbstractUser):
         return self.username
 
     def __repr__(self):
-        return f"BubblyMember {self.username}"
+        return self.username
 
 
 class Ticket(models.Model):
@@ -80,16 +88,22 @@ class Ticket(models.Model):
         ]
     ]
 
-    secured = models.BooleanField(default=False, help_text="Please tick if you have a ticket ")
-    status = models.CharField(max_length=127, choices=STATUS_CHOICES)
-    number = models.CharField(max_length=127, **optional, help_text="ID number found on the back of your ticket",)
-
-    holder = models.ForeignKey(
+    member = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         **required,
-        help_text="Name of the current vehicle pass holder",
+        help_text=mark_safe("<small><i>Name of the current vehicle pass holder </small></i><br>"),
     )
+    secured = models.BooleanField(
+        default=False, help_text=mark_safe("<small><i>Please tick if you have a ticket </small></i><br>")
+    )
+    status = models.CharField(max_length=127, choices=STATUS_CHOICES)
+    number = models.CharField(
+        max_length=127,
+        **optional,
+        help_text=mark_safe("<small><i>ID number found on the back of your ticket </small></i><br>"),
+    )
+
     price = models.PositiveIntegerField(**optional)
 
     def save(self, *args, **kwargs):
@@ -101,10 +115,10 @@ class Ticket(models.Model):
         super(Ticket, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"Ticket {self.number}"
+        return f"{self.member}'s {self.number} Ticket"
 
     def __repr__(self):
-        return f"BubblyMember {self.holder}'s Ticket"
+        return f"{self.member}'s {self.number} Ticket"
 
 
 class VehiclePass(models.Model):
@@ -115,37 +129,49 @@ class VehiclePass(models.Model):
 
     TYPE_CHOICES = [
         (i, i)
-        for i in ["Small Car (hatchback)", "Mid Sized Car", "Van", "SUV", "PickUp Truck", "Small RV", "Large RV",]
+        for i in ["Small Car (hatchback)", "Mid Sized Car", "Van", "SUV", "PickUp Truck", "Small RV", "Large RV", ]
     ]
-    holder = models.ForeignKey(
+    member = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         **required,
-        help_text="Name of the current vehicle pass holder",
+        help_text=mark_safe("<small><i>Name of the current vehicle pass holder</small></i><br>"),
     )
-    secured = models.BooleanField(help_text="Please tick if you have a vehicle pass", default=False)
-    needed = models.BooleanField(help_text="Please tick if you need a vehicle pass", default=False)
-    ride_share = models.PositiveIntegerField(help_text="Number of extra room with you", **required)
-    number = models.CharField(max_length=127, **optional, help_text="ID number found on the back of your ticket",)
+    secured = models.BooleanField(
+        help_text=mark_safe("<small><i>Please tick if you have a vehicle pass </small></i><br>"), default=False
+    )
+    needed = models.BooleanField(
+        help_text=mark_safe("<small><i>Please tick if you need a vehicle pass </small></i><br>"), default=False
+    )
+    ride_share = models.PositiveIntegerField(
+        help_text=mark_safe("<small><i>Number of extra room with you </small></i><br>"), **required
+    )
+    number = models.CharField(
+        max_length=127,
+        **optional,
+        help_text=mark_safe("<small><i>ID number found on the back of your ticket </small></i><br>"),
+    )
     make = models.CharField(max_length=127, **optional)
     model = models.CharField(max_length=127, **optional)
-    tow_hitch = models.BooleanField(default=False, help_text="Please tick if you have a tow hitch")
+    tow_hitch = models.BooleanField(
+        default=False, help_text=mark_safe("<small><i>Please tick if you have a tow hitch </small></i><br>")
+    )
 
     price = models.PositiveIntegerField(**optional)
 
     def save(self, *args, **kwargs):
         if self.secured:
             if not self.number:
-                raise ValidationError(f"Since you secured a ticket, please enter the ticket's number")
+                raise ValidationError(f"Since you secured a Vehicle Pass, please enter the vehicle pass' number")
             if not self.price:
-                raise ValidationError(f"Since you secured a ticket, please enter the ticket's price")
+                raise ValidationError(f"Since you secured a Vehicle Pass, please enter the vehicle pass' number")
         super(VehiclePass, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"VehiclePass {self.number}"
+        return f"{self.member}'s {self.number} VehiclePass"
 
     def __repr__(self):
-        return f"BubblyMember {self.holder}'s VehiclePass"
+        return f"{self.member}'s {self.number} VehiclePass"
 
 
 class Accommodation(models.Model):
@@ -169,17 +195,19 @@ class Accommodation(models.Model):
             "Other",
         ]
     ]
-    type = models.CharField(max_length=127, choices=ACCOMMODATION_CHOICES)
-    is_full = models.BooleanField(default=False)
     name = models.CharField(max_length=127, **required)
+    type = models.CharField(max_length=127, choices=ACCOMMODATION_CHOICES)
+    is_full = models.BooleanField(
+        default=False, help_text=mark_safe("<small><i>Please tick if your vehicle is full</small></i><br>")
+    )
 
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, through="UserAccommodationRelation")
 
     def __str__(self):
-        return self.name
+        return f"{self.name}'s Accommodation"
 
     def __repr__(self):
-        return f"BubblyMember {self.members}'s {self.type}"
+        return f"{self.name}'s Accommodation"
 
 
 class UserAccommodationRelation(models.Model):
@@ -198,7 +226,7 @@ class Burn(models.Model):
     Model containing information for each member's burn(burning man event)
     """
 
-    accommodations = models.ManyToManyField(Accommodation)
+    accommodations = models.ManyToManyField(Accommodation, through="BurnAccommodationRelation")
     member = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **required)
 
     # In case someone has many vehicle pass he chooses the one he's going with
@@ -212,12 +240,17 @@ class Burn(models.Model):
     departure_time = models.DateTimeField(**optional)
 
     TRANSPORTATION_CHOICES = [
-        (i, i) for i in ["Burner Air", "Burner Bus", "Carpool", "Own Transportation (will need vehicle pass)", "Other",]
+        (i, i) for i in
+        ["Burner Air", "Burner Bus", "Carpool", "Own Transportation (will need vehicle pass)", "Other", ]
     ]
-    type = models.CharField(max_length=127, choices=TRANSPORTATION_CHOICES, **required)
+    transportation = models.CharField(max_length=127, choices=TRANSPORTATION_CHOICES, **required)
 
     camp_dues = models.PositiveIntegerField(
-        default=0, **required, help_text="Payment that each camping member should pay to join bubbly camp",
+        default=0,
+        **required,
+        help_text=mark_safe(
+            "<small><i>Payment that each camping member should pay to join bubbly camp </small></i><br>"
+        ),
     )
 
     camp_dues_paid = models.PositiveIntegerField(default=0, **required)
@@ -225,24 +258,58 @@ class Burn(models.Model):
     strike_deposit = models.PositiveIntegerField(
         default=0,
         **required,
-        help_text="Payment that each camping member should pay to make sure they help cleaning before leaving",
+        help_text=mark_safe(
+            "<small><i>Payment that each camping member should pay to make sure they help cleaning before leaving </small></i><br>"
+        ),
     )
     strike_deposit_paid = models.PositiveIntegerField(default=0, **required)
 
     meal_plan = models.BooleanField(
-        default=False, help_text="Payment that each camping member should pay to join the meal plan",
+        default=False,
+        help_text=mark_safe(
+            "<small><i>Payment that each camping member should pay to join the meal plan </small></i><br>"
+        ),
     )
     meal_plan_paid = models.PositiveIntegerField(default=0, **required)
 
     notes = models.TextField(**optional)
 
     def save(self, *args, **kwargs):
-        if self.type == "Own Transportation (will need vehicle pass)" and not self.vehicle_pass:
+        if self.transportation == "Own Transportation (will need vehicle pass)" and not self.vehicle_pass:
             raise ValidationError(f"Please fill in the details of your vehicle pass")
         super(Burn, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.member}'s Burn"
+        return f"{self.member}'s {self.year} Burn"
 
     def __repr__(self):
-        return f"{self.member}'s Burn"
+        return f"{self.member}'s {self.year} Burn"
+
+
+class BurnAccommodationRelation(models.Model):
+    burn = models.ForeignKey(Burn, on_delete=models.CASCADE, **required)
+    accommodation = models.ForeignKey(Accommodation, on_delete=models.CASCADE, **required)
+
+    def __str__(self):
+        return f"{self.burn.member} is staying in {self.accommodation} in {self.burn.year}"
+
+    def __repr__(self):
+        return f"{self.burn.member} is staying in {self.accommodation} in {self.burn.year}"
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=127)
+    social_media = models.URLField(max_length=1023)
+    email = models.EmailField(max_length=127)
+    playa_name = models.CharField(max_length=127, **optional)
+    Please_tell_us_3_adjectives_that_describe_you_most = models.TextField(max_length=1023)
+    how_can_we_collaborate_and_get_to_know_you_better = models.TextField(max_length=16383)
+
+
+class BubblyEvent(models.Model):
+    name = models.CharField(max_length=127)
+    location = models.CharField(max_length=127)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    description = models.CharField(max_length=1023)
+    facebook_link = models.CharField(max_length=255)

@@ -1,0 +1,35 @@
+{% extends "MembershipApp/base.html" %}
+
+{% block header %}
+    <title>inventory</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 style="margin-left:1%"><b>Our Inventory</b></h2>
+        <h2 style="margin-left:1%">View or Add items in one of the categories</h2>
+
+        <div class="category-container container-fluid">
+            <div class="add_buttons">
+                <ul>
+                    <li>
+                        <div class="button-group">
+                            {% for category in categories %}
+                                <a href="{% url 'inventory:display_category' category.id %}"
+                                   class="btn btn--primary type--uppercase" role="button"
+                                   style="width: 300px; color: #1b1b1b">{{ category.name }}</a>
+                                <a href="{% url 'inventory:add_item' category.id %}" class="btn  btn-sm " role="button">Add
+                                    Item</a>
+                                <a href="{% url 'inventory:add_electrical_item' category.id %}" class="btn  btn-sm "
+                                   role="button">Add Electrical Item</a><br><br>
+                            {% endfor %}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <h6 style="margin-left: 2%"><i>You can request from any admin to add a new category of items</i></h6>
+    </div>
+
+{% endblock %}

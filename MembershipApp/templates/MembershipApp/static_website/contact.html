@@ -1,0 +1,28 @@
+{% extends "MembershipApp/base.html" %}
+
+{% load static %}
+{% block body %}
+
+    <section class="text-center">
+        <div class="container">
+
+            <div class="row justify-content-center no-gutters">
+                <div class="col-md-10 col-lg-8">
+                    <div class="boxed boxed--border">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ contact_form }}
+
+
+                            <div class="col-md-12 boxed">
+                                <button type="submit" class="btn btn--primary type--uppercase">submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

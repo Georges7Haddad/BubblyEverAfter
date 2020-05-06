@@ -6,13 +6,9 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('invoices', '0009_auto_20200502_0056'),
+        ("invoices", "0009_auto_20200502_0056"),
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='invoice',
-            name='receipt',
-            field=models.ImageField(null=True, upload_to=''),
-        ),
+        migrations.AlterField(model_name="invoice", name="receipt", field=models.ImageField(null=True, upload_to=""),),
     ]

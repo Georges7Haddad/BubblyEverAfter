@@ -6,13 +6,9 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('invoices', '0012_invoice_status'),
+        ("invoices", "0012_invoice_status"),
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='invoice',
-            old_name='rate',
-            new_name='price',
-        ),
+        migrations.RenameField(model_name="invoice", old_name="rate", new_name="price",),
     ]

@@ -1,0 +1,56 @@
+{% load static %}
+<div class="nav-container">
+    <nav id="menu1" class="bar bar-1 hidden-xs">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-1 col-md-2 hidden-xs">
+                    <div class="bar__module">
+                        <a href="/"> <img class="logo logo-dark" alt="logo" style="max-height: 100px; max-width: 100px"
+                                          src="{% static "MembershipApp/img/logo.jpg" %}">
+                            <img class="logo logo-light" alt="logo" style="max-height: 100px; max-width: 100px"
+                                 src="{% static "MembershipApp/img/logo_dark.jpg" %}">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-11 col-md-12 text-right text-left-xs text-left-sm">
+                    <div class="bar__module">
+                        <ul class="menu-horizontal text-left">
+                            <li><a href="/">
+                                home </a></li>
+                            <li class="dropdown"> <span class="dropdown__trigger">
+                                        About</span>
+                                <div class="dropdown__container">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="dropdown__content col-lg-2">
+                                                <ul class="menu-vertical">
+                                                    <li><a href="/legal">Community Ethos</a></li>
+                                                    <li><a href="/about">About us</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="/display_events">
+                                Events </a></li>
+                            <li><a href="/burningman">
+                                Burning man 2019</a></li>
+                        </ul>
+                    </div>
+                    <div class="bar__module">
+                        <a class="btn btn--sm type--uppercase" href="/register/"> <span
+                                class="btn__text">
+                                    Apply</span> </a>
+                        <a class="btn btn--sm type--uppercase" href="/login/"> <span
+                                class="btn__text">
+                                    Log in</span> </a>
+                        <a class="btn btn--sm btn--primary type--uppercase" href="/contact"> <span
+                                class="btn__text">
+                                    Contact us</span> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>

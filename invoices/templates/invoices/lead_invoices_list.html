@@ -1,48 +1,51 @@
 {% extends "MembershipApp/base.html" %}
 {% load static %}
 {% block body %}
-    <meta charset="utf-8">
-    <title>InvoiceList</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <div class="container">
+        <meta charset="utf-8">
+        <title>InvoiceList</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
 
-<table>
-    <thead>
-    <tr>
-        <th scope="col">Date</th>
-        <th scope="col">Order ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Price</th>
-        <th scope="col">Total</th>
-        <th scope="col">Action</th>
-        <th scope="col">Status</th>
-        <th scope="col">Member</th>
+        <table>
+            <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Order ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total</th>
+                <th scope="col">Action</th>
+                <th scope="col">Status</th>
+                <th scope="col">Member</th>
 
-    </tr>
-    </thead>
-    <tbody>
-    {% for invoice in invoices %}
-        <tr>
-            <td><strong class="item-date">{{ invoice.date }}</strong></td>
-            <td class="item-id">{{ invoice.id }}</td>
-            <td class="item-name">{{ invoice.title }}</td>
-            <td class="item-quantity">{{ invoice.quantity }}</td>
-            <td class="item-price">${{ invoice.price }}</td>
-            <td class="item-total">${% widthratio invoice.quantity 1 invoice.price %}</td>
-            <td><a href="{% url 'invoices:detail' int=invoice.id %}" class="view-invoice">View Invoice</a></td>
-            <td class="item-status">{{ invoice.status }}</td>
-            <td class="item-status">{{ invoice.user}}</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for invoice in invoices %}
+                <tr>
+                    <td><strong class="item-date">{{ invoice.date }}</strong></td>
+                    <td class="item-id">{{ invoice.id }}</td>
+                    <td class="item-name">{{ invoice.title }}</td>
+                    <td class="item-quantity">{{ invoice.quantity }}</td>
+                    <td class="item-price">${{ invoice.price }}</td>
+                    <td class="item-total">${% widthratio invoice.quantity 1 invoice.price %}</td>
+                    <td><a href="{% url 'invoices:detail' int=invoice.id %}" class="view-invoice">View Invoice</a></td>
+                    <td class="item-status">{{ invoice.status }}</td>
+                    <td class="item-status">{{ invoice.user }}</td>
 
-        </tr>
-    {% endfor %}
-    </tbody>
-    <tfoot>
-    <tr>
-        <td colspan="5">Total Cost</td>
-        <td>${{ temp }}</td>
-    </tr>
-    </tfoot>
-</table>
-<a href="add" class="button button1">Send Invoice</a>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="5">Total Cost</td>
+                <td>${{ temp }}</td>
+            </tr>
+            </tfoot>
+        </table>
+        <a href="add" class="button button1">Send Invoice</a>
+        <a href="export" class="button button1">Export</a>
+    </div>
 {% endblock %}
