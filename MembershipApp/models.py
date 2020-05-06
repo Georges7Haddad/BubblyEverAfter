@@ -129,7 +129,7 @@ class VehiclePass(models.Model):
 
     TYPE_CHOICES = [
         (i, i)
-        for i in ["Small Car (hatchback)", "Mid Sized Car", "Van", "SUV", "PickUp Truck", "Small RV", "Large RV", ]
+        for i in ["Small Car (hatchback)", "Mid Sized Car", "Van", "SUV", "PickUp Truck", "Small RV", "Large RV",]
     ]
     member = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -240,8 +240,7 @@ class Burn(models.Model):
     departure_time = models.DateTimeField(**optional)
 
     TRANSPORTATION_CHOICES = [
-        (i, i) for i in
-        ["Burner Air", "Burner Bus", "Carpool", "Own Transportation (will need vehicle pass)", "Other", ]
+        (i, i) for i in ["Burner Air", "Burner Bus", "Carpool", "Own Transportation (will need vehicle pass)", "Other",]
     ]
     transportation = models.CharField(max_length=127, choices=TRANSPORTATION_CHOICES, **required)
 

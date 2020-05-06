@@ -12,17 +12,11 @@ from .models import Invoice
 # Create your views here.
 @login_required(login_url="/member/login")
 def invoices_list(request):
-    if request.user.is_superuser:
+    if request.user.is_leadership:
         invoices = Invoice.objects.order_by("date")
         temp = 0
         for i in invoices:
             temp = temp + i.price * i.quantity
-            if i.receipt == "":
-                i.status = "Pending Receipt"
-                i.save()
-            else:
-                i.status = "Completed"
-                i.save()
 
         return render(request, "invoices/lead_invoices_list.html", {"invoices": invoices, "temp": temp})
     else:
@@ -31,19 +25,13 @@ def invoices_list(request):
         temp = 0
         for i in invoices:
             temp = temp + i.price * i.quantity
-            if i.receipt == "":
-                i.status = "Pending Receipt"
-                i.save()
-            else:
-                i.status = "Completed"
-                i.save()
 
         return render(request, "invoices/invoices_list.html", {"invoices": invoices, "temp": temp})
 
 
 @login_required(login_url="/member/login")
 def add_invoice(request):
-    if request.user.is_superuser:
+    if request.user.is_leadership:
         if request.method == "POST":
             form = forms.SendInvoice(request.POST)
             if form.is_valid():
@@ -67,7 +55,7 @@ def add_invoice(request):
 
 
 def view_invoice(request, int):
-    if request.user.is_superuser:
+    if request.user.is_leadership:
         invoice = Invoice.objects.get(id=int)
         if invoice.receipt == "":
             name = request.user.get_full_name()
@@ -95,6 +83,7 @@ def upload_receipt(request, int):
         if form.is_valid():
             m = Invoice.objects.get(id=int)
             m.receipt = form.cleaned_data["receipt"]
+            m.status = "Completed"
             m.save()
             return redirect("invoices:list")
 

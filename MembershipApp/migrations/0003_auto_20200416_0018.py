@@ -9,5 +9,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField(model_name="burn", old_name="type", new_name="transportation", ),
+        migrations.RenameField(model_name="burn", old_name="type", new_name="transportation",),
     ]
