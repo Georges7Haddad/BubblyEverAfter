@@ -1,0 +1,77 @@
+{% load static %}
+{% block body %}
+<html>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style_details.css' %}">
+			<h1>Invoice</h1>
+			<!--<address>
+				<br>
+				101 E. Chapman Ave
+                Orange, CA 92866
+				(800) 555-1234
+			</address>-->
+		<article>
+			<h1>Recipient</h1>
+			<address contenteditable>
+				<p>Bubble Ever After<br>{{invoice.user}}</p>
+			</address>
+			<table class="meta">
+				<tr>
+					<th>Invoice #</th>
+					<td>{{invoice.id}}</td>
+				</tr>
+				<tr>
+					<th>Date</th>
+					<td>{{invoice.date}}</td>
+				</tr>
+				<tr>
+					<th>Amount Due</th>
+					<td>${% widthratio invoice.quantity 1 invoice.price %}</td>
+				</tr>
+			</table>
+            <form action="{% url 'invoices:receipt' int=invoice.id %}" method="post" enctype="multipart/form-data">
+			<table class="inventory">
+				<thead>
+					<tr>
+						<th>Item</th>
+                        <th>Quantity</th>
+						<th>Price</th>
+						<th>Total</th>
+						<th>Settle Invoice</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{invoice.title}}</td>
+                        <td>{{invoice.quantity}}</td>
+						<td>${{invoice.price}}</td>
+						<td>${% widthratio invoice.quantity 1 invoice.price %}</td>
+                        <td>The member hasn't paid yet</td>
+					</tr>
+				</tbody>
+			</table>
+			<!--<a class="add">+</a>
+			<table class="balance">
+				<tr>
+					<th><span contenteditable>Total</span></th>
+					<td><span data-prefix>$</span><span>600.00</span></td>
+				</tr>
+				<tr>
+					<th><span contenteditable>Amount Paid</span></th>
+					<td><span data-prefix>$</span><span contenteditable>0.00</span></td>
+				</tr>
+				<tr>
+					<th><span contenteditable>Balance Due</span></th>
+					<td><span data-prefix>$</span><span>600.00</span></td>
+				</tr>
+			</table>-->
+
+
+<!--<form action="{% url 'invoices:receipt' int=invoice.id %}" method="post" enctype="multipart/form-data">
+
+
+        <input id="id_image" type="file" class="" name="receipt">
+
+    <input type="submit" value="Submit" />
+</form>-->
+</html>
+{% endblock %}

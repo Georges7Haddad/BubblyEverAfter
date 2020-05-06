@@ -10,8 +10,8 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(model_name="bubblyevents", name="event_website", ),
-        migrations.RemoveField(model_name="bubblyevents", name="schedule", ),
+        migrations.RemoveField(model_name="bubblyevents", name="event_website",),
+        migrations.RemoveField(model_name="bubblyevents", name="schedule",),
         migrations.AddField(
             model_name="bubblyevents",
             name="end_date",

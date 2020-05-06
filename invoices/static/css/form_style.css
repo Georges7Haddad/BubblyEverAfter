@@ -1,0 +1,4 @@
+input[type=submit]:hover {
+  background-color: #56abff;
+  cursor: pointer;
+}

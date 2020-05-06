@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "django.forms",
     "django_countries",
     "MembershipApp",
+    "invoices",
     "inventory",
     "StaticWebsite",
 ]

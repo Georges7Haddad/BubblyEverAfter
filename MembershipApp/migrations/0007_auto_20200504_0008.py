@@ -9,5 +9,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameModel(old_name="bubblyevents", new_name="BubblyEvent", ),
+        migrations.RenameModel(old_name="bubblyevents", new_name="BubblyEvent",),
     ]

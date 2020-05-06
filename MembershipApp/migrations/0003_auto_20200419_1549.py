@@ -25,6 +25,6 @@ class Migration(migrations.Migration):
         migrations.RenameField(
             model_name="contact", old_name="collab", new_name="how_can_we_collaborate_and_get_to_know_you_better",
         ),
-        migrations.RenameField(model_name="contact", old_name="socialmedia", new_name="social_media", ),
-        migrations.AlterField(model_name="contact", name="email", field=models.EmailField(max_length=127), ),
+        migrations.RenameField(model_name="contact", old_name="socialmedia", new_name="social_media",),
+        migrations.AlterField(model_name="contact", name="email", field=models.EmailField(max_length=127),),
     ]
