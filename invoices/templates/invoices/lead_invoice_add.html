@@ -1,14 +1,12 @@
 {% extends "MembershipApp/base.html" %}
-<!DOCTYPE html>
 {% load static %}
 {% block body %}
-<html lang="en">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/form_style.css' %}">
-<form class="site-form" action="{% url 'invoices:add' %}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Send">
-</form>
-
-</html>
+    <div class="container">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/form_style.css' %}">
+        <form class="site-form" action="{% url 'invoices:add' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Send">
+        </form>
+    </div>
 {% endblock %}

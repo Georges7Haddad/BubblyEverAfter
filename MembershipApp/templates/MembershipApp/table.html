@@ -45,7 +45,7 @@
 
         {% for item in burns %}
             <tr>
-                <td><a href="/burn/{{ item.pk }}/"> {{ item }} </a></td>
+                <td> {{ item }} </td>
                 {% for element in fields %}
 
                     {% if "/leader/tickets/" in request.path %}
@@ -53,7 +53,7 @@
                             {% if value|get_attribute:element == null or value == "" %}
                                 <td class="table-danger"> X</td>
                             {% elif element  in "ticket,vehicle_pass,accommodation,burn" %}
-                                <td><a href="/{{ element }}/{{ value.pk }}/"> {{ value }} </a></td>
+                                <td> {{ value }} </td>
                             {% elif element  in "member" %}
                                 <td>
                                     <a href="/{{ element }}/{{ value|get_attribute:element }}/">{{ value|get_attribute:element }} </a>
@@ -68,7 +68,7 @@
                             {% if value|get_attribute:element == null or value == "" %}
                                 <td class="table-danger"> X</td>
                             {% elif element  in "ticket,vehicle_pass,accommodation,burn" %}
-                                <td><a href="/{{ element }}/{{ value.pk }}/"> {{ value }} </a></td>
+                                <td> {{ value }} </td>
                             {% elif element  in "member" %}
                                 <td>
                                     <a href="/{{ element }}/{{ value|get_attribute:element }}/">{{ value|get_attribute:element }} </a>
@@ -83,7 +83,7 @@
                             {% if value|get_attribute:element == null or value == "" %}
                                 <td class="table-danger"> X</td>
                             {% elif element  in "ticket,vehicle_pass,accommodation,burn" %}
-                                <td><a href="/{{ element }}/{{ value.pk }}/"> {{ value }} </a></td>
+                                <td> {{ value }} </td>
                             {% elif element  in "member" %}
                                 <td>
                                     <a href="/{{ element }}/{{ value }}/">{{ value }} </a>
