@@ -32,4 +32,4 @@ unittest2==1.1.0
 urllib3==1.25.9
 gunicorn==20.0.4
 psycopg2-binary==2.8.5
-whitenoise==5.0.1
+whitenoise==5.2.0
