@@ -25,7 +25,7 @@ requests==2.23.0
 six==1.14.0
 sqlparse==0.3.1
 testtools==2.4.0
-toml==0.10.0
+toml==0.10.2
 traceback2==1.4.0
 typed-ast==1.4.1
 unittest2==1.1.0
