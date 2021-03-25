@@ -19,7 +19,7 @@ pylint==2.5.0
 pre-commit==2.3.0
 python-mimeparse==1.6.0
 pytz==2020.1
-PyYAML==5.3.1
+PyYAML==5.4
 regex==2020.4.4
 requests==2.23.0
 six==1.14.0
