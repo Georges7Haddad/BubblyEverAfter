@@ -22,7 +22,7 @@ pytz==2020.1
 PyYAML==5.3.1
 regex==2020.4.4
 requests==2.23.0
-six==1.14.0
+six==1.16.0
 sqlparse==0.3.1
 testtools==2.4.0
 toml==0.10.0
