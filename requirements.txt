@@ -13,7 +13,7 @@ parse==1.15.0
 parse-type==0.5.2
 pathspec==0.8.0
 pbr==5.4.5
-phonenumbers==8.12.2
+phonenumbers==8.12.28
 Pillow==7.1.2
 pylint==2.5.0
 pre-commit==2.3.0
